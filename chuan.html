@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>es6</title>
+    <style>
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var loadImg = (url) => {
+            return new Promise((resolve, reject) => {
+                var img = new Image()
+                img.onload = () => {
+                    setTimeout(()=>{
+                        resolve(img)
+                    }, 1000)
+                    
+                }
+
+                img.onerror = () => {
+                    reject(new Error('图片加载失败'))
+                }
+                img.src = url
+            })
+        }
+        var imgs = [
+            'http://img4.imgtn.bdimg.com/it/u=3116726602,3171277120&fm=26&gp=0.jpg',
+            'http://img5.imgtn.bdimg.com/it/u=1780551420,534652445&fm=26&gp=0.jpg',
+            'http://img4.imgtn.bdimg.com/it/u=3341774728,1463479696&fm=26&gp=0.jpg',
+            'http://img5.imgtn.bdimg.com/it/u=3451539539,3587446396&fm=26&gp=0.jpg',
+            'http://img4.imgtn.bdimg.com/it/u=3116726602,3171277120&fm=26&gp=0.jpg',
+            'http://img5.imgtn.bdimg.com/it/u=1780551420,534652445&fm=26&gp=0.jpg',
+            'http://img4.imgtn.bdimg.com/it/u=3341774728,1463479696&fm=26&gp=0.jpg',
+            'http://img5.imgtn.bdimg.com/it/u=3451539539,3587446396&fm=26&gp=0.jpg',
+            'http://img4.imgtn.bdimg.com/it/u=3341774728,1463479696&fm=26&gp=0.jpg',
+            'http://img5.imgtn.bdimg.com/it/u=3451539539,3587446396&fm=26&gp=0.jpg'
+        ]
+        var ImgAsync = async (imgs) => {
+            for (var i = 0; i < imgs.length; i++) {
+                let img = await loadImg(imgs[i])
+                document.body.appendChild(img)
+            }
+        }
+        ImgAsync(imgs)
+
+
+
+    </script>
+</body>
+
+</html>
