@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let obj = {
+            name: "张三",
+            class: "1612B",
+            num: "30",
+            title: "实训一"
+        }
+        //属性不可被修改
+        // Object.defineProperty(obj, "num", {
+        //     writable:false
+        // })
+
+        //属性不可被删除
+        //  Object.defineProperty(obj, "num", {
+        //     configurable:false
+        // })
+
+        //value
+        //  Object.defineProperty(obj, "num", {
+        //     value:()=>{}
+        // })
+
+
+        //promise
+        var p = function (ms) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    //resolve(ms)
+                    reject("一个错误")
+                }, ms)
+            })
+        }
+        p(3000).then(res => {
+            console.log(res, "res")
+        }, err => {
+            console.log(err, "err")
+            return Promise.reject(500)
+        }).then(res => {
+            console.log(res, "res2")
+        }, err => {
+            console.log(err, "err2")
+            return Promise.reject(600)
+        }).then(res => {
+            console.log(res, "res3")
+            //return Promise.resolve(600)
+        }, err => {
+            console.log(err, "err3")
+        }).then(res => {
+            console.log(res, "res4")
+        }, err => {
+            console.log(err, "err4")
+        })
+    </script>
+</body >
+</html >
