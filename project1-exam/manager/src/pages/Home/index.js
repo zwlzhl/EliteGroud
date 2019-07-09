@@ -84,7 +84,7 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="11">待批班级</Menu.Item>>
+                                <Menu.Item key="11">待批班级</Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
