@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let obj = {
+            name: "张三",
+            class: "1612B",
+            num: "30",
+            title: "实训一"
+        }
+        //属性不可被修改
+        // Object.defineProperty(obj, "num", {
+        //     writable:false
+        // })
+
+        //属性不可被删除
+        //  Object.defineProperty(obj, "num", {
+        //     configurable:false
+        // })
+
+        //value
+        //  Object.defineProperty(obj, "num", {
+        //     value:()=>{}
+        // })
+
+
+        //promise
+        // var p = function (ms) {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             //resolve(ms)
+        //             reject("一个错误")
+        //         }, ms)
+        //     })
+        // }
+        // p(3000).then(res => {
+        //     console.log(res, "res")
+        // }, err => {
+        //     console.log(err, "err")
+        //     return Promise.reject(500)
+        // }).then(res => {
+        //     console.log(res, "res2")
+        // }, err => {
+        //     console.log(err, "err2")
+        //     return Promise.reject(600)
+        // }).then(res => {
+        //     console.log(res, "res3")
+        //     //return Promise.resolve(600)
+        // }, err => {
+        //     console.log(err, "err3")
+        // }).then(res => {
+        //     console.log(res, "res4")
+        // }, err => {
+        //     console.log(err, "err4")
+        // })
+        // function loading(del) {
+        //     return new Promise((resolve, reject)=>{
+        //             resolve(del)
+
+        //     })
+        // }
+        // Promise.all([
+        //     loading(1),
+        //     loading(2),
+        //     loading(3),
+        //     loading(4)
+        // ]).then(res=>{
+        //     console.log(res)
+        // })
+
+        // async function dome() {
+        //     let a = await Promise.resolve(123)
+        //     console.log(a)
+        // }
+        // dome()
+
+        function sleep(second) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject('want to sleep~');
+                }, second);
+            })
+        }
+
+        async function errorDemo() {
+            let result = await sleep(1000);
+            console.log(result);
+        }
+        errorDemo();// VM706:11 Uncaught (in promise) want to sleep~
+
+        // 为了处理Promise.reject 的情况我们应该将代码块用 try catch 包裹一下
+        async function errorDemoSuper() {
+            try {
+                let result = await sleep(2000);
+                console.log(result);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        errorDemoSuper();// want to sleep~
+    </script>
+</body>
+
+</html>
