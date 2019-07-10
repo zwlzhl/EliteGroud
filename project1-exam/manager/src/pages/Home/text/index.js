@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
-//import styles from './index.css';
+import styles from './index.css';
 
-function Text(props) {
-  console.log(props)
+function Text() {
   return (
     <div>
-        阅卷管理
+        7987
     </div>
   );
 }

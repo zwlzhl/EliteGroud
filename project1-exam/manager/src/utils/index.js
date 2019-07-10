@@ -1,20 +1,19 @@
+
 import Cookie from 'js-cookie'
-const key = 'authorization'
 
-//设置cookie
-export function setToken(val) {
-    let date = new Date()
-    let expires = date.getTime() + 10*60*60*1000
-    date.setTime(expires)
-    Cookie.set(key, val, {expires: date})
+const key = "authorization";
+export  function setToken(val) {
+    //设置cook
+    let data = new Date();
+    let expires = data.getTime() + 10 * 60 * 60 * 1000;
+    data.setTime(expires);
+    Cookie.set(key, val, { expires: data }); 
 }
-
 //读取cookie
-export function getToken() {
+export function getToken(){
     return Cookie.get(key)
 }
-
-//删除cllokie
-export function removeToken() {
-    Cookie.remove(key)
+//删除cook
+export function removeToken(){
+   Cookie.remove(key);
 }
