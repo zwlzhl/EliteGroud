@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
@@ -8,7 +8,10 @@ import AddText from './addText/index'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home(props) {
-    console.log(props)
+    console.log(props, "home....")
+    useEffect(()=>{
+        
+    }, [])
     return (
         <div className={styles.wrap}>
             <Layout className={styles.layout}>
@@ -113,4 +116,17 @@ function Home(props) {
 Home.propTypes = {
 };
 
-export default connect()(Home);
+const mapStateToProps = state=>{
+    return {}
+}
+const mapDispatchToProps = dispatch=>{
+    return {
+        userinfo:paylaod=>{
+            dispatch({
+                type: 'userInfo/userInfo',
+                paylaod
+            })
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
