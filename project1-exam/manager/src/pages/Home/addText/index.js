@@ -1,8 +1,7 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { connect } from 'dva';
 import {getQuestions} from  '../../../services/index'
-// import styles from './index.css';
-import axios from 'axios'
+// import styles from './index.scss';
 function AddText(props) {
   getQuestions()
   
