@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import {NavLink,Switch,Route} from 'dva/router'
+import Text from './text/index'
+import AddText from './addText/index'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
-function Home() {
+function Home(props) {
+    console.log(props)
     return (
         <div className={styles.wrap}>
             <Layout className={styles.layout}>
@@ -34,9 +38,9 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="1">添加试题</Menu.Item>
-                                <Menu.Item key="2">试题分类</Menu.Item>
-                                <Menu.Item key="3">查看试题</Menu.Item>
+                                <Menu.Item key="1"><NavLink to="/home/addText">添加试题</NavLink></Menu.Item>
+                                <Menu.Item key="2"><NavLink to="/home/classification ">试题分类</NavLink></Menu.Item>
+                                <Menu.Item key="3"><NavLink to="/home/seeText">查看试题</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub2"
@@ -47,8 +51,8 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="4">添加用户</Menu.Item>
-                                <Menu.Item key="5">用户展示</Menu.Item>
+                                <Menu.Item key="4"><NavLink to="/home/adduser">添加用户</NavLink></Menu.Item>
+                                <Menu.Item key="5"><NavLink to="/home/userdisplay">用户展示</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub3"
@@ -59,8 +63,8 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="6">添加考试</Menu.Item>
-                                <Menu.Item key="7">试卷列表</Menu.Item>
+                                <Menu.Item key="6"><NavLink to="/home/addExamination">添加考试</NavLink></Menu.Item>
+                                <Menu.Item key="7"><NavLink to="/home/testpaper ">试卷列表</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub4"
@@ -71,9 +75,9 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="8">班级管理</Menu.Item>
-                                <Menu.Item key="9">教室展示</Menu.Item>
-                                <Menu.Item key="10">学生展示</Menu.Item>
+                                <Menu.Item key="8"><NavLink to="/home/class">班级管理</NavLink></Menu.Item>
+                                <Menu.Item key="9"><NavLink to="/home/classroom">教室展示</NavLink></Menu.Item>
+                                <Menu.Item key="10"><NavLink to="/home/student ">学生展示</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub5"
@@ -84,7 +88,7 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="11">待批班级</Menu.Item>>
+                                <Menu.Item key="11"><NavLink to="/home/pending">待批班级</NavLink></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
@@ -93,7 +97,12 @@ function Home() {
                             <Breadcrumb.Item>Home</Breadcrumb.Item>
                         </Breadcrumb>
                         <Content className={styles.content}>
-                            Content
+                        <Switch>
+                            {/* <Route path="/home/addText"  component={Text}></Route> */}
+                            <Route path="/home/pending"  component={Text}></Route>
+                            <Route path="/home/addtext"  component={AddText}></Route>
+
+                        </Switch>
                         </Content>
                     </Layout>
                 </Layout>
