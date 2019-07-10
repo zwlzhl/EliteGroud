@@ -1,4 +1,9 @@
-import {  Type,getQuestionTypes, insertQuestionsType } from '../services/addText'
+import {
+    Type,
+    getQuestionTypes,
+    insertQuestionsType,
+    getClassPage
+} from '../services/addText'
 import { routerRedux } from 'dva/router'
 export default {
     //命名空间
@@ -16,7 +21,7 @@ export default {
     },
     //异步操作
     effects: {
-        
+
         // 获取所有试题类型
         *getQuestionTypes({ }, { call, put }) {
             let data = yield call(getQuestionTypes)
@@ -31,6 +36,16 @@ export default {
             let data = yield call(insertQuestionsType, payload);
             console.log(data);
         },
+
+        //获取所有的试题
+        *getClassPage({ payload}, { call, put }) {
+            let data=yield call(getClassPage)
+            console.log('getClassPage',data)
+            yield put({
+                type:"getData",
+                payload:data.data
+            })
+         }
     },
 
     //同步操作
@@ -38,7 +53,9 @@ export default {
         typeUpdata(state, { payload }) {
             return { ...state, TypeList: payload }
         },
-
+        getData(state,{payload}){
+            return {...state,ViewList:payload}
+        }
     },
 
 };

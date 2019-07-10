@@ -13,3 +13,11 @@ export function insertQuestionsType(params){
             data:params
     })
 }
+
+//获取所有的试题
+export function getClassPage(){
+        return request({
+            url:"/exam/questions/new",
+            method:"GET"
+        })
+}
