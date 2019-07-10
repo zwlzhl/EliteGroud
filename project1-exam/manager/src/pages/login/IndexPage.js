@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.scss';
-import { Form, Icon, Input, Button, Checkbox } from 'antd'
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 
 function LoginPage(props) {
   //模拟compoentDidMont
-  useEffect(() => {
-    props.login({ user_name: 'chenmanjie', user_pwd: 'Chenmanjie123!' });
+  // useEffect(() => {
+  //   props.login({ user_name: 'chenmanjie', user_pwd: 'Chenmanjie123!' });
 
-  }, [])
+  // }, [])
+  //判断是否登录成功
+  useEffect(()=>{
+    console.log(props.isLogin.code)
+    if (props.isLogin.code === 1){
+      message.success('登陆成功');
+      let path = '/';
+      if (props.location.search){
+      
+        path = decodeURIComponent(props.location.search.split('=')[1]);
+        console.log(path)
+      }
+      props.history.push(path);
+    }else if(props.isLogin.code === 0){
+      message.success('用户名或密码错误');
+    }
+  }, [props.isLogin])
   //点击事件
   let handleSubmit = () => {
     props.form.validateFields((err, values) => {
       if (!err) {
         props.login({ user_name: values.username, user_pwd: values.password });
-        props.history.push('/home');
         // console.log('Received values of form: ', values);
       }
     })

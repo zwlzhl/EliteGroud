@@ -2,6 +2,11 @@ import React from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { NavLink, Switch, Route,Redirect } from 'dva/router'
+import Text from './text/index'
+import AddText from './addText/index'
+import Classification from './classification/index'
+import SeeText from './seeText/index'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home() {
@@ -10,7 +15,7 @@ function Home() {
             <Layout className={styles.layout}>
                 <Header className={styles.header}>
                     <div className={styles.login}>
-                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt=""/>
+                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt="" />
                     </div>
                     <div className={styles.userInfo}>
                         <span className={styles.userImg}></span>
@@ -34,9 +39,9 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="1">添加试题</Menu.Item>
-                                <Menu.Item key="2">试题分类</Menu.Item>
-                                <Menu.Item key="3">查看试题</Menu.Item>
+                                <Menu.Item key="1"><NavLink to="/home/addText">添加试题</NavLink></Menu.Item>
+                                <Menu.Item key="2"><NavLink to="/home/classification">试题分类</NavLink></Menu.Item>
+                                <Menu.Item key="3"><NavLink to="/home/seeText">查看试题</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub2"
@@ -47,8 +52,8 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="4">添加用户</Menu.Item>
-                                <Menu.Item key="5">用户展示</Menu.Item>
+                                <Menu.Item key="4"><NavLink to="/home/adduser">添加用户</NavLink></Menu.Item>
+                                <Menu.Item key="5"><NavLink to="/home/userdisplay">用户展示</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub3"
@@ -59,8 +64,8 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="6">添加考试</Menu.Item>
-                                <Menu.Item key="7">试卷列表</Menu.Item>
+                                <Menu.Item key="6"><NavLink to="/home/addExamination">添加考试</NavLink></Menu.Item>
+                                <Menu.Item key="7"><NavLink to="/home/testpaper ">试卷列表</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub4"
@@ -71,9 +76,9 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="8">班级管理</Menu.Item>
-                                <Menu.Item key="9">教室展示</Menu.Item>
-                                <Menu.Item key="10">学生展示</Menu.Item>
+                                <Menu.Item key="8"><NavLink to="/home/class">班级管理</NavLink></Menu.Item>
+                                <Menu.Item key="9"><NavLink to="/home/classroom">教室展示</NavLink></Menu.Item>
+                                <Menu.Item key="10"><NavLink to="/home/student ">学生展示</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub5"
@@ -84,16 +89,24 @@ function Home() {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="11">待批班级</Menu.Item>
+                                <Menu.Item key="11"><NavLink to="/home/pending">待批班级</NavLink></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
                     <Layout style={{ padding: '0 24px 24px' }}>
                         <Breadcrumb style={{ margin: '35px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                    
+                            </Breadcrumb.Item>
                         </Breadcrumb>
                         <Content className={styles.content}>
-                            Content
+                            <Switch>
+                                <Route path="/home/addText" component={AddText}></Route>
+                                <Route path="/home/classification" component={Classification}></Route>
+                                <Route path="/home/seeText" component={SeeText}></Route>
+                                <Route path="/home/pending" component={Text}></Route>
+                                <Redirect from='/home' to="/home/addText"></Redirect>
+                            </Switch>
                         </Content>
                     </Layout>
                 </Layout>

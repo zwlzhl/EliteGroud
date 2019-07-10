@@ -1,37 +1,67 @@
-import {login} from '../services/login'
+import { login } from '../services/login'
+import { setToken, getToken } from '@/utils/index';
+import { routerRedux } from 'dva/router'
 export default {
-    //命名空间
-    namespace: 'login',
-  
-    //模块状态
-    state: {
-        isLogin:false
+  //命名空间
+  namespace: 'login',
+  //模块状态
+  state: {
+    isLogin: -1
+  },
+  //订阅
+  subscriptions: {
+    setup({ dispatch, history }) {  // eslint-disable-line
+      return history.listen(({ pathname }) => {
+        // 1.判断去的页面是否是登陆页面
+        if (pathname.indexOf('/login') === -1) {
+          // 1.1 判断是否有登陆态
+          if (!getToken()) {
+            // 1.1.1没有登陆态，利用redux做路由跳转
+            dispatch(routerRedux.replace({
+              pathname: `/login`,
+              search: `?redirect=${encodeURIComponent(pathname)}`
+            }))
+          }
+          // 1.2用户没有登录态
+        } else {
+          // 1.2.1去登陆页面，如果已登陆跳回首页
+          if (getToken()) {
+            // 利用redux做路由跳转
+            dispatch(routerRedux.replace({
+              pathname: `/`,
+            }))
+          }
+        }
+      });
     },
-    //订阅
-    subscriptions: {
-      setup({ dispatch, history }) {  // eslint-disable-line
-      },
-    },
-    //异步操作
-    effects: {
-      //*表示generator函数
-      *login({ payload,type }, { call, put }) {  // eslint-disable-line
-        console.log('data...',payload,type)
-        let data=yield call(login,payload);
-        console.log(data)
-        yield put({ 
-          type: 'updateLogin',
-          payload:data.code==1 
-        });
-      },
-    },
-    //同步操作
-    reducers: {
-      //*updateLogin是type *type当做函数名
-      updateLogin(state, action) {
-        return { ...state,isLogin:action.payload };
+  },
+  //异步操作
+  effects: {
+    //*表示generator函数
+    *login({ payload, type }, { call, put }) {
+      // console.log('payload...', payload, type)
+      let data = yield call(login, payload);
+      // console.log('data...', data);
+      console.log(data.data)
+      if (data.data.code === 1) {
+     
+        // 1.设置cookie
+        setToken(data.data.token)
+
       }
+      // 调用reduce改变登陆状态
+      yield put({
+        type: 'updateLogin',
+        payload: data.data
+      })
     }
-  
-  };
-  
+  },
+  //同步操作
+  reducers: {
+    //*updateLogin是type *type当做函数名
+    updateLogin(state, action) {
+      return { ...state, isLogin: action.payload };
+    }
+  }
+
+};
