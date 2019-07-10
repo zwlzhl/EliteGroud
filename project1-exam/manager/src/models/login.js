@@ -43,16 +43,14 @@ export default {
       let data = yield call(login, payload);
       // console.log('data...', data);
       console.log(data.data)
-      if (data.data.code === 1) {
-     
+      if (data.code=== 1) {
         // 1.设置cookie
-        setToken(data.data.token)
-
+        setToken(data.token)
       }
       // 调用reduce改变登陆状态
       yield put({
         type: 'updateLogin',
-        payload: data.data
+        payload: data.code
       })
     }
   },

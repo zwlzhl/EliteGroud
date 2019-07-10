@@ -1,19 +1,28 @@
 import React,{useEffect} from 'react';
 import { connect } from 'dva';
+import {getQuestions} from  '../../../services/index'
 // import styles from './index.css';
 import axios from 'axios'
 function AddText(props) {
-  useEffect(()=>{
-      console.log(props)
-  })
+  getQuestions()
   
   return (
     <div>
-    
+
     </div>
   );
 }
 AddText.propTypes = {
 };
+const mapStateToProps=(state)=>{
+  return {
+    ...state
+  }
 
-export default connect()(AddText);
+}
+const mapdispatchToProps=(dispatch)=>{
+  return {
+    
+  }
+}
+export default connect(mapStateToProps,mapdispatchToProps)(AddText);

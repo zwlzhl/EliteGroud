@@ -1,31 +1,35 @@
 import axios from 'axios'
-const instance = axios.create({
+import {getToken} from '@/utils/index'
+
+// create an axios instance
+const service = axios.create({
   baseURL: 'http://127.0.0.1:7001/',
-  timeout: 5000 
-});
-instance.interceptors.request.use(function (config) {
-  // 在发送请求之前做些什么
-  //config => {
-    //     // 判断是否有登陆态
-    //     if (getToken()) {
-    //       // 让每个请求携带authorization
-    //       config.headers['authorization'] = getToken()
-    //     }
-    // }
-  return config;
-}, function (error) {
-  // 对请求错误做些什么
-  return Promise.reject(error);
-});
+  // withCredentials: true, // 跨域请求时发送 cookies
+  timeout: 5000 // request timeout
+})
 
-// 添加响应拦截器
-instance.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  return response;
-}, function (error) {
-  // 对响应错误做点什么
-  return Promise.reject(error);
-});
+// request interceptor
+service.interceptors.request.use(
+  config => {
+    // 判断是否有登陆态
+    if (getToken()) {
+      // 让每个请求携带authorization
+      config.headers['authorization'] = getToken()
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
 
-export default instance
+// response interceptor
+service.interceptors.response.use(
+  response => response.data,
+  error => {
+    return Promise.reject(error)
+  }
+)
+export default service
+
 
