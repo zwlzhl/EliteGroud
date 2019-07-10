@@ -13,7 +13,6 @@ function LoginPage(props) {
   useEffect(()=>{
     console.log(props)
     if (props.isLogin === 1){
-      console.log(11)
       message.success('登陆成功');
       let path = '/';
       if (props.location.search){
