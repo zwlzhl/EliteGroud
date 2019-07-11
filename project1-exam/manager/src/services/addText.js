@@ -21,3 +21,26 @@ export function getClassPage(){
             method:"GET"
         })
 }
+
+//获取所有的课程
+export function Subject(){
+    return request({
+        url:"/exam/subject",
+        method:"GET"
+    })
+}
+//获取所有的考试类型
+export function examType(){
+    return request({
+        url:"/exam/examType",
+        method:"GET"
+    })
+}
+
+//按条件获取试题(查询)
+export function findList(){
+    return request({
+        url:"/exam/questions/condition",
+        method:"GET"
+    })
+}

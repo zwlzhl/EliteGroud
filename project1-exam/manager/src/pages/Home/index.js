@@ -7,6 +7,7 @@ import Text from './text/index'
 import AddText from './addText/index'
 import Classification from './classification/index'
 import SeeText from './seeText/index'
+import EditPage from './editPage/index'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home() {
@@ -105,6 +106,7 @@ function Home() {
                                 <Route path="/home/classification" component={Classification}></Route>
                                 <Route path="/home/seeText" component={SeeText}></Route>
                                 <Route path="/home/pending" component={Text}></Route>
+                                <Route path="/home/editPage" component={EditPage}></Route>
                                 <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
                         </Content>

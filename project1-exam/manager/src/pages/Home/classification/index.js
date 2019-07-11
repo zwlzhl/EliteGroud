@@ -8,9 +8,7 @@ function Classification(props) {
   // 控制添加弹框
   let [showDialog, updateDialog] = useState(false);
   //获取更改value值
- let [iptValue,upValue]=useState("");
- const {TypeList}=props;
- console.log(TypeList)
+  let [iptValue, upValue] = useState("");
   const columns = [
     {
       title: '类型ID',
@@ -36,7 +34,7 @@ function Classification(props) {
       <h2 className={styles.titType}>试题分类</h2>
       <div className={styles.typesContent}>
         <div className={styles.btn}>
-        
+
           <Button onClick={() => updateDialog(true)}>添加类型</Button>
           <Modal visible={showDialog} onCancel={() => updateDialog(false)}>
             <Form  >
