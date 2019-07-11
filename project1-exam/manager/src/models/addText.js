@@ -1,18 +1,22 @@
 import {
-    Type,
     getQuestionTypes,
     insertQuestionsType,
-    getClassPage
+    getClassPage,
+    getSubject,
+    getExam
 } from '../services/addText'
-import { routerRedux } from 'dva/router'
+//import { routerRedux } from 'dva/router'
 export default {
     //命名空间
     namespace: 'questions',
     //模块状态
     state: {
         TypeList: [],
-        ViewList: [],
-        insertList: []
+        ViewList: [], 
+        insertList: [],
+        SubList:[],
+        ExamList: [],
+        examFlag: -1
     },
     //订阅
     subscriptions: {
@@ -23,18 +27,33 @@ export default {
     effects: {
 
         // 获取所有试题类型
-        *getQuestionTypes({ }, { call, put }) {
+        *getQuestionType({payload}, { call, put }) {
+            //console.log(payload, "addtext.data")
             let data = yield call(getQuestionTypes)
-            console.log('data...', data.data)
+            let subList = yield call(getSubject)
+            let examList = yield call(getExam)
+            //console.log('data...', data.data)
             yield put({
                 type: "typeUpdata",
-                payload: data.data
+                payload: data
+            })
+            yield put({
+                type: "getSubData",
+                payload: subList
+            })
+            yield put({
+                type: "getExamData",
+                payload: examList
             })
         },
-        //添加类型
+        //点击添加试题
         *insertQuestionsType({ payload }, { call, put }) {
-            let data = yield call(insertQuestionsType, payload);
-            console.log(data);
+            let examData = yield call(insertQuestionsType, payload);
+            console.log(examData, "examData......");
+            yield put({
+                type: "addExam",
+                paylaod: examData
+            })
         },
 
         //获取所有的试题
@@ -43,15 +62,40 @@ export default {
             console.log('getClassPage',data)
             yield put({
                 type:"getData",
-                payload:data.data
+                payload:data
             })
          }
     },
 
     //同步操作
     reducers: {
-        typeUpdata(state, { payload }) {
-            return { ...state, TypeList: payload }
+        //获取所有的考试类型
+        typeUpdata(state, {payload: {data}}) {
+            return { 
+                ...state, 
+                TypeList: data 
+            }
+        },
+        //获取所有的课程类型
+        getSubData(state, {payload: {data}}) {
+            return { 
+                ...state, 
+                SubList: data 
+            }
+        },
+        //点击添加试题
+        addExam(state, action) {
+            return {
+                ...state,
+                examFlag: action.paylaod.code
+            }
+        },
+        //获取所有的题目类型
+        getExamData(state, {payload: {data}}) {
+            return { 
+                ...state, 
+                ExamList: data 
+            }
         },
         getData(state,{payload}){
             return {...state,ViewList:payload}

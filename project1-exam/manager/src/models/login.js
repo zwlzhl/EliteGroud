@@ -1,4 +1,4 @@
-import { login } from '../services/login'
+import { login, getUserInfo } from '../services/login'
 import { setToken, getToken } from '@/utils/index';
 import { routerRedux } from 'dva/router'
 export default {
@@ -6,7 +6,8 @@ export default {
   namespace: 'login',
   //模块状态
   state: {
-    isLogin: -1
+    isLogin: -1,
+    userInfo: {}
   },
   //订阅
   subscriptions: {
@@ -43,7 +44,7 @@ export default {
       let data = yield call(login, payload);
       // console.log('data...', data);
       console.log(data.data)
-      if (data.code=== 1) {
+      if (data.code === 1) {
         // 1.设置cookie
         setToken(data.token)
       }
@@ -52,6 +53,15 @@ export default {
         type: 'updateLogin',
         payload: data.code
       })
+    },
+    //获取用户信息
+    *getUserInfo({ payload }, { call, put }) {
+      let userinfo = yield call(getUserInfo)
+      console.log(userinfo, "userinfo")
+      yield put({
+        type: "getUserData",
+        payload: userinfo
+      })
     }
   },
   //同步操作
@@ -59,6 +69,13 @@ export default {
     //*updateLogin是type *type当做函数名
     updateLogin(state, action) {
       return { ...state, isLogin: action.payload };
+    },
+    //获取用户信息
+    getUserData(state, { payload: { data } }) {
+      return {
+        ...state,
+        userInfo: data
+      }
     }
   }
 
