@@ -10,6 +10,7 @@ function SeeText(props) {
     props.Subject()
     props.examType()
     props.getQuestionTypes();
+   
   }, [])
   // let [subject_text,upSubject] = useState('');
   // console.log(subject_text)
@@ -28,7 +29,8 @@ function SeeText(props) {
   }
   //查询页面
   let handleFind=()=>{
-    
+      // props.findList();
+
   }
   return (
     <div className={styles.boxs}>
@@ -136,6 +138,13 @@ const mapDispatchToProps = (dispatch) => {
         type: "questions/clickedit",
         payload
       })
+    },
+    //查询
+    findList(payload){
+        dispatch({
+          type:"questions/findList",
+          payload
+        })
     }
   }
 }
