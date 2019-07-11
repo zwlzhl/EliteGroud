@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+
 import styles from './index.css';
 import { Form, Select, Button, Radio } from 'antd';
 const { Option } = Select;
@@ -27,7 +28,7 @@ function SeeText() {
           <h4>请选择考试类型:</h4>
           <Select
             value="周考1"
-            style={{ width: 200, marginLeft: 10 }}
+            style={{ width: 200,marginLeft: 10 }}
           >
             <Option value="1">周考1</Option>
             <Option value="1">周考2</Option>
@@ -47,7 +48,7 @@ function SeeText() {
             <Option value="3">月考</Option>
           </Select>
         </div>
-        <Button type="primary">查询</Button>
+          <Button type="primary">查询</Button>
       </Form>
       <div className={styles.content}>
         <div className={styles.inner}>
