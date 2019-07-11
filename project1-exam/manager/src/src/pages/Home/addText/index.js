@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import Editor from 'for-editor'
 import { Input ,Select, Button,Form} from 'antd';
 import styles from './index.scss'
-import axios from 'axios'
-const { Option } = Select;
+// import axios from 'axios'
+// const { Option } = Select;
 function AddText(props) {
   //获取所有试题类型
   useEffect(() => {
@@ -111,6 +112,7 @@ const mapStateToProps = (state) => {
 }
 const mapdispatchToProps = (dispatch) => {
   return {
+
     // getQuestionTypes(){
     //   dispatch({
     //     type:"addText/QuestionTypes"

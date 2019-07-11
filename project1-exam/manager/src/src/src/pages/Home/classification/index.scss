@@ -1,0 +1,41 @@
+
+
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    box-sizing: border-box;
+    .titType{
+        width: 100%;
+        height: 55px;
+        line-height: 55px;
+        font-size: 22px;
+    }
+    .typesContent{
+        width: 100%;
+        flex: 1;
+        background: #fff;
+        border-radius: 10px;
+    }
+    .btn{
+        width: 100%;
+        line-height: 50px;
+        margin: 24px;
+    }
+    .btns{
+        width: 160px;
+        height: 50px;
+        font-size: 20px;
+        border-radius: 6px;
+    }
+    .tableType{
+        padding: 0 24px;
+        box-sizing: border-box;
+    }
+}
