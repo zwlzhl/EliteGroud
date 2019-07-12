@@ -5,7 +5,6 @@ import { Input, Select, Button, Form, message } from 'antd';
 import styles from './index.scss'
 
 const { Option } = Select;
-
 function AddText(props) {
   useEffect(() => {
     props.getQuestionTypes()
@@ -13,7 +12,10 @@ function AddText(props) {
   console.log(props, "addtext")
   const { getFieldDecorator } = props.form;
   const { TypeList, SubList, ExamList } = props.questions;
+  // let [showDialog, updateDialog] = useState(false);
+
   let handleSubmit = () => {
+    // updateDialog(true)
     props.form.validateFields((err, value) => {
       if (!err) {
         const user_id = props.login.userInfo.user_id
@@ -84,7 +86,7 @@ function AddText(props) {
               )}
             </Form.Item>
           </div>
-          <div>
+          <div className={styles.div}>
             <p>请选择课程类型：</p>
             <Form.Item>
               {getFieldDecorator('subject_id', {
@@ -134,6 +136,12 @@ function AddText(props) {
             </Form.Item>
           </div>
           <Button type="primary" htmlType="submit" >提交</Button>
+          {/* <Modal
+            visible={showDialog}
+            onCancel={() => updateDialog(false)}
+            onOk={()=>handleSubmit() }
+          >
+          </Modal> */}
         </div>
       </div>
     </Form>

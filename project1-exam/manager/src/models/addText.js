@@ -6,7 +6,8 @@ import {
     examType,
     findList,
     getSubject,
-    getExam
+    getExam,
+    addExamType
 } from '../services/addText'
 //import { routerRedux } from 'dva/router'
 export default {
@@ -24,7 +25,9 @@ export default {
         findEdit:[],
         SubList:[],
         ExamList: [],
-        examFlag: -1
+        examFlag: -1,
+        allExamtype: [],
+        examtypeFlag: {}
     },
     //订阅
     subscriptions: {
@@ -89,7 +92,7 @@ export default {
         //查询页面
         *findList({payload},{call,put}){
             let data=yield call(findList);
-            console.log(data)
+            //console.log(data)
             yield put({
                 type:"findData",
                 payload:data.data
@@ -98,7 +101,7 @@ export default {
         //点击添加试题
         *insertQuestionsType({ payload }, { call, put }) {
             let examData = yield call(insertQuestionsType, payload);
-            console.log(examData, "examData......");
+            //console.log(examData, "examData......");
             yield put({
                 type: "addExam",
                 paylaod: examData
@@ -113,6 +116,29 @@ export default {
                 type:"getData",
                 payload:data
             })
+         },
+
+         //获取所有的试题类型
+         *getAllExam({payload}, {call, put}) {
+             let allExam = yield call(getExam)
+             console.log(allExam, "allExam......")
+             yield put({
+                 type: "getAllexam",
+                 payload: allExam
+             })
+         },
+
+         //点击添加试题类型
+         *addExamType({payload}, {call, put}) {
+             let typeData = yield addExamType(payload)
+             console.log(typeData, "typedaa................")
+             if(typeData.code === 1) {
+                 yield put({
+                 type: "addexamtype",
+                 payload: typeData
+             })
+             }
+             
          }
     },
 
@@ -163,6 +189,21 @@ export default {
         },
         findData(state,{payload}){
             return {...state,findEdit:payload}
+        },
+        //获取所有的试题类型
+        getAllexam(state, {payload:{data}}) {
+            return {
+                ...state,
+                allExamtype: data
+            }
+
+        },
+        //点击添加试题类型
+        addexamtype(state, {payload: {data}}) {
+            return {
+                ...state,
+                examtypeFlag: data
+            }
         }
     }
     

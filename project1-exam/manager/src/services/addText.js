@@ -48,3 +48,7 @@ export function findList(){
         method:"GET"
     })
 }
+//添加试题类型
+export function addExamType(params) {
+    return request.get("/exam/insertQuestionsType", {params})
+}
