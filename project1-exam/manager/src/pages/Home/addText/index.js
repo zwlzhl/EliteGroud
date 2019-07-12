@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import Editor from 'for-editor'
-import { Input, Select, Button, Form, message } from 'antd';
+import { Input, Select, Button, Form, message, Modal } from 'antd';
 import styles from './index.scss'
 
 const { Option } = Select;
 function AddText(props) {
+  //获取考试、课程、题目数据
   useEffect(() => {
     props.getQuestionTypes()
   }, [])
-  console.log(props, "addtext")
   const { getFieldDecorator } = props.form;
   const { TypeList, SubList, ExamList } = props.questions;
-  // let [showDialog, updateDialog] = useState(false);
-
+  let [showModal, unshowModal] = useState(false);
   let handleSubmit = () => {
-    // updateDialog(true)
+    unshowModal(true)
+  }
+  //点击添加试题
+  let handleOk = () => {
     props.form.validateFields((err, value) => {
       if (!err) {
         const user_id = props.login.userInfo.user_id
@@ -30,6 +32,10 @@ function AddText(props) {
         })
       }
     })
+    unshowModal(false)
+  }
+  let handleCacel = () => {
+    unshowModal(false)
   }
   useEffect(() => {
     if (props.questions.examFlag === 1) {
@@ -43,6 +49,7 @@ function AddText(props) {
         <div className={styles.main}>
           <div className={styles.markcont}>
             <p>题目信息</p>
+            <h4>题干</h4>
             <Form.Item>
               {getFieldDecorator('titleText', {
                 validateTrigger: "onBlur",
@@ -62,12 +69,11 @@ function AddText(props) {
                 rules: [{ required: true, message: "答案信息必填" }],
                 initialValue: '',
               })(
-                <Editor height='auto' />
+                <Editor height='auto' style={{height: 350}} />
               )}
             </Form.Item>
-
           </div>
-          <div>
+          <div className={styles.item}>
             <p>请选择考试类型：</p>
             <Form.Item>
               {getFieldDecorator('exam_id', {
@@ -86,7 +92,7 @@ function AddText(props) {
               )}
             </Form.Item>
           </div>
-          <div className={styles.div}>
+          <div className={styles.item}>
             <p>请选择课程类型：</p>
             <Form.Item>
               {getFieldDecorator('subject_id', {
@@ -105,7 +111,7 @@ function AddText(props) {
               )}
             </Form.Item>
           </div>
-          <div>
+          <div className={styles.item}>
             <p>请选择题目类型：</p>
             <Form.Item>
               {getFieldDecorator('questions_type_id', {
@@ -131,21 +137,22 @@ function AddText(props) {
                 rules: [{ required: true, message: "答案信息必填" }],
                 initialValue: '',
               })(
-                <Editor height='auto' />
+                <Editor height='auto' style={{height: 350}} />
               )}
             </Form.Item>
           </div>
-          <Button type="primary" htmlType="submit" >提交</Button>
-          {/* <Modal
-            visible={showDialog}
-            onCancel={() => updateDialog(false)}
-            onOk={()=>handleSubmit() }
+          <Button type="primary" htmlType="submit">提交</Button>
+          <Modal
+            visible={showModal}
+            onCancel={handleCacel}
+            onOk={handleOk}
           >
-          </Modal> */}
+            <p>你确定要添加这道题吗？</p>
+            <p>真的要添加吗？</p>
+          </Modal>
         </div>
       </div>
     </Form>
-
   );
 }
 AddText.propTypes = {
@@ -154,7 +161,6 @@ const mapStateToProps = (state) => {
   return {
     ...state
   }
-
 }
 const mapDispatchToProps = dispatch => {
   return {

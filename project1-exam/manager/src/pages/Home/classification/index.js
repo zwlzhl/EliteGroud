@@ -49,7 +49,7 @@ console.log(props, "props......")
       <div className={styles.typesContent}>
         <div className={styles.btn}>
 
-          <Button onClick={() => updateDialog(true)}>添加类型</Button>
+          <Button onClick={() => updateDialog(true)} className={styles.button}>  +   添加类型</Button>
           <Modal
             visible={showDialog}
             onCancel={() => updateDialog(false)}
