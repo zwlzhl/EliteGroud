@@ -17,12 +17,18 @@ function EditPage(props) {
           title: '您要修改吗?',
           content: '确定要修改这道题吗?',
           onOk() {
-             
+            confirm({
+                title:"更新失败"
+            })
             // return new Promise((resolve, reject) => {
             //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
             // }).catch(() => console.log('Oops errors!'));
           },
-          onCancel() {},
+          onCancel() {
+            confirm({
+                title:"更新失败"
+            })
+          },
         });
       }
       

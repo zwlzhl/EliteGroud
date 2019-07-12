@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
-import { Select, Button } from 'antd';
+import { Select, Button , Tag } from 'antd';
 import styles from './index.scss'
-const { Option } = Select
+const { Option } = Select;
+const {CheckableTag}=Tag;
 function SeeText(props) {
-
   useEffect(() => {
-
     props.getClassPage();
     props.Subject()
     props.examType()
     props.getQuestionTypes();
 
   }, [])
-  let { ViewList, subjectList, examTypeList, ExamList } = props;
+  let { ViewList, subjectList, examTypeList, ExamList,index } = props;
   //subject_id是课程类型
- let [subject_id, upSubject] = useState(''); 
+  let [subject_id, upSubject] = useState('');
   let [exam_id, upExam_id] = useState('');
   let [questions_type_id, upQuestion] = useState('');
+  // let [index,checked]=useState('')
+  // console.log(subjectList)
   //examTypeList考试类型
   //ExamList 题目类型
+  //获取subject_id  课程类型    点击添加样式
+  let handleSub = (id) => {
+    upSubject(subject_id = id)
+   
+  }
   //改变考试类型
   let handleChange = (value) => {
     upExam_id(exam_id = value);
   }
   //改变题目类型
   let handleChangeId = (value) => {
-    console.log(value)
     upQuestion(questions_type_id = value)
   }
   //点击编辑页面
@@ -39,28 +44,35 @@ function SeeText(props) {
     props.clickItem(item)
     props.history.push('/home/pending?id=' + item.questions_type_id)
   }
-  // //获取subject_id
-  let handleSub = (id) => {
-    upSubject(subject_id = id)
-    console.log(22)
-  }
+
   //查询页面
   let handleFind = () => {
-    props.findList({ exam_id, questions_type_id })
+    props.findList({ subject_id, exam_id, questions_type_id })
   }
-  // console.log(ViewList)
+ 
+
+let handleCh = checked => {
+  
+};
+
   return (
     <div className={styles.boxs}>
       <div className={styles.title}>查看试题</div>
       <div className={styles.top}>
         <div className={styles.top_Top}>
-          <div className={styles.active}>
+          <div >
             <span className={styles.top_Span}>课程类型:</span>
             {
-              subjectList && subjectList.map((item,index) => {
-                return <li className={styles.li} key={item.subject_id}
-                // onClick={()=>handleClickLi(item.subject_id)}
-                >{item.subject_text}</li>
+              subjectList && subjectList.map((item, index) => {
+                
+                return <li className={styles.li}
+                  key={item.subject_id}
+                  onClick={() => handleSub(item.subject_id,index)}
+                >{item.subject_text} </li>
+                // <CheckableTag  checked={index} onChange={handleCh} />
+           
+          
+                
               })
             }
           </div>
@@ -116,16 +128,14 @@ function SeeText(props) {
               <p className={styles.compile} onClick={() => handelEdit(item)}>编辑</p>
             </div>
           })
-         
+
         }
       </div>
     </div>
   );
 }
 SeeText.propTypes = {
-
 };
-
 const mapStateToProps = (state) => {
   return {
     ...state.questions
@@ -170,7 +180,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     //查询
     findList(payload) {
-      console.log(payload, 88888)
       dispatch({
         type: "questions/findList",
         payload

@@ -35,7 +35,6 @@ function AddText(props) {
   useEffect(() => {
     console.log(props.questions.examFlag )
     if (props.questions.examFlag === 1) {
-     
       message.success('添加成功');
     }
   })

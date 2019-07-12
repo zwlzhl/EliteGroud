@@ -4,6 +4,7 @@ import styles from './index.css';
 
 function Text(props) {
   let { detail } = props;
+  console.log(detail)
   useEffect(() => {
   }, [])
 
