@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'dva';
-import styles from './IndexPage.scss';
+import './IndexPage.scss';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 
 function LoginPage(props) {

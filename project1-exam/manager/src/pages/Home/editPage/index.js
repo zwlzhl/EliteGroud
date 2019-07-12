@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'dva';
-import { Input, Select, Button, Form } from 'antd';
+import { Input, Select, Form ,Button,Modal} from 'antd';
 import styles from './index.scss'
 import Editor from 'for-editor';
-const { Option } = Select
+const { Option } = Select;
+const { confirm } = Modal;
 function EditPage(props) {
-
     const { edit } = props;
-
-    // let [subject_text,upSubject] = useState('');
-    // console.log(subject_text)
     const { getFieldDecorator } = props.form;
-    let { ViewList, subjectList, examTypeList, TypeList } = props;
-    console.log(ViewList)
-    //点击编辑页面
-    let handelEdit = () => {
+    let { ViewList, SubList, ExamList, TypeList } = props;
+    console.log(SubList, ExamList, TypeList)
 
-    }
+    //提交按钮
+    function showConfirm(e) {
+        confirm({
+          title: '您要修改吗?',
+          content: '确定要修改这道题吗?',
+          onOk() {
+             
+            // return new Promise((resolve, reject) => {
+            //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+            // }).catch(() => console.log('Oops errors!'));
+          },
+          onCancel() {},
+        });
+      }
+      
+    //点击编辑页面
     return (
+        <div>
         <Form className={styles.content}>
             <div className={styles.content}>
                 <h2 className={styles.title}>编辑试题</h2>
@@ -51,7 +62,7 @@ function EditPage(props) {
                         })(
                             <Select style={{ width: 120 }}>
                                 {
-                                    examTypeList && examTypeList.map(Item => {
+                                    TypeList && TypeList.map(Item => {
                                         return <Option key={Item.exam_id}>{Item.exam_name}</Option>
                                     })
                                 }
@@ -68,7 +79,7 @@ function EditPage(props) {
                         })(
                             <Select style={{ width: 120 }}>
                                 {
-                                    subjectList && subjectList.map(Item => {
+                                    SubList && SubList.map(Item => {
                                         return <Option key={Item.subject_id}>{Item.subject_text}</Option>
                                     })
                                 }
@@ -85,7 +96,7 @@ function EditPage(props) {
                         })(
                             <Select style={{ width: 120 }}>
                                 {
-                                    TypeList && TypeList.map(Item => {
+                                    ExamList && ExamList.map(Item => {
                                         return <Option key={Item.questions_type_id}>{Item.questions_type_text}</Option>
                                     })
                                 }
@@ -106,6 +117,8 @@ function EditPage(props) {
                 </div>
             </div>
         </Form>
+        <Button type="primary" className={styles.Btn} style={{ width: 150, margin: 15 }} onClick={showConfirm}>提交</Button>
+    </div>
     );
 }
 EditPage.propTypes = {

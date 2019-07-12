@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
@@ -10,7 +10,12 @@ import SeeText from './seeText/index'
 import EditPage from './editPage/index'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
-function Home() {
+function Home(props) {
+    useEffect(()=>{
+        //获取用户信息
+        props.getUserInfo()
+    },[])
+    const userName = props.login.userInfo.user_name
     return (
         <div className={styles.wrap}>
             <Layout className={styles.layout}>
@@ -20,7 +25,7 @@ function Home() {
                     </div>
                     <div className={styles.userInfo}>
                         <span className={styles.userImg}></span>
-                        <span>chenmanjie</span>
+                        <span>{userName}</span>
                     </div>
                 </Header>
                 <Layout>
@@ -118,5 +123,19 @@ function Home() {
 }
 Home.propTypes = {
 };
-
-export default connect()(Home);
+const mapStateToProps = state =>{
+    return {
+        ...state
+    }
+}
+const mapDispachToProps = dispatch =>{
+    return {
+        getUserInfo: payload=>{
+            dispatch({
+                type: "login/getUserInfo",
+                payload
+            })
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispachToProps)(Home);

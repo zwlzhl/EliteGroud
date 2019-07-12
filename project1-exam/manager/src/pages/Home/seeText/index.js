@@ -4,6 +4,7 @@ import { Select, Button } from 'antd';
 import styles from './index.scss'
 const { Option } = Select
 function SeeText(props) {
+
   useEffect(() => {
 
     props.getClassPage();
@@ -12,12 +13,22 @@ function SeeText(props) {
     props.getQuestionTypes();
 
   }, [])
-  let [subject_id, upSubject] = useState('');
+  let { ViewList, subjectList, examTypeList, ExamList } = props;
+  //subject_id是课程类型
+ let [subject_id, upSubject] = useState(''); 
   let [exam_id, upExam_id] = useState('');
   let [questions_type_id, upQuestion] = useState('');
-  let { ViewList, subjectList, examTypeList, TypeList } = props;
-
-
+  //examTypeList考试类型
+  //ExamList 题目类型
+  //改变考试类型
+  let handleChange = (value) => {
+    upExam_id(exam_id = value);
+  }
+  //改变题目类型
+  let handleChangeId = (value) => {
+    console.log(value)
+    upQuestion(questions_type_id = value)
+  }
   //点击编辑页面
   let handelEdit = (item) => {
     props.clickedit(item)
@@ -28,25 +39,16 @@ function SeeText(props) {
     props.clickItem(item)
     props.history.push('/home/pending?id=' + item.questions_type_id)
   }
-  //获取subject_id
+  // //获取subject_id
   let handleSub = (id) => {
     upSubject(subject_id = id)
-    console.log(subject_id)
-  }
-  //获取exam_id
-  let handleExam = (value) => {
-    console.log(1)
-    upExam_id(exam_id = value);
+    console.log(22)
   }
   //查询页面
   let handleFind = () => {
-    let { findList } = props;
-    findList({
-      subject_id,
-      exam_id
-    })
-
+    props.findList({ exam_id, questions_type_id })
   }
+  // console.log(ViewList)
   return (
     <div className={styles.boxs}>
       <div className={styles.title}>查看试题</div>
@@ -55,9 +57,10 @@ function SeeText(props) {
           <div className={styles.active}>
             <span className={styles.top_Span}>课程类型:</span>
             {
-              subjectList && subjectList.map((item) => {
+              subjectList && subjectList.map((item,index) => {
                 return <li className={styles.li} key={item.subject_id}
-                  onClick={() => handleSub(subject_id)}>{item.subject_text}</li>
+                // onClick={()=>handleClickLi(item.subject_id)}
+                >{item.subject_text}</li>
               })
             }
           </div>
@@ -65,21 +68,29 @@ function SeeText(props) {
         <div className={styles.top_Bom}>
           <div className={styles.Bom_item}>
             <p>考试类型</p>
-            <Select style={{ width: 150, margin: 15, height: 35 }}>
+            <Select
+              onChange={handleChange}
+              style={{ width: 150, margin: 15, height: 35 }}>
               {
                 examTypeList && examTypeList.map((item) => {
-                  return <Option key={item.exam_id} value={item.exam_id}
-                    onClick={() => handleExam(exam_id)}>{item.exam_name}</Option>
+                  return <Option key={item.exam_id}
+                    value={item.exam_id}
+                  >{item.exam_name}</Option>
                 })
               }
             </Select>
           </div>
           <div className={styles.Bom_item}>
             <p>题目类型</p>
-            <Select style={{ width: 150, margin: 15, height: 35 }}>
+            <Select
+              onChange={handleChangeId}
+              style={{ width: 150, margin: 15, height: 35 }}>
               {
-                TypeList && TypeList.map((item) => {
-                  return <Option key={item.questions_type_id} value={item.questions_type_id}>{item.questions_type_text}</Option>
+                ExamList && ExamList.map((item) => {
+                  return <Option key={item.questions_type_id}
+                    value={item.questions_type_id}
+
+                  >{item.questions_type_text}</Option>
                 })
               }
             </Select>
@@ -105,6 +116,7 @@ function SeeText(props) {
               <p className={styles.compile} onClick={() => handelEdit(item)}>编辑</p>
             </div>
           })
+         
         }
       </div>
     </div>
@@ -158,6 +170,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     //查询
     findList(payload) {
+      console.log(payload, 88888)
       dispatch({
         type: "questions/findList",
         payload

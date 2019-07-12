@@ -4,7 +4,10 @@ import {
     getClassPage,
     Subject,
     examType,
-    findList
+    findList,
+    getSubject,
+    getExam,
+    upDataQuestions
 } from '../services/addText'
 export default {
     //命名空间
@@ -18,8 +21,11 @@ export default {
         examTypeList:[],
         detail:{},
         edit:{},
-        findEdit:[],
-        insertData:[]
+        insertData:[],
+        SubList:[],
+        ExamList: [],
+        examFlag: -1,
+        upDataExam:[]
     },
     //订阅
     subscriptions: {
@@ -29,16 +35,26 @@ export default {
     //异步操作
     effects: {
         // 获取所有试题类型
-        *getQuestionTypes({ }, { call, put }) {
+        *getQuestionTypes({payload}, { call, put }) {
+            //console.log(payload, "addtext.data")
             let data = yield call(getQuestionTypes)
-            // console.log('data...', data.data)
+            let subList = yield call(getSubject)
+            let examList = yield call(getExam)
             yield put({
                 type: "typeUpdata",
-                payload: data.data
+                payload: data
+            })
+            yield put({
+                type: "getSubData",
+                payload: subList
+            })
+            yield put({
+                type: "getExamData",
+                payload: examList
             })
         },
         //课程类型
-        *Subject({},{call,put}){
+        *Subject({payload},{call,put}){
             let data=yield call(Subject)
             // console.log(data)
             yield put({
@@ -47,7 +63,7 @@ export default {
             })
         },
         //获取所有的考试类型
-        *examType({},{call,put}){
+        *examType({payload},{call,put}){
             let data=yield call(examType)
             // console.log(data)
             yield put({
@@ -72,20 +88,21 @@ export default {
         },
         //查询页面
         *findList({payload},{call,put}){
-            let data=yield call(findList);
-            console.log(data)
+            let data=yield call(findList,payload);
+            // console.log(data.data)
             yield put({
                 type:"findData",
                 payload:data.data
             })
         },
-        //添加类型
+        //点击添加试题(记得传参)
         *insertQuestionsType({ payload }, { call, put }) {
             let data = yield call(insertQuestionsType, payload);
             console.log(data);
             yield put({
                 type:"insertData",
                 payload:data.data
+
             })
         },
 
@@ -97,13 +114,48 @@ export default {
                 type:"getData",
                 payload:data.data
             })
+         },
+
+         //更新试题
+         *upDataQuestions({paylaod},{call,put}){
+             let data=yield call(upDataQuestions)
+             console.log(data)
+             yield put({
+                 type:"upDataList",
+                 paylaod
+             })
          }
     },
 
     //同步操作
     reducers: {
-        typeUpdata(state, { payload }) {
-            return { ...state, TypeList: payload }
+        //获取所有的考试类型
+        typeUpdata(state, {payload: {data}}) {
+            return { 
+                ...state, 
+                TypeList: data 
+            }
+        },
+        //获取所有的课程类型
+        getSubData(state, {payload: {data}}) {
+            return { 
+                ...state, 
+                SubList: data 
+            }
+        },
+        //点击添加试题
+        addExam(state, action) {
+            return {
+                ...state,
+                examFlag: action.paylaod.code
+            }
+        },
+        //获取所有的题目类型
+        getExamData(state, {payload: {data}}) {
+            return { 
+                ...state, 
+                ExamList: data 
+            }
         },
         getData(state,{payload}){
             return {...state,ViewList:payload}
@@ -121,12 +173,12 @@ export default {
             return {...state,edit:payload}
         },
         findData(state,{payload}){
-            return {...state,findEdit:payload}
+            return {...state,ViewList:payload}
         },
-        // insertData(state,{payload}){
-        //     return {...state,insertData:payload}
-        // }
+        upDataList(state,{paylaod}){
+            return {...state,upDataExam:paylaod}
+        }
     }
-    ,
+    
 
 };
