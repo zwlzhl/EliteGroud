@@ -57,3 +57,8 @@ export function upDataQuestions(params){
         data:params
     })
 }
+//添加试题类型
+export function addExamType(params) {
+    return request.get("/exam/insertQuestionsType", {params})
+}
+
