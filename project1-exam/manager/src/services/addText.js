@@ -6,11 +6,10 @@ export function getQuestionTypes(){
 }
 
 //添加试题
-export function insertQuestionsType(params){
+export function insertQuestionsType(){
     return request({
-            url:"/exam/questions",
-            method:"POST",
-            data:params
+            url:"/exam/insertQuestionsType",
+            method:"GET",    
     })
 }
 

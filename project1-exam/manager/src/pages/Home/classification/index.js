@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import { Table, Modal, Form, Input, Button } from 'antd'
 import axios from 'axios'
 import styles from './index.scss'
+import { get } from 'https';
 function Classification(props) {
   // 控制添加弹框
   let [showDialog, updateDialog] = useState(false);
@@ -25,6 +26,7 @@ function Classification(props) {
   //获取所有试题类型
   useEffect(() => {
     props.getQuestionTypes();
+  
   }, [])
   //事件处理
 
@@ -44,6 +46,7 @@ function Classification(props) {
                 })(
                   <Input
                     placeholder="请输入试题类型"
+                    onChange={(e)=>e.target.value}
                   />,
                 )}
               </Form.Item>
@@ -73,6 +76,12 @@ const mapDispatchToProps = (dispatch) => {
         type: "questions/getQuestionTypes"
       })
     },
+    // insertQuestionsType(payload){
+    //   dispatch({
+    //     type:"questions/insertQuestionsType",
+    //     payload
+    //   })
+    // }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Classification));

@@ -10,12 +10,13 @@ function SeeText(props) {
     props.Subject()
     props.examType()
     props.getQuestionTypes();
-   
+
   }, [])
-  // let [subject_text,upSubject] = useState('');
-  // console.log(subject_text)
+  let [subject_id, upSubject] = useState('');
+  let [exam_id, upExam_id] = useState('');
+  let [questions_type_id, upQuestion] = useState('');
   let { ViewList, subjectList, examTypeList, TypeList } = props;
-  // console.log(TypeList)
+
 
   //点击编辑页面
   let handelEdit = (item) => {
@@ -27,9 +28,23 @@ function SeeText(props) {
     props.clickItem(item)
     props.history.push('/home/pending?id=' + item.questions_type_id)
   }
+  //获取subject_id
+  let handleSub = (id) => {
+    upSubject(subject_id = id)
+    console.log(subject_id)
+  }
+  //获取exam_id
+  let handleExam = (value) => {
+    console.log(1)
+    upExam_id(exam_id = value);
+  }
   //查询页面
-  let handleFind=()=>{
-      // props.findList();
+  let handleFind = () => {
+    let { findList } = props;
+    findList({
+      subject_id,
+      exam_id
+    })
 
   }
   return (
@@ -41,7 +56,8 @@ function SeeText(props) {
             <span className={styles.top_Span}>课程类型:</span>
             {
               subjectList && subjectList.map((item) => {
-                return <li className={styles.li} key={item.subject_id}>{item.subject_text}</li>
+                return <li className={styles.li} key={item.subject_id}
+                  onClick={() => handleSub(subject_id)}>{item.subject_text}</li>
               })
             }
           </div>
@@ -52,7 +68,8 @@ function SeeText(props) {
             <Select style={{ width: 150, margin: 15, height: 35 }}>
               {
                 examTypeList && examTypeList.map((item) => {
-                  return <Option key={item.exam_id} value={item.exam_id}>{item.exam_name}</Option>
+                  return <Option key={item.exam_id} value={item.exam_id}
+                    onClick={() => handleExam(exam_id)}>{item.exam_name}</Option>
                 })
               }
             </Select>
@@ -67,7 +84,7 @@ function SeeText(props) {
               }
             </Select>
           </div>
-          <Button className={styles.Btn} style={{ width: 150, margin: 15 }} onClick={()=>handleFind()} type="primary">查询</Button>
+          <Button className={styles.Btn} style={{ width: 150, margin: 15 }} onClick={() => handleFind()} type="primary">查询</Button>
         </div>
       </div>
       <div className={styles.center}>
@@ -140,11 +157,11 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     //查询
-    findList(payload){
-        dispatch({
-          type:"questions/findList",
-          payload
-        })
+    findList(payload) {
+      dispatch({
+        type: "questions/findList",
+        payload
+      })
     }
   }
 }

@@ -6,7 +6,6 @@ import {
     examType,
     findList
 } from '../services/addText'
-import { routerRedux } from 'dva/router'
 export default {
     //命名空间
     namespace: 'questions',
@@ -19,7 +18,8 @@ export default {
         examTypeList:[],
         detail:{},
         edit:{},
-        findEdit:[]
+        findEdit:[],
+        insertData:[]
     },
     //订阅
     subscriptions: {
@@ -82,7 +82,11 @@ export default {
         //添加类型
         *insertQuestionsType({ payload }, { call, put }) {
             let data = yield call(insertQuestionsType, payload);
-            // console.log(data);
+            console.log(data);
+            yield put({
+                type:"insertData",
+                payload:data.data
+            })
         },
 
         //获取所有的试题
@@ -118,7 +122,10 @@ export default {
         },
         findData(state,{payload}){
             return {...state,findEdit:payload}
-        }
+        },
+        // insertData(state,{payload}){
+        //     return {...state,insertData:payload}
+        // }
     }
     ,
 
