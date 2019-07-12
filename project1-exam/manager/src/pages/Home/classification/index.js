@@ -4,7 +4,6 @@ import { connect } from 'dva';
 import { Table, Modal, Form, Input, Button, message } from 'antd'
 // import axios from 'axios'
 import styles from './index.scss'
-import { get } from 'https';
 function Classification(props) {
   // 控制添加弹框
   let [showDialog, updateDialog] = useState(false);
@@ -51,7 +50,7 @@ console.log(props, "props......")
       <div className={styles.typesContent}>
         <div className={styles.btn}>
 
-          <Button onClick={() => updateDialog(true)}>添加类型</Button>
+          <Button onClick={() => updateDialog(true)} className={styles.button}>  +   添加类型</Button>
           <Modal
             visible={showDialog}
             onCancel={() => updateDialog(false)}
