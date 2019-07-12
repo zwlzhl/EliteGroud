@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import { Select, Button } from 'antd';
 import styles from './index.scss'
@@ -15,7 +15,7 @@ function SeeText(props) {
   // let [subject_text,upSubject] = useState('');
   // console.log(subject_text)
   let { ViewList, subjectList, examTypeList, TypeList } = props;
-  // console.log(TypeList)
+   console.log(ViewList, "ViewList....")
 
   //点击编辑页面
   let handelEdit = (item) => {
@@ -72,7 +72,7 @@ function SeeText(props) {
       </div>
       <div className={styles.center}>
         {
-          ViewList && ViewList.map((item) => {
+          ViewList.data && ViewList.data.map((item) => {
             return <div key={item.questions_id} className={styles.center_Item}>
               <div className={styles.left} onClick={() => handleClick(item)}>
                 <div className={styles.Title}>{item.title}</div>

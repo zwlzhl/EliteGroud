@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import { Table, Modal, Form, Input, Button } from 'antd'
-import axios from 'axios'
+// import axios from 'axios'
 import styles from './index.scss'
 function Classification(props) {
   // 控制添加弹框
   let [showDialog, updateDialog] = useState(false);
   //获取更改value值
-  let [iptValue, upValue] = useState("");
+  //let [iptValue, upValue] = useState("");
   const columns = [
     {
       title: '类型ID',

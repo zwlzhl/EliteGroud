@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'dva';
-import { Input, Select, Button, Form } from 'antd';
+import { Input, Select, Form } from 'antd';
 import styles from './index.scss'
 import Editor from 'for-editor';
 const { Option } = Select
@@ -14,9 +14,6 @@ function EditPage(props) {
     let { ViewList, subjectList, examTypeList, TypeList } = props;
     console.log(ViewList)
     //点击编辑页面
-    let handelEdit = () => {
-
-    }
     return (
         <Form className={styles.content}>
             <div className={styles.content}>
