@@ -7,9 +7,7 @@ import {
     findList,
     getSubject,
     getExam,
-
     upDataQuestions,
-
     addExamType
 
 } from '../services/addText'
@@ -29,12 +27,10 @@ export default {
         SubList: [],
         ExamList: [],
         examFlag: -1,
-
         upDataExam: [],
         allExamtype: [],
         examtypeFlag: {},
         index: 0
-
     },
     //订阅
     subscriptions: {
@@ -82,7 +78,7 @@ export default {
         },
         //跳转详情页
         *clickItem({ payload }, { call, put }) {
-            console.log(payload)
+            // console.log(payload)
             yield put({
                 type: "ClickUpdata",
                 payload: payload
@@ -134,7 +130,7 @@ export default {
 
         //更新试题
         *upDataQuestions({ paylaod }, { call, put }) {
-            let data = yield call(upDataQuestions)
+            let data = yield call(upDataQuestions,{paylaod})
             console.log(data)
             yield put({
                 type: "upDataList",
@@ -214,6 +210,7 @@ export default {
             return { ...state, ViewList: payload }
         },
         upDataList(state, { paylaod }) {
+            console.log(5555,paylaod)
             return { ...state, upDataExam: paylaod }
 
             // return { ...state, findEdit: payload }
@@ -224,7 +221,6 @@ export default {
                 ...state,
                 allExamtype: data
             }
-
         },
         //点击添加试题类型
         addexamtype(state, { payload: { data } }) {

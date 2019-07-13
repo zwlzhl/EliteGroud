@@ -9,16 +9,27 @@ function EditPage(props) {
     const { edit } = props;
     const { getFieldDecorator } = props.form;
     let { ViewList, SubList, ExamList, TypeList } = props;
-    console.log(SubList, ExamList, TypeList)
-
+    console.log(props.edit.questions_id)
+    // console.log(props.location.params.item.questions_type_id)
     //提交按钮
     function showConfirm(e) {
         confirm({
           title: '您要修改吗?',
           content: '确定要修改这道题吗?',
           onOk() {
+              props.form.validateFields((err,values)=>{
+                  if(!err){
+                      let exam={
+                          ...values,
+                          question_id:props.edit.questions_id
+                      }
+                      props.upDataQuestions(exam)
+                  }
+              })
+
             confirm({
-                title:"更新失败"
+                title:"更新失败",
+               
             })
             // return new Promise((resolve, reject) => {
             //   setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
@@ -26,7 +37,7 @@ function EditPage(props) {
           },
           onCancel() {
             confirm({
-                title:"更新失败"
+                title:"更新错误"
             })
           },
         });
@@ -127,18 +138,20 @@ function EditPage(props) {
     </div>
     );
 }
-EditPage.propTypes = {
-
-};
+EditPage.propTypes = {};
 
 const mapStateToProps = (state) => {
-    return {
-        ...state.questions
-    }
+    return {...state.questions}
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        upDataQuestions(payload){
+            console.log(payload)
+            dispatch({
+                type:"questions/upDataQuestions",
+                payload
+            })    
+        }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(EditPage));

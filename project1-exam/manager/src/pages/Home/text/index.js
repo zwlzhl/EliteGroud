@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './index.css';
-
+import ReactMarkdown  from "react-markdown"
 function Text(props) {
   let { detail } = props;
   console.log(detail)
@@ -24,13 +24,14 @@ function Text(props) {
             <div style={{ margin: '15px 0' }}>
               <h3>{detail.title}</h3>
               <div>
-                {detail.questions_stem}
+              <ReactMarkdown>{detail.questions_stem}</ReactMarkdown>
               </div>
             </div>
           </div>
           <div className={styles.right}>
             <h4>答案信息</h4>
-            {detail.questions_answer}
+            <ReactMarkdown >{detail.questions_answer}</ReactMarkdown>
+            
           </div>
         </div>
       </div>
