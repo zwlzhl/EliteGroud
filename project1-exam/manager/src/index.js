@@ -9,7 +9,7 @@ const app = dva(createLoading());
 
 // 2. Plugins
 app.use({
-    // onAction: createLogger
+    // onAction: createLogger，
     onError:(e)=>{
         message.error(e.message)
     }

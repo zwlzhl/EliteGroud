@@ -10,7 +10,7 @@ import {
     upDataQuestions,
     addExamType
 
-} from '../services/addText'
+} from '../services/addText';
 export default {
     //命名空间
     namespace: 'questions',
@@ -30,7 +30,9 @@ export default {
         upDataExam: [],
         allExamtype: [],
         examtypeFlag: {},
-        index: 0
+        index: 0,
+        isLogin: -1,
+        updataErroe:''
     },
     //订阅
     subscriptions: {
@@ -90,6 +92,7 @@ export default {
                 type: "editData",
                 payload
             })
+
         },
         //查询页面
         *findList({ payload }, { call, put }) {
@@ -103,44 +106,37 @@ export default {
         },
         //点击添加试题(记得传参)
         *insertQuestionsType({ payload }, { call, put }) {
-
             let data = yield call(insertQuestionsType, payload);
             console.log(data);
-
             let examData = yield call(insertQuestionsType, payload);
             //console.log(examData, "examData......");
 
             yield put({
                 type: "insertData",
                 payload: data.data
-
             })
         },
-
         //获取所有的试题
         *getClassPage({ payload }, { call, put }) {
             let data = yield call(getClassPage)
-            // console.log('getClassPage',data)
             yield put({
                 type: "getData",
                 payload: data.data
             })
         },
-
-
         //更新试题
-        *upDataQuestions({ paylaod }, { call, put }) {
-            let data = yield call(upDataQuestions,{paylaod})
-            console.log(data)
-            yield put({
-                type: "upDataList",
-                paylaod
+        *upDataQuestions({payload }, { call, put }) {
+            let data = yield call(upDataQuestions,payload);
+            yield put ({
+                type:"uperror",
+                payload:data.msg
             })
         },
+
         //获取所有的试题类型
         * getAllExam({ payload }, { call, put }) {
             let allExam = yield call(getExam)
-            console.log(allExam, "allExam......")
+            // console.log(allExam, "allExam......")
             yield put({
                 type: "getAllexam",
                 payload: allExam
@@ -185,10 +181,7 @@ export default {
         },
         //获取所有的题目类型
         getExamData(state, { payload: { data } }) {
-            return {
-                ...state,
-                ExamList: data
-            }
+            return {...state,ExamList: data}
         },
         getData(state, { payload }) {
             return { ...state, ViewList: payload }
@@ -209,12 +202,15 @@ export default {
 
             return { ...state, ViewList: payload }
         },
-        upDataList(state, { paylaod }) {
-            console.log(5555,paylaod)
-            return { ...state, upDataExam: paylaod }
-
-            // return { ...state, findEdit: payload }
+        uperror(state,{payload}){
+             return {...state,updataErroe:payload}   
         },
+        // upDataList(state, { paylaod }) {
+        //     console.log(5555,paylaod)
+        //     return { ...state, upDataExam: paylaod }
+
+        //     // return { ...state, findEdit: payload }
+        // },
         //获取所有的试题类型
         getAllexam(state, { payload: { data } }) {
             return {

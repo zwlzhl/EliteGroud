@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
-import { Select, Button , Tag } from 'antd';
+import { Select, Button, Tag } from 'antd';
 import styles from './index.scss'
 const { Option } = Select;
-const {CheckableTag}=Tag;
+const { CheckableTag } = Tag;
 function SeeText(props) {
   useEffect(() => {
     props.getClassPage();
@@ -12,7 +12,7 @@ function SeeText(props) {
     props.getQuestionTypes();
 
   }, [])
-  let { ViewList, subjectList, examTypeList, ExamList,index } = props;
+  let { ViewList, subjectList, examTypeList, ExamList, index } = props;
   //subject_id是课程类型
   let [subject_id, upSubject] = useState('');
   let [exam_id, upExam_id] = useState('');
@@ -24,7 +24,7 @@ function SeeText(props) {
   //获取subject_id  课程类型    点击添加样式
   let handleSub = (id) => {
     upSubject(subject_id = id)
-   
+
   }
   //改变考试类型
   let handleChange = (value) => {
@@ -49,12 +49,18 @@ function SeeText(props) {
   let handleFind = () => {
     props.findList({ subject_id, exam_id, questions_type_id })
   }
- 
 
-let handleCh = checked => {
-  
-};
+  let handleCh = checked => {
 
+  };
+  //全部
+   let chooseAll=(e)=>{
+  //     let arr=Array.from(e.target.parentNode.childNodes)
+  //     arr.map(item => {
+  //       item.className = "";
+  //     });
+  //     e.target.className=styles.active
+   }
   return (
     <div className={styles.boxs}>
       <div className={styles.title}>查看试题</div>
@@ -62,17 +68,18 @@ let handleCh = checked => {
         <div className={styles.top_Top}>
           <div >
             <span className={styles.top_Span}>课程类型:</span>
+            <span onClick={chooseAll}>All</span>
             {
               subjectList && subjectList.map((item, index) => {
-                
+
                 return <li className={styles.li}
                   key={item.subject_id}
-                  onClick={() => handleSub(item.subject_id,index)}
+                  onClick={() => handleSub(item.subject_id, index)}
                 >{item.subject_text} </li>
                 // <CheckableTag  checked={index} onChange={handleCh} />
-           
-          
-                
+
+
+
               })
             }
           </div>
