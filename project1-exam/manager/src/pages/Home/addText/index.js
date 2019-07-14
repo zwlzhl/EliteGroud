@@ -39,8 +39,9 @@ function AddText(props) {
     unshowModal(false)
   }
   useEffect(() => {
-    console.log(props.questions.examFlag )
+    //console.log(props.questions.examFlag )
     if (props.questions.examFlag === 1) {
+
       message.success('添加成功');
     }
   })
@@ -148,6 +149,11 @@ function AddText(props) {
             visible={showModal}
             onCancel={handleCacel}
             onOk={handleOk}
+            className={styles.modal}
+            cancelText="取消"
+            okText="确定"
+            width="400px"
+            closable={false}
           >
             <p>你确定要添加这道题吗？</p>
             <p>真的要添加吗？</p>
@@ -172,7 +178,7 @@ const mapDispatchToProps = dispatch => {
     //获取试题数据
     getQuestionTypes: payload => {
       dispatch({
-        type: "questions/getQuestionType",
+        type: "questions/getQuestionTypes",
         payload
       })
     },

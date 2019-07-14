@@ -9,7 +9,6 @@ import {
     getExam,
     upDataQuestions,
     addExamType
-
 } from '../services/addText'
 export default {
     //命名空间
@@ -30,7 +29,8 @@ export default {
         upDataExam: [],
         allExamtype: [],
         examtypeFlag: {},
-        index: 0
+        index: 0,
+        examtypeFlag: {}
     },
     //订阅
     subscriptions: {
@@ -45,6 +45,7 @@ export default {
             let data = yield call(getQuestionTypes)
             let subList = yield call(getSubject)
             let examList = yield call(getExam)
+            //console.log(data, "Data.......")
             yield put({
                 type: "typeUpdata",
                 payload: data
@@ -103,20 +104,14 @@ export default {
         },
         //点击添加试题(记得传参)
         *insertQuestionsType({ payload }, { call, put }) {
-
-            let data = yield call(insertQuestionsType, payload);
-            console.log(data);
-
             let examData = yield call(insertQuestionsType, payload);
             //console.log(examData, "examData......");
-
             yield put({
-                type: "insertData",
-                payload: data.data
+                type: "addExam",
+                payload: examData
 
             })
         },
-
         //获取所有的试题
         *getClassPage({ payload }, { call, put }) {
             let data = yield call(getClassPage)
@@ -156,7 +151,6 @@ export default {
                     payload: typeData
                 })
             }
-
         }
     },
 
@@ -180,7 +174,7 @@ export default {
         addExam(state, action) {
             return {
                 ...state,
-                examFlag: action.paylaod.code
+                examFlag: action.payload.code
             }
         },
         //获取所有的题目类型

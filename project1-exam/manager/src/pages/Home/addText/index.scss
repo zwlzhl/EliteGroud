@@ -4,14 +4,15 @@
     font-weight:500;
     font-size: 24px;
     height: 50px;
+    padding-left: 50px
 }
 .content{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 104%;
     height: 100%;
     overflow-y: auto;
-    // margin-left: -10px;
+    margin-left: -24px;
     .main{
         width: 100%;
         height: 100%;
@@ -20,10 +21,12 @@
         padding-left: -20px;
     }
     .markcont{
-        width:500px;
+        width:95%;
         overflow: hidden;
+        padding-left: 50px;
         p{
             font-size: 20px;
+
         }
         input{
             height: 45px;
@@ -32,9 +35,21 @@
         } 
     }
 }
-.div {
+.item {
     width: 110%;
-    background: #fff
+    background: #fff;
+    padding-left: 50px;
+}
+button {
+    margin-left: 50px;
+}
+.modal {
+    width: 300px;
+    height: 200px;
+}
+.modal p {
+    text-align: center
+    
 }
 .loading{
     position: fixed;
@@ -45,3 +60,6 @@
     display: flex;
     align-items: center;
     justify-content: center;}
+.modal p:nth-child(1) {
+    font-size: 16px
+}
