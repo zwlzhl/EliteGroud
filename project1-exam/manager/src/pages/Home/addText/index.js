@@ -7,6 +7,7 @@ import styles from './index.scss'
 
 const { Option } = Select;
 function AddText(props) {
+  //console.log(props)
   //获取考试、课程、题目数据
   useEffect(() => {
     props.getQuestionTypes()
@@ -39,9 +40,9 @@ function AddText(props) {
     unshowModal(false)
   }
   useEffect(() => {
-    console.log(props.questions.examFlag )
+    //console.log(props.questions.examFlag )
     if (props.questions.examFlag === 1) {
-     
+
       message.success('添加成功');
     }
   })
@@ -72,7 +73,7 @@ function AddText(props) {
                 rules: [{ required: true, message: "答案信息必填" }],
                 initialValue: '',
               })(
-                <Editor height='auto' style={{height: 350}} />
+                <Editor height='auto' style={{ height: 350 }} />
               )}
             </Form.Item>
           </div>
@@ -140,7 +141,7 @@ function AddText(props) {
                 rules: [{ required: true, message: "答案信息必填" }],
                 initialValue: '',
               })(
-                <Editor height='auto' style={{height: 350}} />
+                <Editor height='auto' style={{ height: 350 }} />
               )}
             </Form.Item>
           </div>
@@ -149,6 +150,11 @@ function AddText(props) {
             visible={showModal}
             onCancel={handleCacel}
             onOk={handleOk}
+            className={styles.modal}
+            cancelText="取消"
+            okText="确定"
+            width="400px"
+            closable={false}
           >
             <p>你确定要添加这道题吗？</p>
             <p>真的要添加吗？</p>
@@ -170,7 +176,7 @@ const mapDispatchToProps = dispatch => {
     //获取试题数据
     getQuestionTypes: payload => {
       dispatch({
-        type: "questions/getQuestionType",
+        type: "questions/getQuestionTypes",
         payload
       })
     },

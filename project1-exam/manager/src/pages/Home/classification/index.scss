@@ -47,3 +47,14 @@ html,body{
     height: 40px;
     margin-left: 0px;
 }
+.modal {
+    text-align: center;
+    font-size: 20px
+}
+.modal input {
+    border:none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    height: 50px;
+    box-sizing: border-box
+}
