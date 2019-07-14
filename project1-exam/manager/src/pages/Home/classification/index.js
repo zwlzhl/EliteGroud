@@ -27,16 +27,16 @@ function Classification(props) {
     props.getAllExamTypes();
   }, [])
   //事件处理
-console.log(props, "props......")
+  console.log(props, "props......")
 
   const { getFieldDecorator } = props.form;
-  let handleSubmit=()=>{
-    props.form.validateFields((err, value)=>{
-      if(!err) {
+  let handleSubmit = () => {
+    props.form.validateFields((err, value) => {
+      if (!err) {
         props.addExamType({
-        text: value.title,
-        sort: props.allExamtype.length+1
-      })
+          text: value.title,
+          sort: props.allExamtype.length + 1
+        })
       } else {
         message.error("请输入内容")
       }
@@ -52,9 +52,13 @@ console.log(props, "props......")
 
           <Button onClick={() => updateDialog(true)} className={styles.button}>  +   添加类型</Button>
           <Modal
+            title="创建新类型"
             visible={showDialog}
             onCancel={() => updateDialog(false)}
-            onOk={()=>handleSubmit() }
+            onOk={() => handleSubmit()}
+            className={styles.modal}
+            cancelText="取消"
+            okText="确定"
           >
             <Form onSubmit={handleSubmit}>
 
@@ -88,13 +92,14 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
+    //获取试题类型
     getAllExamTypes() {
       dispatch({
         type: "questions/getAllExam"
       })
     },
-
-    addExamType:payload=> {
+    //添加试题类型
+    addExamType: payload => {
       dispatch({
         type: "questions/addExamType",
         payload

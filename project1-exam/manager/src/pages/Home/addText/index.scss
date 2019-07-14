@@ -46,3 +46,14 @@
 button {
     margin-left: 50px;
 }
+.modal {
+    width: 300px;
+    height: 200px;
+}
+.modal p {
+    text-align: center
+    
+}
+.modal p:nth-child(1) {
+    font-size: 16px
+}
