@@ -7,11 +7,9 @@ function Text(props) {
   console.log(detail)
   useEffect(() => {
   }, [])
-
   return (
     <div className={styles.box}>
       <h2>试题详情</h2>
-
         <div className={styles.center}>
           <div className={styles.left}>
             <h5> <span>出题人：</span>{detail.user_name}</h5>
