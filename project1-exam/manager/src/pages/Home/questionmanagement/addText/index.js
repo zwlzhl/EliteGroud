@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import Editor from 'for-editor'
-import { Input, Select, Button, Form, message, Modal } from 'antd';
+import { Input, Select, Button, Form, message, Modal, Spin } from 'antd';
 import styles from './index.scss'
 
 const { Option } = Select;
 function AddText(props) {
-  //console.log(props)
   //获取考试、课程、题目数据
   useEffect(() => {
     props.getQuestionTypes()
@@ -159,6 +158,8 @@ function AddText(props) {
             <p>你确定要添加这道题吗？</p>
             <p>真的要添加吗？</p>
           </Modal>
+          {props.global ? <div className={styles.loading}><Spin /></div> : null}
+
         </div>
       </div>
     </Form>
@@ -168,7 +169,8 @@ AddText.propTypes = {
 };
 const mapStateToProps = (state) => {
   return {
-    ...state
+    ...state,
+    global: state.loading.global
   }
 }
 const mapDispatchToProps = dispatch => {

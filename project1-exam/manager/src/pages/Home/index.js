@@ -3,11 +3,13 @@ import { connect } from 'dva';
 import styles from './index.scss';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { NavLink, Switch, Route,Redirect } from 'dva/router'
-import Text from './text/index'
-import AddText from './addText/index'
-import Classification from './classification/index'
-import SeeText from './seeText/index'
-import EditPage from './editPage/index'
+import Text from './questionmanagement/text/index'
+import AddText from './questionmanagement/addText/index'
+import Classification from './questionmanagement/classification/index'
+import SeeText from './questionmanagement/seeText/index'
+import EditPage from './questionmanagement/editPage/index'
+import Adduser from './usermanagement/adduser'
+import Userdisplay from './usermanagement/userdisplay'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home(props) {
@@ -112,6 +114,8 @@ function Home(props) {
                                 <Route path="/home/seeText" component={SeeText}></Route>
                                 <Route path="/home/pending" component={Text}></Route>
                                 <Route path="/home/editPage" component={EditPage}></Route>
+                                <Route path="/home/adduser" component={Adduser}></Route>
+                                <Route path="/home/userdisplay" component={Userdisplay}></Route>
                                 <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
                         </Content>
