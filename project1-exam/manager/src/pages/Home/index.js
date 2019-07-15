@@ -3,11 +3,13 @@ import { connect } from 'dva';
 import styles from './index.scss';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { NavLink, Switch, Route,Redirect } from 'dva/router'
-import Text from './text/index'
-import AddText from './addText/index'
-import Classification from './classification/index'
-import SeeText from './seeText/index'
-import EditPage from './editPage/index'
+import Text from './questionmanagement/text/index'
+import AddText from './questionmanagement/addText/index'
+import Classification from './questionmanagement/classification/index'
+import SeeText from './questionmanagement/seeText/index'
+import EditPage from './questionmanagement/editPage/index'
+import Adduser from './usermanagement/adduser'
+import Userdisplay from './usermanagement/userdisplay'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home(props) {
@@ -24,8 +26,8 @@ function Home(props) {
                         <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt="" />
                     </div>
                     <div className={styles.userInfo}>
-                        <span className={styles.userImg}></span>
-                        <span>{userName}</span>
+                        <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt="" className={styles.userImg} />
+                        <span style={{cursor: 'pointer'}}>{userName}</span>
                     </div>
                 </Header>
                 <Layout>
@@ -112,6 +114,8 @@ function Home(props) {
                                 <Route path="/home/seeText" component={SeeText}></Route>
                                 <Route path="/home/pending" component={Text}></Route>
                                 <Route path="/home/editPage" component={EditPage}></Route>
+                                <Route path="/home/adduser" component={Adduser}></Route>
+                                <Route path="/home/userdisplay" component={Userdisplay}></Route>
                                 <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
                         </Content>

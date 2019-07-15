@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Input, Select, Form, Button, Modal, message } from 'antd';
+import { Input, Select, Form, Button, Modal, message, Tag } from 'antd';
 import styles from './index.scss'
 import Editor from 'for-editor';
 const { Option } = Select;
@@ -9,7 +9,7 @@ function EditPage(props) {
     const { edit } = props;
     const { getFieldDecorator } = props.form;
     let { ViewList, SubList, ExamList, TypeList, updataErroe } = props;
-    console.log()
+    // console.log(edit)
     //提交按钮
     function showConfirm(e) {
         confirm({
@@ -18,18 +18,23 @@ function EditPage(props) {
             onOktitle: "确定",
             onOk() {
                 props.form.validateFields((err, values) => {
+                    console.log(values)
                     if (!err) {
                         let exam = {
                             ...values,
-                            questions_id:props.edit.questions_id,
+                            questions_id: props.edit.questions_id,
+                            title: values.titleText,
+                            questions_stem: values.value,
+                            questions_answer: values.valueowen,
+                            subject_id: values.subject_id,
+                            questions_type_id: values.questions_type_id,
+                            exam_id: values.exam_id
                         }
+                        console.log(exam)
                         props.upDataQuestions(exam)
                     }
                 })
-                if(updataErroe==='权限不足，无法更新'){
-                     message.success('权限不足，无法更新')
-                }
-
+                message.success(updataErroe)
             },
             onCancel() {
                 confirm({
@@ -77,7 +82,7 @@ function EditPage(props) {
                                 <Select style={{ width: 120 }}>
                                     {
                                         TypeList && TypeList.map(Item => {
-                                            return <Option key={Item.exam_id}>{Item.exam_name}</Option>
+                                            return <Option key={Item.exam_id} value={Item.exam_id}>{Item.exam_name}</Option>
                                         })
                                     }
                                 </Select>
@@ -87,14 +92,14 @@ function EditPage(props) {
                     <div>
                         <p>请选择课程类型：</p>
                         <Form.Item>
-                            {getFieldDecorator('exam_id', {
+                            {getFieldDecorator('subject_id', {
                                 rules: [{ required: true, message: "题目类型必填" }],
                                 initialValue: edit.subject_text,
                             })(
                                 <Select style={{ width: 120 }}>
                                     {
                                         SubList && SubList.map(Item => {
-                                            return <Option key={Item.subject_id}>{Item.subject_text}</Option>
+                                            return <Option key={Item.subject_id} value={Item.subject_id}>{Item.subject_text}</Option>
                                         })
                                     }
                                 </Select>
@@ -104,14 +109,14 @@ function EditPage(props) {
                     <div>
                         <p>请选择题目类型：</p>
                         <Form.Item>
-                            {getFieldDecorator('exam_id', {
+                            {getFieldDecorator('questions_type_id', {
                                 rules: [{ required: true, message: "题目类型必填" }],
                                 initialValue: edit.questions_type_text,
                             })(
                                 <Select style={{ width: 120 }}>
                                     {
                                         ExamList && ExamList.map(Item => {
-                                            return <Option key={Item.questions_type_id}>{Item.questions_type_text}</Option>
+                                            return <Option key={Item.questions_type_id} value={Item.questions_type_id}>{Item.questions_type_text}</Option>
                                         })
                                     }
                                 </Select>
@@ -121,11 +126,11 @@ function EditPage(props) {
                     <div>
                         <p>答案信息</p>
                         <Form.Item>
-                            {getFieldDecorator('value', {
+                            {getFieldDecorator('valueowen', {
                                 rules: [{ required: true, message: "答案信息必填" }],
                                 initialValue: edit.questions_answer,
                             })(
-                                <Editor height='auto' />
+                                <Editor height='auto'/>
                             )}
                         </Form.Item>
                     </div>
