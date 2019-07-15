@@ -64,12 +64,12 @@ function SeeText(props) {
 
   // //全部
   let chooseAll = (e) => {
-  //   //     let arr=Array.from(e.target.parentNode.childNodes)
-  //   //     arr.map(item => {
-  //   //       item.className = "";
-  //   //     });
-  //   //     e.target.className=styles.active
-   }
+    //   //     let arr=Array.from(e.target.parentNode.childNodes)
+    //   //     arr.map(item => {
+    //   //       item.className = "";
+    //   //     });
+    //   //     e.target.className=styles.active
+  }
   return (
     <div className={styles.boxs}>
       <div className={styles.title}>查看试题</div>
@@ -77,7 +77,7 @@ function SeeText(props) {
         <div className={styles.top_Top}>
           <div >
             <span className={styles.top_Span}>课程类型:</span>
-            <span onClick={chooseAll}>All</span>
+            <span onClick={chooseAll} >All</span>
             {/* {subjectList.map(tag => (
               <CheckableTag
                 key={item}
@@ -89,7 +89,7 @@ function SeeText(props) {
             ))} */}
             {
               subjectList && subjectList.map((item, index) => {
-                return <li className={styles.li}
+                return <li className={styles.li }
                   key={item.subject_id}
                   onClick={() => handleSub(item.subject_id, index)}
                 >{item.subject_text} </li>
@@ -98,114 +98,114 @@ function SeeText(props) {
             }
           </div>
         </div>
-          <div className={styles.top_Bom}>
-            <div className={styles.Bom_item}>
-              <p>考试类型</p>
-              <Select
-                onChange={handleChange}
-                style={{ width: 150, margin: 15, height: 35 }}>
-                {
-                  examTypeList && examTypeList.map((item) => {
-                    return <Option key={item.exam_id}
-                      value={item.exam_id}
-                    >{item.exam_name}</Option>
-                  })
-                }
-              </Select>
-            </div>
-            <div className={styles.Bom_item}>
-              <p>题目类型</p>
-              <Select
-                onChange={handleChangeId}
-                style={{ width: 150, margin: 15, height: 35 }}>
-                {
-                  ExamList && ExamList.map((item) => {
-                    return <Option key={item.questions_type_id}
-                      value={item.questions_type_id}
-
-                    >{item.questions_type_text}</Option>
-                  })
-                }
-              </Select>
-            </div>
-            <Button className={styles.Btn} style={{ width: 150, margin: 15 }} onClick={() => handleFind()} type="primary">查询</Button>
+        <div className={styles.top_Bom}>
+          <div className={styles.Bom_item}>
+            <p>考试类型</p>
+            <Select
+              onChange={handleChange}
+              style={{ width: 150, margin: 15, height: 35 }}>
+              {
+                examTypeList && examTypeList.map((item) => {
+                  return <Option key={item.exam_id}
+                    value={item.exam_id}
+                  >{item.exam_name}</Option>
+                })
+              }
+            </Select>
           </div>
-        </div>
-        <div className={styles.center}>
-          {
-            ViewList && ViewList.map((item) => {
-              return <div key={item.questions_id} className={styles.center_Item}>
-                <div className={styles.left} onClick={() => handleClick(item)}>
-                  <div className={styles.Title}>{item.title}</div>
-                  <div className={styles.Item_Box}>
-                    <div className={styles.small_Item}>
-                      <span>{item.questions_type_text}</span>
-                      <span>{item.subject_text}</span>
-                      <span>{item.exam_name}</span>
-                    </div>
-                  </div>
-                  <div className={styles.Item_Name}>{item.user_name}</div>
-                </div>
-                <p className={styles.compile} onClick={() => handelEdit(item)}>编辑</p>
-              </div>
-            })
+          <div className={styles.Bom_item}>
+            <p>题目类型</p>
+            <Select
+              onChange={handleChangeId}
+              style={{ width: 150, margin: 15, height: 35 }}>
+              {
+                ExamList && ExamList.map((item) => {
+                  return <Option key={item.questions_type_id}
+                    value={item.questions_type_id}
 
-          }
+                  >{item.questions_type_text}</Option>
+                })
+              }
+            </Select>
+          </div>
+          <Button className={styles.Btn} style={{ width: 150, margin: 15 }} onClick={() => handleFind()} type="primary">查询</Button>
         </div>
       </div>
-      );
-    }
+      <div className={styles.center}>
+        {
+          ViewList && ViewList.map((item) => {
+            return <div key={item.questions_id} className={styles.center_Item}>
+              <div className={styles.left} onClick={() => handleClick(item)}>
+                <div className={styles.Title}>{item.title}</div>
+                <div className={styles.Item_Box}>
+                  <div className={styles.small_Item}>
+                    <span>{item.questions_type_text}</span>
+                    <span>{item.subject_text}</span>
+                    <span>{item.exam_name}</span>
+                  </div>
+                </div>
+                <div className={styles.Item_Name}>{item.user_name}</div>
+              </div>
+              <p className={styles.compile} onClick={() => handelEdit(item)}>编辑</p>
+            </div>
+          })
+
+        }
+      </div>
+    </div>
+  );
+}
 SeeText.propTypes = {
-      };
+};
 const mapStateToProps = (state) => {
   return {
-        ...state.questions
-      }
-      }
+    ...state.questions
+  }
+}
 const mapDispatchToProps = (dispatch) => {
   return {
-        getClassPage() {
+    getClassPage() {
       dispatch({
         type: "questions/getClassPage"
-    })
-  },
-  //课程类型
+      })
+    },
+    //课程类型
     Subject() {
-        dispatch({
-          type: "questions/Subject"
-        })
-      },
-      //获取所有的考试类型
+      dispatch({
+        type: "questions/Subject"
+      })
+    },
+    //获取所有的考试类型
     examType() {
-        dispatch({
-          type: "questions/examType"
-        })
-      },
-      //所有的试题类型
+      dispatch({
+        type: "questions/examType"
+      })
+    },
+    //所有的试题类型
     getQuestionTypes() {
-        dispatch({
-          type: "questions/getQuestionTypes"
-        })
-      },
+      dispatch({
+        type: "questions/getQuestionTypes"
+      })
+    },
     clickItem(payload) {
-        dispatch({
-          type: "questions/clickItem",
-          payload
-        })
-      },
+      dispatch({
+        type: "questions/clickItem",
+        payload
+      })
+    },
     clickedit(payload) {
-        dispatch({
-          type: "questions/clickedit",
-          payload
-        })
-      },
-      //查询
+      dispatch({
+        type: "questions/clickedit",
+        payload
+      })
+    },
+    //查询
     findList(payload) {
-        dispatch({
-          type: "questions/findList",
-          payload
-        })
-      }
-      }
+      dispatch({
+        type: "questions/findList",
+        payload
+      })
     }
-    export default connect(mapStateToProps, mapDispatchToProps)(SeeText);
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SeeText);
