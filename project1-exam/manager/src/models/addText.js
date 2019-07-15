@@ -30,8 +30,7 @@ export default {
         upDataExam: [],
         allExamtype: [],
         examtypeFlag: {},
-        index: 0,
-        examtypeFlag: {}
+        index: 0
     },
     //订阅
     subscriptions: {
