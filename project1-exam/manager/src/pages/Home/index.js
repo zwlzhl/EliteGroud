@@ -10,6 +10,12 @@ import SeeText from './questionmanagement/seeText/index'
 import EditPage from './questionmanagement/editPage/index'
 import Adduser from './usermanagement/adduser'
 import Userdisplay from './usermanagement/userdisplay'
+import AddExam from './examinationmanagement/addexam'
+import ExaminationPapers from './examinationmanagement/examinationPapers'
+import  Class from './classmanagement/Class'
+import  Classroom from './classmanagement/classroom'
+import  Student from './classmanagement/student'
+import Pendingclass from './markingmanagement/pendingclass';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home(props) {
@@ -73,7 +79,7 @@ function Home(props) {
                                 }
                             >
                                 <Menu.Item key="6"><NavLink to="/home/addExamination">添加考试</NavLink></Menu.Item>
-                                <Menu.Item key="7"><NavLink to="/home/testpaper ">试卷列表</NavLink></Menu.Item>
+                                <Menu.Item key="7"><NavLink to="/home/testpaper">试卷列表</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub4"
@@ -86,7 +92,7 @@ function Home(props) {
                             >
                                 <Menu.Item key="8"><NavLink to="/home/class">班级管理</NavLink></Menu.Item>
                                 <Menu.Item key="9"><NavLink to="/home/classroom">教室展示</NavLink></Menu.Item>
-                                <Menu.Item key="10"><NavLink to="/home/student ">学生展示</NavLink></Menu.Item>
+                                <Menu.Item key="10"><NavLink to="/home/student">学生展示</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub5"
@@ -97,7 +103,7 @@ function Home(props) {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="11"><NavLink to="/home/pending">待批班级</NavLink></Menu.Item>
+                                <Menu.Item key="11"><NavLink to="/home/pendingClass">待批班级</NavLink></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
@@ -116,6 +122,17 @@ function Home(props) {
                                 <Route path="/home/editPage" component={EditPage}></Route>
                                 <Route path="/home/adduser" component={Adduser}></Route>
                                 <Route path="/home/userdisplay" component={Userdisplay}></Route>
+
+                                <Route path="/home/addExamination" component={AddExam}></Route>
+                                <Route path="/home/testpaper" component={ExaminationPapers}></Route>
+
+                                <Route path="/home/class" component={Class}></Route>
+                                <Route path="/home/classroom" component={Classroom}></Route>
+                                <Route path="/home/student" component={Student}></Route>
+                                <Route path="/home/pendingClass" component={Pendingclass}></Route>
+
+
+
                                 <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
                         </Content>
