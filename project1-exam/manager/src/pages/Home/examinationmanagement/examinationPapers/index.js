@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Tabs, Table, Select, Button } from 'antd'
+import {Table, Select, Button } from 'antd'
 const { Option } = Select
 
-const { TabPane } = Tabs
 function ExaminationPapers(props) {
     useEffect(() => {
         props.getexamlist()
@@ -12,11 +11,9 @@ function ExaminationPapers(props) {
         props.examType()
         props.findList()
     }, [])
-    const [start_time, getStart] = useState('');
-    const [end_time, getEnd] = useState('');
     let [subject_id, upSubject] = useState('');
     let [exam_id, upExam_id] = useState('');
-    const { examTypeList, subjectList, examlistData ,ViewList} = props;
+    const { examTypeList, subjectList, examlistData} = props;
     // console.log(getexam_id)
 
     const datalist = [
@@ -97,21 +94,7 @@ function ExaminationPapers(props) {
                         <span>已结束</span>
                     </h1>
                 </div>
-                <Table columns={datalist}/>
-                {
-                    ViewList&&ViewList.map(item=>{
-                          
-                    })
-                }
-                {/* { examlistData&&examlistData.map(item=>{
-                    //   item.grade_id.map(y=>{
-                    //      console.log(y)
-                    //   })
-                    //  item.grade_name.map
-                    //   item.room_id
-                    //   item.subject_id,
-                    //   item.room_text
-                   })} */}
+                <Table columns={datalist} dataSource={examlistData}   />
 
             </div>
         </div>
