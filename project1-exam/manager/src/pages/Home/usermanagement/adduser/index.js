@@ -12,7 +12,7 @@ function addUsers(props) {
     //用户数据、用户标识
     let { identityData, userUserData, viewAuthorityData, apiAuthorityData } = props.usermanagement
     //console.log(apiAuthorityData, "apiAuthorityData.......")
-    console.log(props, "props......")
+    // console.log(props, "props......")
     
     let [adup, upAdup] = useState(true);
     let { getFieldDecorator } = props.form;
@@ -40,7 +40,7 @@ function addUsers(props) {
     //点击更新用户
     let updateUser = () => {
         props.form.validateFields((err, value) => {
-            console.log(value, "undata....")
+            // console.log(value, "undata....")
         })
     }
     return (

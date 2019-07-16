@@ -18,7 +18,7 @@ export function examType() {
 }
 //获取试卷列表
 export function  getexamlist(){
-    return request.get('/exam/exam')
+     return request.get('/exam/exam')
     // return request({
     //     url:"/exam/exam",
     //     method:"GET"

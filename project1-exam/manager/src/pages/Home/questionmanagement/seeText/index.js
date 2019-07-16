@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import { Select, Button, Tag } from 'antd';
 import styles from './index.scss'
 const { Option } = Select;
-const { CheckableTag } = Tag;
 function SeeText(props) {
   useEffect(() => {
     props.getClassPage();

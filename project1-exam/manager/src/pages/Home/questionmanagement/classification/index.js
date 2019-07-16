@@ -61,10 +61,9 @@ function Classification(props) {
             okText="确定"
           >
             <Form onSubmit={handleSubmit}>
-
               <Form.Item>
                 {getFieldDecorator('title', {
-                  rules: [{ required: true, message: '请输入类型名称' }],
+                  rules: [{ required: true, message: '请输入类型名称'}],
                 })(
                   <Input
                     placeholder="请输入类型名称"

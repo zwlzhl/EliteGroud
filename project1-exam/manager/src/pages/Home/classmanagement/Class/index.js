@@ -28,8 +28,10 @@ function Class(props) {
         ]
     useEffect(() => {
         //获取用户信息
-
+            props.addClass()
     }, [])
+    const {classList}=props;
+    console.log(classList)
     let [showModal, unshowModal] = useState(false);
     const { getFieldDecorator } = props.form;
     let modalShow = () => {
@@ -42,9 +44,12 @@ function Class(props) {
     let handleOk = () => { 
         unshowModal(false)
     }
+    let handelInput=()=>{
+
+    }
     return (
         <div className={styles.wrap}>
-            <Button type="primary" onClick={modalShow} className={styles.button}>+   添加班级 </Button>
+            <Button type="primary" onClick={modalShow} className={styles.button}>+ 添加班级 </Button>
             <Modal
                 visible={showModal}
                 onCancel={handleCacel}
@@ -57,7 +62,7 @@ function Class(props) {
                 <Form.Item label="班级名">
                     {getFieldDecorator('班级名', {
                         rules: [{ required: true, message: 'Please input the title of collection!' }],
-                    })(<Input  placeholder="班级名"/>)}
+                    })(<Input onChange={handelInput} placeholder="班级名"/>)}
                 </Form.Item>
                 <Form.Item label="教室号">
                     <Select defaultValue="请选择教室号" style={{ width: 470 }}>
@@ -78,12 +83,17 @@ Class.propTypes = {
 };
 const mapStateToProps = state => {
     return {
-        ...state
+        ...state.classmanagement
     }
 }
 const mapDispachToProps = dispatch => {
     return {
-
+        addClass(payload){
+            dispatch({
+                type:'classmanagement/addClass',
+                payload
+            })
+        }
     }
 }
 export default connect(mapStateToProps, mapDispachToProps)(Form.create()(Class));
