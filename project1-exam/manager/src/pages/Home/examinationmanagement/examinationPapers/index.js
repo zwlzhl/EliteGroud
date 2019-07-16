@@ -34,6 +34,7 @@ function ExaminationPapers(props) {
             dataIndex: "end_time"
         }, {
             title: "操作",
+            render: ()=><a>详情</a>
         }
     ]
     //改变考试类型

@@ -16,6 +16,8 @@ import  Class from './classmanagement/Class'
 import  Classroom from './classmanagement/classroom'
 import  Student from './classmanagement/student'
 import Pendingclass from './markingmanagement/pendingclass';
+import Classmate from './markingmanagement/classmate/index';
+import Marking from './markingmanagement/marking/index';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home(props) {
@@ -130,8 +132,8 @@ function Home(props) {
                                 <Route path="/home/classroom" component={Classroom}></Route>
                                 <Route path="/home/student" component={Student}></Route>
                                 <Route path="/home/pendingClass" component={Pendingclass}></Route>
-
-
+                                <Route path="/home/classmate" component={Classmate}></Route>
+                                <Route path="/home/marking" component={Marking}></Route>
 
                                 <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
