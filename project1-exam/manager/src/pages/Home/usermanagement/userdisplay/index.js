@@ -84,19 +84,18 @@ function Userdisplay(props) {
             dataIndex: "view_id"
         }
     ]
-    // console.log(props)
     return (
         <div>
             <div className={styles.container}>
                 <h2>用户展示</h2>
                 <div className="card-container">
-                    <Tabs type="card" rowKey='1'>
+                    <Tabs type="card" >
                         <TabPane tab="用户数据" key="1">
                             <h1>用户数据</h1>
                             <Table
                                 columns={userColumns}
                                 dataSource={props.userList && props.userList}
-
+                                rowKey='user_id'
                             />
                         </TabPane>
                         <TabPane tab="身份数据" key="2">
@@ -104,7 +103,7 @@ function Userdisplay(props) {
                             <Table
                                 columns={identityColumns}
                                 dataSource={props.identityList && props.identityList}
-
+                                rowKey='identity_id'
                             />
                         </TabPane>
                         <TabPane tab="api接口权限" key="3">
@@ -112,7 +111,7 @@ function Userdisplay(props) {
                             <Table
                                 columns={apiAuthorityColumns}
                                 dataSource={props.apiAuthorityList && props.apiAuthorityList}
-
+                                rowKey='api_authority_id'
                             />
                         </TabPane>
                         <TabPane tab="身份和api权限关系" key="4">
@@ -120,7 +119,7 @@ function Userdisplay(props) {
                             <Table
                                 columns={apiAuthorityDataColumns}
                                 dataSource={props.apiAuthorityDataList && props.apiAuthorityDataList}
-
+                                rowKey='identity_api_authority_relation_id'
                             />
                         </TabPane>
                         <TabPane tab="视图接口权限" key="5">
@@ -128,7 +127,7 @@ function Userdisplay(props) {
                             <Table
                                 columns={getviewuthorityColumns}
                                 dataSource={props.getviewuthorityList && props.getviewuthorityList}
-
+                                rowKey='view_id'
                             />
                         </TabPane>
                         <TabPane tab="身份和视图权限关系" key="6">
@@ -136,11 +135,10 @@ function Userdisplay(props) {
                             <Table
                                 columns={identityRelationColumns}
                                 dataSource={props.identityRelationList && props.identityRelationList}
-
+                                rowKey='view_id'
                             />
                         </TabPane>
                     </Tabs>
-
                 </div>
             </div>
         </div>

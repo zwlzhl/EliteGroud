@@ -1,5 +1,5 @@
 import {
-  getexamlist, examType, Subject,findList
+  getexamlist, examType, Subject, findList
 } from '../services/examinationmanagement'
 //考试管理
 export default {
@@ -10,7 +10,7 @@ export default {
     examlistData: [],
     examTypeList: [],
     subjectList: [],
-    ViewList:[]
+    ViewList: []
   },
   //订阅
   subscriptions: {
@@ -36,8 +36,9 @@ export default {
       })
     },
     //获取试卷列表接口
-    *getexamlist({ }, { call, put }) {
+    *getexamlist({ payload }, { call, put }) {
       let data = yield call(getexamlist)
+      console.log("试卷列表......",data)
       yield put({
         type: "examlist",
         payload: data.exam
@@ -48,14 +49,15 @@ export default {
       let data = yield call(findList, payload);
       // console.log(data.data)
       yield put({
-          type: "findData",
-          payload: data.data
+        type: "findData",
+        payload: data.data
       })
-  },
+    },
   },
   //同步操作
   reducers: {
     examlist(state, { payload }) {
+      console.log(payload, '数据.....')
       return { ...state, examlistData: payload }
     },
     subjectL(state, { payload }) {
@@ -66,8 +68,8 @@ export default {
     },
     findData(state, { payload }) {
       return { ...state, ViewList: payload }
-  },
-    
+    },
+
   }
 
 };

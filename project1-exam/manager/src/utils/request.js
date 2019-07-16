@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {getToken} from '@/utils/index'
-import { message } from 'antd';
+// import { message } from 'antd';
 
 // create an axios instance
 const service = axios.create({

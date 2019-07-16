@@ -7,6 +7,7 @@ const { Option } = Select
 const { TabPane } = Tabs
 function ExaminationPapers(props) {
     useEffect(() => {
+        
         props.getexamlist()
         props.Subject()
         props.examType()
@@ -16,13 +17,13 @@ function ExaminationPapers(props) {
     const [end_time, getEnd] = useState('');
     let [subject_id, upSubject] = useState('');
     let [exam_id, upExam_id] = useState('');
-    const { examTypeList, subjectList, examlistData ,ViewList} = props;
-    // console.log(getexam_id)
+    const { examTypeList, subjectList, examlistData } = props;
+     console.log(examlistData)
 
     const datalist = [
         {
             title: "试卷信息",
-            dataIndex: "room_text"
+            dataIndex: "title"
         }, {
             title: "班级",
             dataIndex: "grade_name"
@@ -49,7 +50,7 @@ function ExaminationPapers(props) {
     }
 
     let handleFind = () => {
-        props.findList({exam_id,subject_id})
+        props.findList({ exam_id, subject_id })
     }
     return (
         <div>
@@ -97,20 +98,17 @@ function ExaminationPapers(props) {
                         <span>已结束</span>
                     </h1>
                 </div>
-                <Table columns={datalist}/>
-                {
-                    ViewList&&ViewList.map(item=>{
-                          
-                    })
-                }
-                {/* { examlistData&&examlistData.map(item=>{
-                    //   item.grade_id.map(y=>{
-                    //      console.log(y)
-                    //   })
-                    //  item.grade_name.map
-                    //   item.room_id
-                    //   item.subject_id,
-                    //   item.room_text
+                
+                <Table columns={datalist} dataSource={examlistData}   />
+               {console.log(examlistData)} 
+                {/* {  examlistData.map(item=>{
+                      item.grade_id.map(y=>{
+                         console.log(y)
+                      })
+                     item.grade_name.map
+                      item.room_id
+                      item.subject_id,
+                      item.room_text
                    })} */}
 
             </div>
@@ -141,9 +139,9 @@ const mapDispachToProps = dispatch => {
                 type: "examinationmanagement/Subject"
             })
         },
-        findList(){
+        findList() {
             dispatch({
-                type:"examinationmanagement/findList"
+                type: "examinationmanagement/findList"
             })
         }
     }

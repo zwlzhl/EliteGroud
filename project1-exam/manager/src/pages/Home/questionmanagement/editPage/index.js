@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Input, Select, Form, Button, Modal, message, Tag } from 'antd';
+import { Input, Select, Form, Button, Modal, message} from 'antd';
 import styles from './index.scss'
 import Editor from 'for-editor';
 const { Option } = Select;
@@ -8,7 +8,7 @@ const { confirm } = Modal;
 function EditPage(props) {
     const { edit } = props;
     const { getFieldDecorator } = props.form;
-    let { ViewList, SubList, ExamList, TypeList, updataErroe } = props;
+    let {SubList, ExamList, TypeList, updataErroe } = props;
     // console.log(edit)
     //提交按钮
     function showConfirm(e) {
