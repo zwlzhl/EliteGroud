@@ -90,7 +90,7 @@ function Userdisplay(props) {
             <div className={styles.container}>
                 <h2>用户展示</h2>
                 <div className="card-container">
-                    <Tabs type="card" rowKey='1'>
+                    <Tabs type="card" >
                         <TabPane tab="用户数据" key="1">
                             <h1>用户数据</h1>
                             <Table
@@ -136,7 +136,7 @@ function Userdisplay(props) {
                             <Table
                                 columns={identityRelationColumns}
                                 dataSource={props.identityRelationList && props.identityRelationList}
-
+                                
                             />
                         </TabPane>
                     </Tabs>

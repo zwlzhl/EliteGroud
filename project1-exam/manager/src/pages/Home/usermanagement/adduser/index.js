@@ -8,12 +8,12 @@ function addUsers(props) {
     useEffect(() => {
         props.userIdentity()
     }, [])
-    
+
     //用户数据、用户标识
     let { identityData, userUserData, viewAuthorityData, apiAuthorityData } = props.usermanagement
     //console.log(apiAuthorityData, "apiAuthorityData.......")
     console.log(props, "props......")
-    
+
     let [adup, upAdup] = useState(true);
     let { getFieldDecorator } = props.form;
     let changeActive = e => {
@@ -26,15 +26,22 @@ function addUsers(props) {
             e.target.className = styles.active;
             e.target.nextSibling.className = '';
         }
+    } 
+    let handleSubmit = () => {
+        addUser()
     }
     //点击添加用户
     let addUser = () => {
         props.form.validateFields((err, value) => {
-            props.addUserUser({
-                user_name: value.username,
-                user_pwd: value.password,
-                identity_id: value.identity
-            })
+            console.log(err)
+            if (!err) {
+                props.addUserUser({
+                    user_name: value.username,
+                    user_pwd: value.password,
+                    identity_id: value.identity
+                })
+            }
+
         })
     }
     //点击更新用户
@@ -43,11 +50,12 @@ function addUsers(props) {
             console.log(value, "undata....")
         })
     }
+
     return (
         <div className="add">
             <h3>添加用户</h3>
             <div className="content">
-                <Form className={styles.wrap}>
+                <Form className={styles.wrap} onSubmit={handleSubmit}>
                     <Form-Item class={styles.wrap_item}>
                         <div className={styles.tits} onClick={changeActive}>
                             <p className={adup ? styles.active : null}>添加用户</p>
@@ -85,7 +93,7 @@ function addUsers(props) {
                                     )
                                 }
                                 <div className={styles.btns}>
-                                    <Button className={styles.sure} onClick={addUser}>确定</Button>
+                                    <Button className={styles.sure} onClick={addUser} htmlType="submit">确定</Button>
                                     <Button className={styles.reset}>重置</Button>
                                 </div>
                             </div> : <div className={styles.item_box}>
@@ -134,7 +142,7 @@ function addUsers(props) {
                                         )
                                     }
                                     <div className={styles.btns}>
-                                        <Button className={styles.sure} onClick={updateUser}>确定</Button>
+                                        <Button className={styles.sure} onClick={updateUser} htmlType="submit">确定</Button>
                                         <Button className={styles.reset}>重置</Button>
                                     </div>
                                 </div>
@@ -153,7 +161,7 @@ function addUsers(props) {
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure}>确定</Button>
+                                <Button className={styles.sure} htmlType="submit">确定</Button>
                                 <Button className={styles.reset}>重置</Button>
                             </div>
                         </div>
@@ -185,7 +193,7 @@ function addUsers(props) {
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure}>确定</Button>
+                                <Button className={styles.sure} htmlType="submit">确定</Button>
                                 <Button className={styles.reset}>重置</Button>
                             </div>
                         </div>
@@ -211,7 +219,7 @@ function addUsers(props) {
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure}>确定</Button>
+                                <Button className={styles.sure} htmlType="submit" >确定</Button>
                                 <Button className={styles.reset}>重置</Button>
                             </div>
                         </div>
@@ -252,7 +260,7 @@ function addUsers(props) {
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure}>确定</Button>
+                                <Button className={styles.sure} htmlType="submit">确定</Button>
                                 <Button className={styles.reset}>重置</Button>
                             </div>
                         </div>
@@ -293,7 +301,7 @@ function addUsers(props) {
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure}>确定</Button>
+                                <Button className={styles.sure} htmlType="submit">确定</Button>
                                 <Button className={styles.reset}>重置</Button>
                             </div>
                         </div>
