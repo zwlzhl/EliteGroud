@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import { Table, Modal, Form, Input, Button, message } from 'antd'
+import { injectIntl } from 'react-intl'
 // import axios from 'axios'
 import styles from './index.scss'
 function Classification(props) {
@@ -46,7 +47,7 @@ function Classification(props) {
   }
   return (
     <div className={styles.main}>
-      <h2 className={styles.titType}>试题分类</h2>
+      <h2 className={styles.titType}>{props.intl.formatMessage({ id: 'questions.type.title' })} </h2>
       <div className={styles.typesContent}>
         <div className={styles.btn}>
 
@@ -107,5 +108,5 @@ const mapDispatchToProps = (dispatch) => {
 
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Classification));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(Classification)));
 

@@ -33,3 +33,13 @@ export function findList(params) {
         params
     })
 }
+
+//创建试卷
+ export function createPage (params){
+     return request.post('/exam/exam',params)
+ }
+
+ //删除接口
+ export function getdelete(){
+     return  request.delete('/exam/exam/w5tcy-g2dts')
+ }

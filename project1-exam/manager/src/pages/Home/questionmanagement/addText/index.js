@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import Editor from 'for-editor'
 import { Input, Select, Button, Form, message, Modal, Spin } from 'antd';
 import styles from './index.scss'
-
+import {injectIntl} from 'react-intl'
 const { Option } = Select;
 function AddText(props) {
   //获取考试、课程、题目数据
@@ -191,5 +191,5 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddText));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(AddText)));
 
