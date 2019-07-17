@@ -8,7 +8,11 @@ export function getStudentList() {
 export function getStudentData(params) {
     return request.get("/exam/student", {params})
 }
-//提交阅卷
-export function submitStudent() {
+//获取试题详情
+export function getStudent() {
     return request.get("/exam/student/t27znv-gu7azm-qpq9ai-laaf9m")
+}
+//提交阅卷
+export function submitNumber(params) {
+    return request.put("/exam/student/t27znv-gu7azm-qpq9ai-laaf9m", {params})
 }

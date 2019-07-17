@@ -2,7 +2,8 @@
 import {
   getStudentList,
   getStudentData,
-  submitStudent
+  getStudent,
+  submitNumber
 } from '../services/markingmanagement.js'
 export default {
     //命名空间
@@ -11,7 +12,9 @@ export default {
     state: {
       studentList: [],
       approvalList: [],
-      submitStudentList: {}
+      submitStudentList: {},
+      studentDetaillist: [],
+      number: 0
     },
     //订阅
     subscriptions: {
@@ -41,10 +44,19 @@ export default {
           payload: approvalData
         })
       },
+      //获取学生试题详情
+      *getStudent({payload}, {call, put}) {
+        let detailStudent = yield call(getStudent)
+        console.log(detailStudent, "detail.....")
+        yield put({
+          type: "getstudentdetail",
+          payload: detailStudent
+        })
+      },
       //提交阅卷
       *submitStudent({payload}, {call, put}) {
-        let submitData = yield call(submitStudent)
-        console.log(submitData, "submitData..........")
+        let submitData = yield call( submitNumber,payload)
+        //console.log(submitData, "submitData..........")
         yield put({
           type: "submitstudent",
           payload:submitData
@@ -68,6 +80,13 @@ export default {
         return {
           ...state,
           approvalList: action.payload.exam
+        }
+      },
+      //获取学生试题详情
+      getstudentdetail(state, action) {
+        return {
+          ...state,
+          studentDetaillist: action.payload.data
         }
       },
       //提交阅卷

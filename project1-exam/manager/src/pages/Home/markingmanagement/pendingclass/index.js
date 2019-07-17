@@ -6,9 +6,9 @@ function Pending(props) {
     useEffect(()=>{
         props.getStudentList()
     },[])
-    console.log(props, "yuejaun......")
+    //console.log(props, "yuejaun......")
     let {studentList} = props.markingmanagement
-    console.log(studentList, "studentList.....")
+    //console.log(studentList, "studentList.....")
     const columns = [
         {
             title: '班级名',

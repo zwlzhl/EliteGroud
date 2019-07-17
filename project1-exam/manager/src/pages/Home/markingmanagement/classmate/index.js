@@ -6,13 +6,6 @@ const { Option } = Select
 function Classmate(props) {
     let name = props.location.search.split("&&")[1].split("=")[1]
     let {approvalList} = props.markingmanagement
-    approvalList.map(item=>{
-        if(item.status === 0) {
-            return "未阅"
-        } else {
-            return "已阅"
-        }
-    })
     //console.log(approvalList, "status.....")
     const columns = [
         {
@@ -90,7 +83,7 @@ function Classmate(props) {
                 </Form>
                 <div className={styles.cont}>
                     <h4>试题列表</h4>
-                    <Table columns={columns} dataSource={approvalList} rowKey={approvalList.student_id} />
+                    <Table columns={columns} dataSource={approvalList} />
                 </div>
             </div>
         </div>

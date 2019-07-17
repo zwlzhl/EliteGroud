@@ -1,12 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
 import { Form, Slider, Button } from "antd";
 function Marking(props) {
     useEffect(() => {
-        props.submitStudent()
+        props.getStudent()
     }, [])
     console.log(props, "props.......")
+    //let a = props.markingmanagement.number
+    const [state, setstate] = useState(0)
+    let sliderChange = (value) =>{
+       setstate(value)
+    }
+    let submitNumber = () =>{
+        props.submitStudent({
+            score: state
+        })
+    }
     return (
         <div className={styles.wrap}>
             <h2>阅卷</h2>
@@ -14,13 +24,12 @@ function Marking(props) {
                 <div className={styles.left}></div>
                 <div className={styles.right}>
                     <Form>
-                        <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-                            <h2>得分: <span>25</span></h2>
-                            <Slider defaultValue={0} className={styles.slider}/>
-                            <Button type="primary" htmlType="submit">确定</Button>
+                        <h2>得分: <span className={styles.span}>{state}</span></h2>
+                        <Form.Item>
+                            <Slider defaultValue={0} className={styles.slider} onChange={(value)=>sliderChange(value)} />
+                            <Button type="primary" htmlType="submit" className={styles.button} onClick={submitNumber}>确定</Button>
                         </Form.Item>
                     </Form>
-                    
                 </div>
             </div>
 
@@ -37,6 +46,12 @@ const mapStateToProps = state => {
 }
 const mapDispachToProps = dispatch => {
     return {
+        getStudent:payload=>{
+            dispatch({
+                type: "markingmanagement/getStudent"
+            })
+        },
+        //提交批卷
         submitStudent: payload => {
             dispatch({
                 type: "markingmanagement/submitStudent",
