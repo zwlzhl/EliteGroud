@@ -12,22 +12,7 @@ function ExaminationPapers(props) {
         props.examType()
         props.findList()
     }, [])
-    // 计算考试时间
-    function computTime(obj) {
-        let startTime = obj.start_time * 1;
-        let endTime = obj.end_time * 1;
-        let newTime = endTime - startTime;
-        //计算出小时数
-        var leave1 = newTime % (24 * 3600 * 1000);
-        var hours = Math.floor(leave1 / (3600 * 1000));
-        //计算相差分钟数
-        var leave2 = leave1 % (3600 * 1000);
-        var minutes = Math.floor(leave2 / (60 * 1000));
-        //计算相差秒数
-        var leave3 = leave2 % (60 * 1000);
-        var seconds = Math.round(leave3 / 1000);
-        return hours + ":" + minutes + ":" + seconds;
-    }
+    
     let [subject_id, upSubject] = useState('');
     let [exam_id, upExam_id] = useState('');
     const { examTypeList, subjectList, examlistData } = props;
@@ -82,6 +67,22 @@ function ExaminationPapers(props) {
                 <Link to={{ pathname: '/home/examdetail', detail: { item: p }, params: `id=${p.exam_exam_id}` }}>详情</Link>
         }
     ]
+    // 计算考试时间
+    function computTime(obj) {
+        let startTime = obj.start_time * 1;
+        let endTime = obj.end_time * 1;
+        let newTime = endTime - startTime;
+        //计算出小时数
+        var leave1 = newTime % (24 * 3600 * 1000);
+        var hours = Math.floor(leave1 / (3600 * 1000));
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000);
+        var minutes = Math.floor(leave2 / (60 * 1000));
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000);
+        var seconds = Math.round(leave3 / 1000);
+        return hours + ":" + minutes + ":" + seconds;
+    }
     //改变考试类型
     let handleChange = (value) => {
         upExam_id(exam_id = value);

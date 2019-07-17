@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
 import { Link } from 'dva/router'
-import { Input, Select, Form, Button, DatePicker, InputNumber } from 'antd'
+import { Input, Select, Form, Button, DatePicker, InputNumber,Drawer } from 'antd'
 // const { MonthPicker, RangePicker } = DatePicker;
 const { Option } = Select
 function Addexam(props) {
