@@ -16,19 +16,20 @@ export default {
     },
     //异步操作
     effects: {
+      //添加班级接口
       *addClass({ payload }, { call, put }) {  // eslint-disable-line
-        console.log(payload)
         let data=yield call(addClass,payload)
-        console.log(data,88888888888)
+        console.log(data)
         yield put(
           { 
             type: 'save' ,
-            payload:data
+            payload:data.data
         });
       },
       //所有的教室号
       *allclass({},{call,put}){
           let data=yield call(allclass);
+          console.log(data)
           yield put ({
             type:"allclassData",
             payload:data.data
@@ -46,6 +47,7 @@ export default {
     //同步操作
     reducers: {
       save(state, action) {
+        console.log(7777777777)
         return { ...state, classList:action.payload };
       },
       allclassData(state,{payload}){

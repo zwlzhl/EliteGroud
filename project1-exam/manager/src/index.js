@@ -23,6 +23,8 @@ app.model(require('./models/examinationmanagement').default)
 app.model(require('./models/classmanagement').default)
 app.model(require('./models/markingmanagement').default)
 
+app.model(require('./models/global').default)
+
 // 4. Router
 app.router(require('./router').default);
 

@@ -11,11 +11,15 @@ import EditPage from './questionmanagement/editPage/index'
 import Adduser from './usermanagement/adduser'
 import Userdisplay from './usermanagement/userdisplay'
 import AddExam from './examinationmanagement/addexam'
+import CreatePage from './examinationmanagement/createPage'
 import ExaminationPapers from './examinationmanagement/examinationPapers'
 import  Class from './classmanagement/Class'
 import  Classroom from './classmanagement/classroom'
 import  Student from './classmanagement/student'
 import Pendingclass from './markingmanagement/pendingclass';
+
+import Examdetail from './examinationmanagement/examdetail'
+import {injectIntl} from 'react-intl'
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 function Home(props) {
@@ -31,6 +35,7 @@ function Home(props) {
                     <div className={styles.login}>
                         <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt="" />
                     </div>
+                    <button onClick={()=>props.changeLocale(props.intl.locale=='en'?'zh':'en')}>{props.intl.locale=='en'?'英文':'中文'}</button>
                     <div className={styles.userInfo}>
                         <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt="" className={styles.userImg} />
                         <span style={{cursor: 'pointer'}}>{userName}</span>
@@ -49,13 +54,13 @@ function Home(props) {
                                 title={
                                     <span>
                                         <Icon type="mail" />
-                                        <span>试题管理</span>
+                                        <span>{props.intl.formatMessage({id: 'router.questions'})}</span>
                                     </span>
                                 }
                             >
-                                <Menu.Item key="1"><NavLink to="/home/addText">添加试题</NavLink></Menu.Item>
-                                <Menu.Item key="2"><NavLink to="/home/classification">试题分类</NavLink></Menu.Item>
-                                <Menu.Item key="3"><NavLink to="/home/seeText">查看试题</NavLink></Menu.Item>
+                                <Menu.Item key="1"><NavLink to="/home/addText">{props.intl.formatMessage({id: 'router.questions.add'})}</NavLink></Menu.Item>
+                                <Menu.Item key="2"><NavLink to="/home/classification">{props.intl.formatMessage({id: 'router.questions.view'})}</NavLink></Menu.Item>
+                                <Menu.Item key="3"><NavLink to="/home/seeText">{props.intl.formatMessage({id: 'router.questions.type'})}</NavLink></Menu.Item>
                             </SubMenu>
                             <SubMenu
                                 key="sub2"
@@ -124,7 +129,9 @@ function Home(props) {
                                 <Route path="/home/userdisplay" component={Userdisplay}></Route>
 
                                 <Route path="/home/addExamination" component={AddExam}></Route>
+                                <Route path="/home/createPage" component={CreatePage}></Route>
                                 <Route path="/home/testpaper" component={ExaminationPapers}></Route>
+                                <Route path="/home/examdetail" component={Examdetail}></Route>
 
                                 <Route path="/home/class" component={Class}></Route>
                                 <Route path="/home/classroom" component={Classroom}></Route>
@@ -156,7 +163,13 @@ const mapDispachToProps = dispatch =>{
                 type: "login/getUserInfo",
                 payload
             })
+        },
+        changeLocale(payload){
+            dispatch({
+                type:'global/updateLocale',
+                payload
+            })
         }
     }
 }
-export default connect(mapStateToProps, mapDispachToProps)(Home);
+export default  injectIntl(connect(mapStateToProps, mapDispachToProps)(Home));
