@@ -33,6 +33,10 @@ export default {
             }))
           }
         }
+        //   // 获取用户信息
+        // dispatch({
+        //   type: 'getUserInfo'
+        // })
       });
     },
   },

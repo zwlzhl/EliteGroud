@@ -43,3 +43,9 @@ export function findList(params) {
  export function getdelete(){
      return  request.delete('/exam/exam/w5tcy-g2dts')
  }
+
+ //获取详情列表
+
+ export default function getDetail (){
+    //  return request.get('/exam/exam/w5tcy-g2dts')
+ }

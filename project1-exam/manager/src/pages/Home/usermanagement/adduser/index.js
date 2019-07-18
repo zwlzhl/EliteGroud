@@ -47,7 +47,9 @@ function addUsers(props) {
             // console.log(value, "undata....")
         })
     }
-
+    let reset = () =>{
+        console.log(8)
+    }
     return (
         <div className="add">
             <h3>添加用户</h3>
@@ -91,7 +93,7 @@ function addUsers(props) {
                                 }
                                 <div className={styles.btns}>
                                     <Button className={styles.sure} onClick={addUser} htmlType="submit">确定</Button>
-                                    <Button className={styles.reset}>重置</Button>
+                                    <Button className={styles.reset} onClick={reset}>重置</Button>
                                 </div>
                             </div> : <div className={styles.item_box}>
                                     {

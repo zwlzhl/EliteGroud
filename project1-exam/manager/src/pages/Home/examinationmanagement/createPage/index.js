@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Button ,Drawer} from 'antd';
+import { Button, Drawer } from 'antd';
 
 function CreatePage(props) {
     useEffect(() => {
         //   props.getdelete()
-    }, [])
+    }, [props.createPageList.questions])
     //本地存储拿出来
     let txt = JSON.parse(window.localStorage.getItem('list'))
-    let { createPageList} = props;
+    let { createPageList } = props;
     console.log(createPageList.questions)
     const [showModal, unshowModal] = useState(false)
     //删除
-    let handelClick = (item, index) => {
-        // console.log(item.parent())
+    let handelClick = (index) => {
+        console.log(index)
+        //    txt.questions.splice(index,1)
+       
+      
     }
     //点击添加按钮
     let modalShow = () => {
         unshowModal(true)
     }
     //点击弹框
-    let handelClose=()=>{
+    let handelClose = () => {
         unshowModal(false)
     }
     //点击创建试卷
-    let handleCreate=()=>{
-        props.history.push('/home/examinationPapers')
+    let handleCreate = () => {
+        props.history.push('/home/testpaper')
+
     }
     return (
         <div >
@@ -51,7 +55,7 @@ function CreatePage(props) {
                                         <span style={{ fontSize: '16px' }}>{index + 1}:</span>
                                         <span style={{ fontSize: '16px' }}>{item.title}</span>
                                     </p>
-                                    <p> <span style={{ fontSize: '12px' }} onClick={() => handelClick(item)}>删除</span></p>
+                                    <p> <span style={{ fontSize: '12px' }} onClick={() => handelClick(index)}>删除</span></p>
                                     {/* <img src='https://raw.githubusercontent.com/JackCrysler/react-start/master/1.png' alt=""/>   */}
                                 </h2>
                                 <span>{item.questions_answer}</span>
@@ -93,6 +97,7 @@ const mapDispachToProps = dispatch => {
                 payload
             })
         },
+       
     }
 }
 export default connect(mapStateToProps, mapDispachToProps)(CreatePage);

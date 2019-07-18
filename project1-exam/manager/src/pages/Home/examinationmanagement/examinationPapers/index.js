@@ -5,6 +5,8 @@ import {Table, Select, Button } from 'antd'
 import { Link } from 'dva/router';
 const { Option } = Select
 const ButtonBtn = Button.Group;
+//const { Option } = Select
+
 function ExaminationPapers(props) {
     useEffect(() => {
         props.getexamlist()
@@ -12,11 +14,10 @@ function ExaminationPapers(props) {
         props.examType()
         props.findList()
     }, [])
-    
     let [subject_id, upSubject] = useState('');
     let [exam_id, upExam_id] = useState('');
-    const { examTypeList, subjectList, examlistData } = props;
-
+    const { examTypeList, subjectList, examlistData} = props;
+    // console.log(getexam_id)
 
     const datalist = [
         {

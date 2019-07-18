@@ -71,7 +71,7 @@ export default {
             })
         },
         //展示视图接口权限
-        *getviewuthority({}, { call, put }) {
+        *getviewuthority( { payload },{ call, put }) {
             let data = yield call(getviewuthority)
             yield put({
                 type: "getviewuthorityData",
@@ -79,7 +79,7 @@ export default {
             })
         },
         //身份和视图权限关系
-        *identity_view_authority_relation({ }, { call, put }) {
+        *identity_view_authority_relation({ payload }, { call, put }) {
             let data = yield call(identity_view_authority_relation)
             yield put({
                 type: "identityRelation",

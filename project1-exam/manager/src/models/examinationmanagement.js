@@ -4,8 +4,10 @@ import {
   Subject,
   findList,
   createPage,
-  getdelete
-} from '../services/examinationmanagement'
+  getdelete,
+  getDetail
+} from '../services/examinationmanagement';
+import {message} from 'dva'
 //考试管理
 export default {
   //命名空间
@@ -17,7 +19,8 @@ export default {
     examlistData: [],
     examTypeList: [],
     subjectList: [],
-    ViewList: []
+    ViewList: [],
+    detailList:{}
   },
   //订阅
   subscriptions: {
@@ -29,13 +32,15 @@ export default {
     //创建试卷
     *createPage({ payload }, { call, put }) {
       let data = yield call(createPage, payload)
+      console.log(data)
+      // data.code===1?message.success(data.msg):message.error(data.msg);
       yield put({
         type: "createPageData",
         payload: data.data
       })
     },
     //删除试卷
-    *getdelete({call,put}){
+    *getdelete({payload},{call,put}){
         let data=yield call(getdelete)
         console.log(data)
         yield put({
@@ -77,6 +82,15 @@ export default {
         payload: data.data
       })
     },
+    //获取详情的数据
+    *getDetail({payload},{call,put}){
+      // let data=yield call(getDetail)
+      // console.log(data,"试卷详情页")
+      // yield put({
+      //   type:'getDetailData',
+      //   payload:data.data
+      // })
+    }
   },
   //同步操作
   reducers: {
@@ -99,7 +113,10 @@ export default {
     findData(state, { payload }) {
       return { ...state, ViewList: payload }
     },
-
+    getDetailData(state,{payload}){
+      return {...state,detailList:payload}
+    },
+    
   }
 
 };

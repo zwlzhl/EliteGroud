@@ -14,7 +14,8 @@ function Class(props) {
         } else {
             return
         }
-    }, [props.deletelist])
+        //监听的是数剧，及时更新
+    }, [props.deletelist,props.getclassList])
     const columns = [
         {
             title: '班级名',
@@ -75,6 +76,7 @@ function Class(props) {
                 }
                 props.addClass(item)
                 unshowModal(false)
+                // props.updataCalss({grade_id:values.grade_id})
             }
         })
     }
@@ -99,9 +101,9 @@ function Class(props) {
                     </Form.Item>
                     <Form.Item label="教室号">
                         {getFieldDecorator('room_text', {
-                            rules: [{required: true, message: '请输入教室号' }],
+                            rules: [{ required: true, message: '请输入教室号' }],
                         })
-                            (<Select style={{width:470}}>
+                            (<Select style={{ width: 470 }}>
                                 {
                                     allclassList && allclassList.map(item => {
                                         return <Option key={item.room_id} value={item.room_id}>{item.room_text}</Option>
@@ -112,13 +114,12 @@ function Class(props) {
                     <Form.Item label="课程名">
                         {getFieldDecorator('subject_text', {
                             rules: [{ required: true, message: '请输入课程名' }],
-                        })(<Select style={{ width:470}}>
+                        })(<Select style={{ width: 470 }}>
                             {
                                 subjectList && subjectList.map((item, index) => {
                                     return <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
                                 })
                             }
-
                         </Select>)}
                     </Form.Item>
                 </Modal>
@@ -130,7 +131,7 @@ function Class(props) {
 Class.propTypes = {
 };
 const mapStateToProps = state => {
-    console.log(state)
+    
     return {
         ...state.classmanagement
     }
@@ -145,7 +146,7 @@ const mapDispachToProps = dispatch => {
         deleteClass(payload) {
             console.log(payload)
             dispatch({
-                type: "classmanagement/deleteClas",
+                type: "classmanagement/deleteClass",
                 payload
             })
         },
@@ -163,6 +164,12 @@ const mapDispachToProps = dispatch => {
         Subject() {
             dispatch({
                 type: "classmanagement/Subject"
+            })
+        },
+        updataCalss(payload) {
+            dispatch({
+                type: "classmanagement/updataCalss",
+                payload
             })
         }
     }

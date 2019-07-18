@@ -99,8 +99,7 @@ function Addexam(props) {
                             {getFieldDecorator('number', {
                                 rules: [{ required: true, message: "请设置题量" }],
                                 initialValue: ""
-                            })
-                                (<InputNumber min={3} onChange={handleNumberChange} />)}
+                            })(<InputNumber min={3} onChange={handleNumberChange} />)}
                         </Form.Item>
                     </div>
                     <div style={{ width: '400px', height: '80px', display: 'flex', lineHeight: '80px' }}>

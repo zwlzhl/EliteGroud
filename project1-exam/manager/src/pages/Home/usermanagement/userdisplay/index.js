@@ -135,7 +135,7 @@ function Userdisplay(props) {
                             <Table
                                 columns={identityRelationColumns}
                                 dataSource={props.identityRelationList && props.identityRelationList}
-                                rowKey='view_id' 
+                                rowKey='view_id'
                             />
                         </TabPane>
                     </Tabs>

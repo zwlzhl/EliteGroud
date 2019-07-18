@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Layout, Menu, Breadcrumb, Icon, Select, Input } from 'antd';
+import { Layout, Menu, Breadcrumb,Dropdown, Icon, Select, Input } from 'antd';
 import { NavLink, Switch, Route, Redirect } from 'dva/router'
 import Text from './questionmanagement/text/index'
 import AddText from './questionmanagement/addText/index'
@@ -17,9 +17,11 @@ import Class from './classmanagement/Class'
 import Classroom from './classmanagement/classroom'
 import Student from './classmanagement/student'
 import Pendingclass from './markingmanagement/pendingclass';
-
 import Examdetail from './examinationmanagement/examdetail'
 import { injectIntl } from 'react-intl'
+import Classmate from './markingmanagement/classmate/index';
+import Marking from './markingmanagement/marking/index';
+import Personal from './userUpload'
 const { SubMenu } = Menu;
 const { Option } = Select
 const { Header, Content, Sider } = Layout;
@@ -30,10 +32,19 @@ function Home(props) {
         props.getUserInfo()
     }, [])
 
-//    let handleChange=value=>{
-//     {props.intl.locale == 'en' ? '英文' : '中文'}
-//     }
-    const userName = props.login.userInfo.user_name
+    let Upload=()=>{
+        props.history.push('/home/userUpload')
+    }
+    let menu = (
+        <Menu>
+            <Menu.Item key="1" onClick={()=>{Upload()}}>个人中心</Menu.Item>
+            <Menu.Item key="2">我的班级</Menu.Item>
+            <Menu.Item key="3">设置</Menu.Item>
+            <Menu.Item key="4">退出登录</Menu.Item>
+        </Menu>
+    );
+    console.log(props.upload.img)
+  const userName = props.login.userInfo.user_name
     return (
         <div className={styles.wrap}>
             <Layout className={styles.layout}>
@@ -42,15 +53,23 @@ function Home(props) {
                         <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt="" />
                     </div>
                     {/* <button onClick={() => props.changeLocale(props.intl.locale == 'en' ? 'zh' : 'en')}>{props.intl.locale == 'en' ? '英文' : '中文'}</button> */}
-                    <InputGroup style={{position: 'absolute', top: '18px', left: '1200px'}}>
-                        <Select defaultValue="中文" onChange={()=>props.changeLocale(props.intl.locale === 'en' ? 'zh' : 'en')}>
+                    <InputGroup style={{ position: 'absolute', top: '18px', left: '1200px' }}>
+                        <Select defaultValue="中文" onChange={() => props.changeLocale(props.intl.locale === 'en' ? 'zh' : 'en')}>
                             <Option value="中文">中文</Option>
                             <Option value="英文">英文</Option>
                         </Select>
                     </InputGroup>
-                    <div className={styles.userInfo}>
-                        <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt="" className={styles.userImg} />
-                        <span style={{ cursor: 'pointer' }}>{userName}</span>
+                    <div className={styles.userInfo} >  
+                    {
+                            <Dropdown overlay={menu}>
+                                <a className={["ant-dropdown-link",styles.headerBottomList]}>
+                                  <img src={props.upload.img?props.upload.img:'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} />
+                                  <span>{userName}</span>
+                                </a>
+                            </Dropdown>
+                        }
+                        {/* <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt="" />
+                        <span style={{ cursor: 'pointer' }}>{userName}</span> */}
                     </div>
                 </Header>
                 <Layout>
@@ -149,8 +168,9 @@ function Home(props) {
                                 <Route path="/home/classroom" component={Classroom}></Route>
                                 <Route path="/home/student" component={Student}></Route>
                                 <Route path="/home/pendingClass" component={Pendingclass}></Route>
-
-
+                                <Route path="/home/classmate" component={Classmate}></Route>
+                                <Route path="/home/marking" component={Marking}></Route>
+                                <Route path="/home/userUpload" component={Personal}></Route>
 
                                 <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
