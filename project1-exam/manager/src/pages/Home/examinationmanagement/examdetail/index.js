@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { connect } from 'dva';
 import ReactMarkdown  from "react-markdown"
-import styles from './index.scss';
+//import styles from './index.scss';
 
 function Examdetail(props) {
     useEffect(()=>{

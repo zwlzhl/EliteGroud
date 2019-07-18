@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Link } from 'dva/router'
-import { Input, Select, Form, Button, DatePicker, InputNumber,Drawer } from 'antd'
+import { Input, Select, Form, Button, DatePicker, InputNumber } from 'antd'
 // const { MonthPicker, RangePicker } = DatePicker;
 const { Option } = Select
 function Addexam(props) {
@@ -24,7 +23,7 @@ function Addexam(props) {
                     start_time: values.date_time_picker * 1,
                     end_time: values.date_time * 1
                 }
-                let txt = window.localStorage.setItem('list', JSON.stringify(item));
+                //let txt = window.localStorage.setItem('list', JSON.stringify(item));
                 props.createPage(item)
                 props.history.push('/home/createPage')
             }
@@ -100,8 +99,7 @@ function Addexam(props) {
                             {getFieldDecorator('number', {
                                 rules: [{ required: true, message: "请设置题量" }],
                                 initialValue: ""
-                            })
-                                (<InputNumber min={3} onChange={handleNumberChange} />)}
+                            })(<InputNumber min={3} onChange={handleNumberChange} />)}
                         </Form.Item>
                     </div>
                     <div style={{ width: '400px', height: '80px', display: 'flex', lineHeight: '80px' }}>

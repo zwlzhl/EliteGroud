@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
-import { Select, Button, Tag } from 'antd';
+import { Select, Button } from 'antd';
 import styles from './index.scss'
 const { Option } = Select;
 function SeeText(props) {
@@ -11,7 +11,7 @@ function SeeText(props) {
     props.getQuestionTypes();
 
   }, [])
-  let { ViewList, subjectList, examTypeList, ExamList, index } = props;
+  let { ViewList, subjectList, examTypeList, ExamList } = props;
   //subject_id是课程类型
   let [subject_id, upSubject] = useState('');
   let [exam_id, upExam_id] = useState('');
@@ -49,9 +49,7 @@ function SeeText(props) {
     props.findList({ subject_id, exam_id, questions_type_id })
   }
 
-  let handleCh = checked => {
 
-  };
   // const {CheckableTag}=Tag;
   // // const [selectedTags,selectedTagsP]=useState('')
   // let handleChange=(tag, checked)=> {

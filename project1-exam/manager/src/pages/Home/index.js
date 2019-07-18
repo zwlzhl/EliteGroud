@@ -17,9 +17,10 @@ import Class from './classmanagement/Class'
 import Classroom from './classmanagement/classroom'
 import Student from './classmanagement/student'
 import Pendingclass from './markingmanagement/pendingclass';
-
 import Examdetail from './examinationmanagement/examdetail'
 import { injectIntl } from 'react-intl'
+import Classmate from './markingmanagement/classmate/index';
+import Marking from './markingmanagement/marking/index';
 const { SubMenu } = Menu;
 const { Option } = Select
 const { Header, Content, Sider } = Layout;
@@ -30,9 +31,9 @@ function Home(props) {
         props.getUserInfo()
     }, [])
 
-//    let handleChange=value=>{
-//     {props.intl.locale == 'en' ? '英文' : '中文'}
-//     }
+    //    let handleChange=value=>{
+    //     {props.intl.locale == 'en' ? '英文' : '中文'}
+    //     }
     const userName = props.login.userInfo.user_name
     return (
         <div className={styles.wrap}>
@@ -42,8 +43,8 @@ function Home(props) {
                         <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg" alt="" />
                     </div>
                     {/* <button onClick={() => props.changeLocale(props.intl.locale == 'en' ? 'zh' : 'en')}>{props.intl.locale == 'en' ? '英文' : '中文'}</button> */}
-                    <InputGroup style={{position: 'absolute', top: '18px', left: '1200px'}}>
-                        <Select defaultValue="中文" onChange={()=>props.changeLocale(props.intl.locale == 'en' ? 'zh' : 'en')}>
+                    <InputGroup style={{ position: 'absolute', top: '18px', left: '1200px' }}>
+                        <Select defaultValue="中文" onChange={() => props.changeLocale(props.intl.locale === 'en' ? 'zh' : 'en')}>
                             <Option value="中文">中文</Option>
                             <Option value="英文">英文</Option>
                         </Select>
@@ -149,8 +150,8 @@ function Home(props) {
                                 <Route path="/home/classroom" component={Classroom}></Route>
                                 <Route path="/home/student" component={Student}></Route>
                                 <Route path="/home/pendingClass" component={Pendingclass}></Route>
-
-
+                                <Route path="/home/classmate" component={Classmate}></Route>
+                                <Route path="/home/marking" component={Marking}></Route>
 
                                 <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
