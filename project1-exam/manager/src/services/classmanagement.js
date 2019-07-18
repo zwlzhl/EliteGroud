@@ -23,7 +23,9 @@ export function Subject() {
 
 //删除班级
 export function del(data) {
-    return request.delete('/manger/grade/delete',{data})
+    return request.delete('/manger/grade/delete',{
+        data
+    })
     // console.log(params)
     // return request({
     //   url: '/manger/room/delete',
@@ -47,7 +49,7 @@ export function upDataClass(){
 
 //获取已经分班的学生
 export function getPlacementStudent() {
-    return request.get("/manger/student/new")
+    return request.get("/manger/student") 
 }
 //获取所有教室--->学生展示
 export function getPlacementMangerRoom() {
@@ -67,4 +69,17 @@ export function delateStudentId(params) {
  //更新班级信息
  export default function updataCalss(data){
     return request.put('/manger/grade/update',{data})
+}
+
+//添加教室
+export function addManagerRoom(params) {
+    return request.post("/manger/room", params)
+}
+//删除教室
+export function deleteManagerRoom(params) {
+    return request({
+        url: "/manger/room/delete",
+        method: "DELETE",
+        data: params
+    })
 }

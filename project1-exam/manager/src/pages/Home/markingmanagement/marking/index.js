@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Form, Slider, Button } from "antd";
+import { Form, Slider, Button, Modal } from "antd";
 function Marking(props) {
     useEffect(() => {
         props.getStudent()
@@ -9,13 +9,22 @@ function Marking(props) {
     console.log(props, "props.......")
     //let a = props.markingmanagement.number
     const [state, setstate] = useState(0)
-    let sliderChange = (value) =>{
-       setstate(value)
-    }
-    let submitNumber = () =>{
+    const [visible, unvisible] = useState(false)
+    let handleOk = () =>{
         props.submitStudent({
             score: state
         })
+        unvisible(false)
+    }
+    let handleCancel = () =>{
+        unvisible(false)
+    }
+    let sliderChange = (value) => {
+        setstate(value)
+    }
+    let submitNumber = () => {
+        unvisible(true)
+        
     }
     return (
         <div className={styles.wrap}>
@@ -26,8 +35,21 @@ function Marking(props) {
                     <Form>
                         <h2>得分: <span className={styles.span}>{state}</span></h2>
                         <Form.Item>
-                            <Slider defaultValue={0} className={styles.slider} onChange={(value)=>sliderChange(value)} />
+                            <Slider defaultValue={0} className={styles.slider} onChange={(value) => sliderChange(value)} />
                             <Button type="primary" htmlType="submit" className={styles.button} onClick={submitNumber}>确定</Button>
+                            <Modal
+                                visible={visible}
+                                onOk={handleOk}
+                                onCancel={handleCancel}
+                                cancelText= "取消"
+                                okText= "确定"
+                                okType= "primary"
+                                width= "400px"
+                                className={styles.modal}
+                            >
+                                <p>确定提交阅卷结果？</p>
+                                <p>分数值是：<span>{state}</span></p>
+                            </Modal>
                         </Form.Item>
                     </Form>
                 </div>
@@ -46,7 +68,7 @@ const mapStateToProps = state => {
 }
 const mapDispachToProps = dispatch => {
     return {
-        getStudent:payload=>{
+        getStudent: payload => {
             dispatch({
                 type: "markingmanagement/getStudent"
             })

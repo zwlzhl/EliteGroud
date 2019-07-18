@@ -10,7 +10,9 @@ import {
   getPlacementMangerRoom,
   getPlacementMangerGrade,
   delateStudentId,
-  updataCalss
+  updataCalss,
+  addManagerRoom,
+  deleteManagerRoom
 } from '../services/classmanagement.js'
 export default {
   //命名空间
@@ -25,7 +27,9 @@ export default {
     placementStudentList: [],
     PlacementMangerRoomlist: [],
     PlacementMangerGradeList: [],
-    delateStudentIdList: {}
+    delateStudentIdList: {},
+    addManagerRoomCode: -1,
+    deleteManagerRoomCode: -1
   },
   //订阅
   subscriptions: {
@@ -35,7 +39,7 @@ export default {
   //异步操作
   effects: {
     //获取数据
-    *getClass({ payload }, { call, put }) {
+    *getClass({payload}, { call, put }) {
       let data = yield call(getClass)
       yield put({
         type: 'getClassData',
@@ -61,7 +65,7 @@ export default {
       })
     },
     //所有的教室号
-    *allclass( { payload },{ call, put }) {
+    *allclass({payload}, { call, put }) {
       let data = yield call(allclass);
       yield put({
         type: "allclassData",
@@ -69,7 +73,7 @@ export default {
       })
     },
     //所有的课程名
-    *Subject({ payload }, { call, put }) {
+    *Subject({payload}, { call, put }) {
       let data = yield call(Subject)
       yield put({
         type: "subjectData",
@@ -105,7 +109,7 @@ export default {
       let deleteData = yield call(delateStudentId, payload)
       deleteData.code===1?message.success(deleteData.msg):message.error(deleteData.msg);
 
-      console.log(deleteData, "deleteData.....")
+      //console.log(payload, "payoad....")
       yield put({
         type: "delatestudentid",
         payload: deleteData
@@ -116,6 +120,25 @@ export default {
       yield put({
         type:"updataCalssData",
         payload:data.data
+      })
+    },
+    //添加教室
+    *addManagerRooms({payload}, {call, put}) {
+      let addManagerRoomData = yield call(addManagerRoom, payload) 
+      console.log(addManagerRoomData, "addManagerRoomData.......")
+      yield put({
+        type: "addmanagerroomdata",
+        payload: addManagerRoomData
+      })
+    },
+    //删除教室
+    *deleteManagerRoom({payload}, {call, put}) {
+      console.log(payload)
+      let deleteManagerRoomData = yield deleteManagerRoom(payload)
+      console.log(deleteManagerRoomData, "deleteManagerRoom...")
+      yield put({
+        type: "deletemanagerroomdata",
+        payload: deleteManagerRoomData
       })
     }
   },
@@ -156,7 +179,7 @@ export default {
         ...state,
         PlacementMangerGradeList: action.payload.data
       }
-    },
+    }, 
     //删除学生
     delatestudentid(state, action) {
       return {
@@ -166,7 +189,20 @@ export default {
     },
     //更新
     updataCalssData(state,{payload}){
-      return {...state,updataCalssList:payload}
+      return {...state,updataCalssList:payload}},
+    //添加教室
+    addmanagerroomdata(state, action) {
+      return {
+        ...state,
+        addManagerRoomCode: action.payload.code
+      }
+    },
+    //删除教室
+    deletemanagerroomdata(state, action) {
+      return {
+        ...state,
+        deleteManagerRoomCode: action.payload.code
+      }
     }
   },
 
