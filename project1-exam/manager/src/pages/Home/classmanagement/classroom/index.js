@@ -41,7 +41,7 @@ function Class(props) {
             onCancel() { }
         })
     }
-    let handleSubmit = () => {}
+    let handleSubmit = () => { }
     let handleCacel = () => {
         unshowModal(false)
     }
@@ -56,20 +56,20 @@ function Class(props) {
             unshowModal(false)
         })
     }
-    let {addManagerRoomCode, deleteManagerRoomCode} = props.classmanagement
-    useEffect(()=>{
-        if(addManagerRoomCode === 1) {
+    let { addManagerRoomCode, deleteManagerRoomCode } = props.classmanagement
+    useEffect(() => {
+        if (addManagerRoomCode === 1) {
             message.success("添加成功")
             props.getManagerRoom()
-        } else if(addManagerRoomCode === 0) {
+        } else if (addManagerRoomCode === 0) {
             message.error("添加失败")
         }
     }, [addManagerRoomCode])
-    useEffect(()=>{
-        if(deleteManagerRoomCode === 1) {
+    useEffect(() => {
+        if (deleteManagerRoomCode === 1) {
             message.success("删除成功")
             props.getManagerRoom()
-        } else if(deleteManagerRoomCode === 0) {
+        } else if (deleteManagerRoomCode === 0) {
             message.error("删除失败")
         }
     }, [deleteManagerRoomCode])
