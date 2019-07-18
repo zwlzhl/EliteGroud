@@ -59,7 +59,7 @@ function Student(props) {
         <div className={styles.wrap}>
             <h2>学生管理</h2>
             <div>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} className={styles.from}>
                     <Form.Item style={{ width: 200 }} className={styles.input}>
                         {getFieldDecorator('教室号', {
                             rules: [{ required: true, message: 'Please input the title of collection!' }],
