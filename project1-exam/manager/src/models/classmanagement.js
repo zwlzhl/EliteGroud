@@ -1,6 +1,6 @@
 //班级管理
 import { getClass, addClass, allclass, Subject, del } from '../services/classmanagement'
-import { message } from 'antd'
+// import { message } from 'antd'
 export default {
   //命名空间
   namespace: 'classmanagement',

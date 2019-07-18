@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Tabs, Table, Select, Button } from 'antd'
+import {Table, Select, Button } from 'antd'
 import { Link } from 'dva/router';
 const { Option } = Select
 const ButtonBtn = Button.Group;

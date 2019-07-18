@@ -11,8 +11,6 @@ function addUsers(props) {
 
     //用户数据、用户标识
     let { identityData, userUserData, viewAuthorityData, apiAuthorityData } = props.usermanagement
-    console.log(props, "props......")
-
     let [adup, upAdup] = useState(true);
     let { getFieldDecorator } = props.form;
     let changeActive = e => {
@@ -25,7 +23,7 @@ function addUsers(props) {
             e.target.className = styles.active;
             e.target.nextSibling.className = '';
         }
-    } 
+    }
     let handleSubmit = () => {
         addUser()
     }

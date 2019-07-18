@@ -35,7 +35,7 @@ export default {
       })
     },
     //删除试卷
-    *getdelete({},{call,put}){
+    *getdelete({call,put}){
         let data=yield call(getdelete)
         console.log(data)
         yield put({
@@ -44,7 +44,7 @@ export default {
         })
     },
     //获取所有的考试类型
-    *examType({ }, { call, put }) {
+    *examType({payload}, {call, put }) {
       let data = yield call(examType)
       yield put({
         type: "getexamType",
@@ -52,7 +52,7 @@ export default {
       })
     },
     //课程类型
-    *Subject({ }, { call, put }) {
+    *Subject({payload}, {call, put }) {
       let data = yield call(Subject)
       yield put({
         type: "subjectL",
@@ -60,7 +60,7 @@ export default {
       })
     },
     //获取试卷列表接口
-    *getexamlist({ }, { call, put }) {
+    *getexamlist({payload}, {call, put }) {
       let data = yield call(getexamlist)
       // console.log("试卷列表......",data)
       yield put({

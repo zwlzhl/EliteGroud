@@ -9,12 +9,12 @@ function Class(props) {
         props.Subject()
         props.allclass()
         props.getClass()
-        if(props. deletelist.code==1){
+        if (props.deletelist.code === 1) {
             props.getClass()
-        }else{
+        } else {
             return
         }
-    }, [props. deletelist])
+    }, [props.deletelist])
     const columns = [
         {
             title: '班级名',
@@ -37,9 +37,9 @@ function Class(props) {
 
             render: (text, record) => (
                 <span>
-                    <a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleUpdate(record, "reset")}>修改</a>
+                    <a style={{ color: "#0139FD" }} onClick={() => handleUpdate(record, "reset")}>修改</a>
                     <Divider type="vertical" />
-                    <a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleDelete(record.grade_id)}>删除</a>
+                    <a style={{ color: "#0139FD" }} onClick={() => handleDelete(record.grade_id)}>删除</a>
                 </span>
             ),
         }
@@ -54,10 +54,10 @@ function Class(props) {
     }
     //删除
     const handleDelete = (id) => {
-		props.deleteClass({ grade_id: id })
+        props.deleteClass({ grade_id: id })
     }
     //修改
-    let handleUpdate=()=>{
+    let handleUpdate = () => {
         unshowModal(true)
     }
 
@@ -84,7 +84,7 @@ function Class(props) {
                 <Button type="primary" onClick={modalShow} className={styles.button}>添加班级 </Button>
                 <Modal
                     visible={showModal}
-                    
+
                     onCancel={handleCacel}
                     onOk={handleOk}
                     className={styles.modal}
@@ -99,9 +99,9 @@ function Class(props) {
                     </Form.Item>
                     <Form.Item label="教室号">
                         {getFieldDecorator('room_text', {
-                            rules: [{ required: true, message: '请输入教室号' }],
+                            rules: [{required: true, message: '请输入教室号' }],
                         })
-                            (<Select style={{ width: 470 }}>
+                            (<Select style={{width:470}}>
                                 {
                                     allclassList && allclassList.map(item => {
                                         return <Option key={item.room_id} value={item.room_id}>{item.room_text}</Option>
@@ -112,16 +112,14 @@ function Class(props) {
                     <Form.Item label="课程名">
                         {getFieldDecorator('subject_text', {
                             rules: [{ required: true, message: '请输入课程名' }],
-                        })
-                            (
-                                <Select style={{ width: 470 }}>
-                                    {
-                                        subjectList && subjectList.map((item, index) => {
-                                            return <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
-                                        })
-                                    }
+                        })(<Select style={{ width:470}}>
+                            {
+                                subjectList && subjectList.map((item, index) => {
+                                    return <Option key={item.subject_id} value={item.subject_id}>{item.subject_text}</Option>
+                                })
+                            }
 
-                                </Select>)}
+                        </Select>)}
                     </Form.Item>
                 </Modal>
                 <Table columns={columns} dataSource={getclassList} rowKey='grade_id' />

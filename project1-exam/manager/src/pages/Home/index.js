@@ -43,7 +43,7 @@ function Home(props) {
                     </div>
                     {/* <button onClick={() => props.changeLocale(props.intl.locale == 'en' ? 'zh' : 'en')}>{props.intl.locale == 'en' ? '英文' : '中文'}</button> */}
                     <InputGroup style={{position: 'absolute', top: '18px', left: '1200px'}}>
-                        <Select defaultValue="中文" onChange={()=>props.changeLocale(props.intl.locale == 'en' ? 'zh' : 'en')}>
+                        <Select defaultValue="中文" onChange={()=>props.changeLocale(props.intl.locale === 'en' ? 'zh' : 'en')}>
                             <Option value="中文">中文</Option>
                             <Option value="英文">英文</Option>
                         </Select>
