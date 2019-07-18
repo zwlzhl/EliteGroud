@@ -32,29 +32,38 @@ function Student(props) {
         },
         {
             title: '操作',
-            render: (item) => <a onClick={()=>deletaStudent(item)}>删除</a>,
+            render: (item) => <a onClick={() => deletaStudent(item)}>删除</a>,
             key: '6',
         }
     ]
+
     useEffect(() => {
         props.getPlacementStudentPage()
+        
+    }, [props.getPlacementStudentPage])
+    let {delateStudentIdList} = props.classmanagement
 
-    }, [])
+    
     //console.log(props, "props学生")
     let { placementStudentList, PlacementMangerRoomlist, PlacementMangerGradeList } = props.classmanagement
     const { getFieldDecorator } = props.form
-    let deletaStudent = (item) =>{
+    let deletaStudent = (item) => {
         console.log(item.subject_id)
         props.delateStudentId({
             id: item.subject_id
         })
+        props.getPlacementStudentPage()
     }
-    let reset = () =>{
+    
+    console.log(delateStudentIdList)
+    
+    let reset = () => {
         props.form.resetFields()
     }
-    let handleSubmit = () =>{
+    let handleSubmit = () => {
 
     }
+    
     return (
         <div className={styles.wrap}>
             <h2>学生管理</h2>
@@ -67,18 +76,18 @@ function Student(props) {
                     </Form.Item>
                     <Form.Item style={{
                         width: 200
-                        }}>
+                    }}>
                         {getFieldDecorator('gender', {
                             rules: [{ required: true, message: 'Please select your gender!' }],
                         })(
-                            <Select
+                            <Select 
                                 placeholder="请选择教室号"
                             >
                                 {
-                                    PlacementMangerRoomlist.map(item=>{
+                                    PlacementMangerRoomlist.map(item => {
                                         return (
                                             <Option value={item.room_id} key={item.room_id}>{item.room_text}</Option>
-                                        )  
+                                        )
                                     })
                                 }
                             </Select>,
@@ -86,7 +95,7 @@ function Student(props) {
                     </Form.Item>
                     <Form.Item style={{
                         width: 200
-                        }}>
+                    }}>
                         {getFieldDecorator('genderr', {
                             rules: [{ required: true, message: 'Please select your gender!' }],
                         })(
@@ -94,10 +103,10 @@ function Student(props) {
                                 placeholder="班级名"
                             >
                                 {
-                                    PlacementMangerGradeList.map(item=>{
+                                    PlacementMangerGradeList.map(item => {
                                         return (
                                             <Option value={item.grade_id} key={item.grade_id}>{item.grade_name}</Option>
-                                        )  
+                                        )
                                     })
                                 }
                             </Select>,

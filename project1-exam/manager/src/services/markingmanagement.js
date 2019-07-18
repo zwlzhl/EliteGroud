@@ -13,6 +13,9 @@ export function getStudent() {
     return request.get("/exam/student/t27znv-gu7azm-qpq9ai-laaf9m")
 }
 //提交阅卷
-export function submitNumber(params) {
-    return request.put("/exam/student/t27znv-gu7azm-qpq9ai-laaf9m", {params})
+export function submitNumber() {
+    return request({
+        url: "/exam/student/t27znv-gu7azm-qpq9ai-laaf9m",
+        method: "PUT"
+    })
 }

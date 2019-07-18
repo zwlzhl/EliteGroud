@@ -8,13 +8,13 @@ function CreatePage(props) {
         //   props.getdelete()
     }, [])
     //本地存储拿出来
-    let txt = JSON.parse(window.localStorage.getItem('list'))
+    //let txt = JSON.parse(window.localStorage.getItem('list'))
     let { createPageList } = props;
     console.log(createPageList.questions)
     const [showModal, unshowModal] = useState(false)
     //删除
     let handelClick = (item, index) => {
-        console.log(item.parent())
+        //console.log(item.parent())
     }
     //点击添加按钮
     let modalShow = () => {
@@ -33,7 +33,7 @@ function CreatePage(props) {
             <p style={{ fontSize: '18px', color: '#000' }}>创建试题</p>
             <Button onClick={modalShow}>添加新题</Button>
             <div className={styles.main}>
-                <h1 className={styles.title}>{txt.title}</h1>
+                {/* <h1 className={styles.title}>{txt.title}</h1> */}
                 <p>
                     <span>考试时间:1小时30分钟</span>
                     <span>监考人:刘宇</span>

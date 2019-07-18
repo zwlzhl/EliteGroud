@@ -9,12 +9,12 @@ function Class(props) {
         props.Subject()
         props.allclass()
         props.getClass()
-        if(props. deletelist.code==1){
+        if(props.deletelist.code===1){
             props.getClass()
         }else{
             return
         }
-    }, [props. deletelist])
+    }, [props.deletelist])
     const columns = [
         {
             title: '班级名',
@@ -37,9 +37,9 @@ function Class(props) {
 
             render: (text, record) => (
                 <span>
-                    <a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleUpdate(record, "reset")}>修改</a>
+                    <a style={{ color: "#0139FD" }} onClick={() => handleUpdate(record, "reset")}>修改</a>
                     <Divider type="vertical" />
-                    <a href="javascript:;" style={{ color: "#0139FD" }} onClick={() => handleDelete(record.grade_id)}>删除</a>
+                    <a style={{ color: "#0139FD" }} onClick={() => handleDelete(record.grade_id)}>删除</a>
                 </span>
             ),
         }
@@ -100,8 +100,7 @@ function Class(props) {
                     <Form.Item label="教室号">
                         {getFieldDecorator('room_text', {
                             rules: [{ required: true, message: '请输入教室号' }],
-                        })
-                            (<Select style={{ width: 470 }}>
+                        })(<Select style={{ width: 470 }}>
                                 {
                                     allclassList && allclassList.map(item => {
                                         return <Option key={item.room_id} value={item.room_id}>{item.room_text}</Option>
@@ -112,8 +111,7 @@ function Class(props) {
                     <Form.Item label="课程名">
                         {getFieldDecorator('subject_text', {
                             rules: [{ required: true, message: '请输入课程名' }],
-                        })
-                            (
+                        })(
                                 <Select style={{ width: 470 }}>
                                     {
                                         subjectList && subjectList.map((item, index) => {
@@ -147,10 +145,10 @@ const mapDispachToProps = dispatch => {
         deleteClass(payload) {
             console.log(payload)
             dispatch({
-                type: "classmanagement/deleteClas",
+                type: "classmanagement/deleteClass",
                 payload
             })
-        },
+        }, 
         addClass(payload) {
             dispatch({
                 type: 'classmanagement/addClass',
