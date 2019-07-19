@@ -1,27 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Layout, Menu, Breadcrumb,Dropdown, Icon, Select, Input } from 'antd';
+import { Layout, Menu, Breadcrumb, Dropdown, Icon, Select, Input } from 'antd';
 import { NavLink, Switch, Route, Redirect } from 'dva/router'
-import Text from './questionmanagement/text/index'
-import AddText from './questionmanagement/addText/index'
-import Classification from './questionmanagement/classification/index'
-import SeeText from './questionmanagement/seeText/index'
-import EditPage from './questionmanagement/editPage/index'
-import Adduser from './usermanagement/adduser'
-import Userdisplay from './usermanagement/userdisplay'
-import AddExam from './examinationmanagement/addexam'
-import CreatePage from './examinationmanagement/createPage'
-import ExaminationPapers from './examinationmanagement/examinationPapers'
-import Class from './classmanagement/Class'
-import Classroom from './classmanagement/classroom'
-import Student from './classmanagement/student'
-import Pendingclass from './markingmanagement/pendingclass';
-import Examdetail from './examinationmanagement/examdetail'
 import { injectIntl } from 'react-intl'
-import Classmate from './markingmanagement/classmate/index';
-import Marking from './markingmanagement/marking/index';
-import Personal from './userUpload'
 const { SubMenu } = Menu;
 const { Option } = Select
 const { Header, Content, Sider } = Layout;
@@ -31,20 +13,23 @@ function Home(props) {
         //获取用户信息
         props.getUserInfo()
     }, [])
-
-    let Upload=()=>{
+    if (!props.myView.length) {
+        return null;
+    }
+    console.log(props)
+    let Upload = () => {
         props.history.push('/home/userUpload')
     }
     let menu = (
         <Menu>
-            <Menu.Item key="1" onClick={()=>{Upload()}}>个人中心</Menu.Item>
+            <Menu.Item key="1" onClick={() => { Upload() }}>个人中心</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
             <Menu.Item key="4">退出登录</Menu.Item>
         </Menu>
     );
-    console.log(props.upload.img)
-  const userName = props.login.userInfo.user_name
+
+    const userName = props.login.userInfo.user_name
     return (
         <div className={styles.wrap}>
             <Layout className={styles.layout}>
@@ -59,12 +44,12 @@ function Home(props) {
                             <Option value="英文">英文</Option>
                         </Select>
                     </InputGroup>
-                    <div className={styles.userInfo} >  
-                    {
+                    <div className={styles.userInfo} >
+                        {
                             <Dropdown overlay={menu}>
-                                <a className={["ant-dropdown-link",styles.headerBottomList]}>
-                                  <img src={props.upload.img?props.upload.img:'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} />
-                                  <span>{userName}</span>
+                                <a className={["ant-dropdown-link", styles.headerBottomList]}>
+                                    <img src={props.upload.img ? props.upload.img : 'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} />
+                                    <span>{userName}</span>
                                 </a>
                             </Dropdown>
                         }
@@ -151,7 +136,25 @@ function Home(props) {
                         </Breadcrumb>
                         <Content className={styles.content}>
                             <Switch>
-                                <Route path="/home/addText" component={AddText}></Route>
+                                <Redirect from='/' exact to="/home/addText"></Redirect> 
+                                {/* 配置用户拥有的路由 */}
+                                {
+                                    props.myView.map(item => {
+                                        return item.children.map(value => {
+                                            return <Route key={value.name} path={value.path} component={value.component}></Route>
+                                        })
+                                    })
+                                }
+
+                                {/* 配置用户禁止访问的路由 */}
+                                {
+                                    props.forbiddenView.map(item => {
+                                        return <Redirect key={item.path} from={item.path} to="/403"></Redirect>
+                                    })
+                                }
+                                {/* 配置不存在的路由 */}
+                                <Redirect to="/404"></Redirect>
+                                {/* <Route path="/home/addText" component={AddText}></Route>
                                 <Route path="/home/classification" component={Classification}></Route>
                                 <Route path="/home/seeText" component={SeeText}></Route>
                                 <Route path="/home/pending" component={Text}></Route>
@@ -170,9 +173,8 @@ function Home(props) {
                                 <Route path="/home/pendingClass" component={Pendingclass}></Route>
                                 <Route path="/home/classmate" component={Classmate}></Route>
                                 <Route path="/home/marking" component={Marking}></Route>
-                                <Route path="/home/userUpload" component={Personal}></Route>
+                                <Route path="/home/userUpload" component={Personal}></Route>*/}
 
-                                <Redirect from='/home' to="/home/addText"></Redirect>
                             </Switch>
                         </Content>
                     </Layout>
@@ -185,7 +187,9 @@ Home.propTypes = {
 };
 const mapStateToProps = state => {
     return {
-        ...state
+        ...state,
+        myView: state.login.myView,
+        forbiddenView: state.login.forbiddenView
     }
 }
 const mapDispachToProps = dispatch => {

@@ -9,4 +9,8 @@ export function login(params) {
 export function getUserInfo() {
   return request.get("/user/userInfo")
 }
-
+//获取权限数据
+export function getViewAuthority() {
+  return request.get("/user/view_authority")
+}
+      

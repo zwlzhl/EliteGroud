@@ -9,13 +9,18 @@ export function getStudentData(params) {
     return request.get("/exam/student", {params})
 }
 //获取试题详情
-export function getStudent() {
-    return request.get("/exam/student/t27znv-gu7azm-qpq9ai-laaf9m")
+export function getStudent(params) {
+    console.log(params, "paramsssssss")
+    return request({
+        url: "/exam/student/"+params,
+        method: "GET"
+    })
 }
 //提交阅卷
-export function submitNumber() {
+export function submitNumber(params) {
     return request({
-        url: "/exam/student/t27znv-gu7azm-qpq9ai-laaf9m",
-        method: "PUT"
+        url: "/exam/student/" +params.id,
+        method: "PUT",
+        data:params
     })
 }

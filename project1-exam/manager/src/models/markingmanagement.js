@@ -13,8 +13,9 @@ export default {
       studentList: [],
       approvalList: [],
       submitStudentList: {},
-      studentDetaillist: [],
-      number: 0
+      studentDetaillist: {},
+      number: 0,
+      submitNumberCode: -1
     },
     //订阅
     subscriptions: {
@@ -43,11 +44,12 @@ export default {
           type: "getstudentdata",
           payload: approvalData
         })
-      },
+      }, 
       //获取学生试题详情
       *getStudent({payload}, {call, put}) {
-        let detailStudent = yield call(getStudent)
-        console.log(detailStudent, "detail.....")
+        console.log(payload, "详情")
+        let detailStudent = yield call(getStudent, payload.id)
+        //console.log(detailStudent, "detail.....")
         yield put({
           type: "getstudentdetail",
           payload: detailStudent
@@ -55,8 +57,9 @@ export default {
       },
       //提交阅卷
       *submitStudent({payload}, {call, put}) {
-        let submitData = yield call( submitNumber,payload)
-        //console.log(submitData, "submitData..........")
+        console.log(payload, "阅卷")
+        let submitData =yield call(submitNumber,payload)
+        console.log(submitData, "submitData..........")
         yield put({
           type: "submitstudent",
           payload:submitData
@@ -93,7 +96,7 @@ export default {
       submitstudent(state, action) {
         return {
           ...state,
-          submitStudentList: action.payload
+          submitNumberCode: action.payload.code
         }
       }
     },

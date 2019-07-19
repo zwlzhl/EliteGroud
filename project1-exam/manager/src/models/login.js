@@ -1,13 +1,16 @@
-import { login, getUserInfo } from '../services/login'
+import { login, getUserInfo, getViewAuthority } from '../services/login'
 import { setToken, getToken } from '@/utils/index';
 import { routerRedux } from 'dva/router'
+import allAuthority from '../router/index';
 export default {
   //命名空间
   namespace: 'login',
   //模块状态
   state: {
     isLogin: -1,
-    userInfo: {}
+    userInfo: {},
+    myView: [],
+    forbiddenView: []
   },
   //订阅
   subscriptions: {
@@ -47,16 +50,18 @@ export default {
       // console.log('payload...', payload, type)
       let data = yield call(login, payload);
       // console.log('data...', data);
-      console.log(data.data)
+      //console.log(data.data)
       if (data.code === 1) {
         // 1.设置cookie
         setToken(data.token)
       }
-      // 调用reduce改变登陆状态
+      // 调用reduce改变登陆状态    
       yield put({
         type: 'updateLogin',
         payload: data.code
       })
+
+      
     },
     //获取用户信息
     *getUserInfo({ payload }, { call, put }) {
@@ -65,6 +70,13 @@ export default {
       yield put({
         type: "getUserData",
         payload: userinfo
+      })
+      //获取权限数据
+      let authority = yield getViewAuthority();
+      console.log('authority...', authority);
+      yield put({
+        type: 'updateViewAuthority',
+        payload: authority.data
       })
     }
   },
@@ -80,6 +92,27 @@ export default {
         ...state,
         userInfo: data
       }
+    },
+    //获取权限数据
+    updateViewAuthority(state, action) {
+      let myView = [], forbiddenView = [];
+      allAuthority.routes.forEach(item=>{
+        let obj = {
+          name: item.name,
+          children: []
+        }
+        item.children.forEach(value=>{
+          if (action.payload.findIndex(item=>item.view_id === value.view_id) !== -1){
+            obj.children.push(value);
+          }else{
+            forbiddenView.push(value);
+          }
+        })
+
+        myView.push(obj)
+      })
+
+      return {...state, myView, forbiddenView}
     }
   }
 
