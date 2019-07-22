@@ -28,5 +28,6 @@ export default {
   "pendding.pendding": "oenddingClass",
   "pendding.marking": "markingClass",
   
+  "userInfo.more": "userInfoMore"
 
 }

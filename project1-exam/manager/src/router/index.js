@@ -14,6 +14,8 @@ import marking from '../pages/Home/markingmanagement/marking/index'
 import examDetail from '../pages/Home/examinationmanagement/examdetail/index'
 import text from '../pages/Home/questionmanagement/text/index'
 import editPage from '../pages/Home/questionmanagement/editPage/index' 
+import userUpload from '../pages/Home/userUpload/index'
+import  createPage from '../pages/Home/examinationmanagement/createPage/index'
 export default {
     routes: [
         {
@@ -91,6 +93,12 @@ export default {
                     path: '/home/examdetail',
                     view_id: 'main-examDetail',
                     component: examDetail
+                },
+                {
+                    name: 'examlist.examedit',
+                    path: '/home/createpage',
+                    view_id: 'main-examEdit',
+                    component: createPage
                 }
             ]
         },
@@ -142,5 +150,11 @@ export default {
                 }
             ]
         },
+        // {
+        //     name: "userInfo.more",
+        //     path: '/home/userUpload',
+        //     view_id: "main-showUser",
+        //     component: userUpload
+        // }
     ]
 }

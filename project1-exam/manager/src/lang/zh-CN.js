@@ -28,5 +28,7 @@ export default {
 
     "pendding.pendding": "待批班级",
     "pendding.marking": "待批班级",
+
+    "userInfo.more": "上传头像"
   
   }

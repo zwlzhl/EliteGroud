@@ -153,28 +153,7 @@ function Home(props) {
                                     })
                                 }
                                 {/* 配置不存在的路由 */}
-                                <Redirect to="/404"></Redirect>
-                                {/* <Route path="/home/addText" component={AddText}></Route>
-                                <Route path="/home/classification" component={Classification}></Route>
-                                <Route path="/home/seeText" component={SeeText}></Route>
-                                <Route path="/home/pending" component={Text}></Route>
-                                <Route path="/home/editPage" component={EditPage}></Route>
-                                <Route path="/home/adduser" component={Adduser}></Route>
-                                <Route path="/home/userdisplay" component={Userdisplay}></Route>
-
-                                <Route path="/home/addExamination" component={AddExam}></Route>
-                                <Route path="/home/createPage" component={CreatePage}></Route>
-                                <Route path="/home/testpaper" component={ExaminationPapers}></Route>
-                                <Route path="/home/examdetail" component={Examdetail}></Route>
-
-                                <Route path="/home/class" component={Class}></Route>
-                                <Route path="/home/classroom" component={Classroom}></Route>
-                                <Route path="/home/student" component={Student}></Route>
-                                <Route path="/home/pendingClass" component={Pendingclass}></Route>
-                                <Route path="/home/classmate" component={Classmate}></Route>
-                                <Route path="/home/marking" component={Marking}></Route>
-                                <Route path="/home/userUpload" component={Personal}></Route>*/}
-
+                                <Redirect to="/404" ></Redirect>
                             </Switch>
                         </Content>
                     </Layout>
