@@ -144,7 +144,6 @@ const mapDispachToProps = dispatch => {
             })
         },
         deleteClass(payload) {
-            console.log(payload)
             dispatch({
                 type: "classmanagement/deleteClass",
                 payload
