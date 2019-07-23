@@ -14,29 +14,27 @@ function Home(props) {
     useEffect(() => {
         //获取用户信息
         props.getUserInfo()
-    }, [props.getImage,props.getUserInfo])
+    }, [props.getImage, props.getUserInfo])
     if (!props.myView.length) {
         return null;
     }
-    
-  
+
+
     let upload = (e) => {
         let form = new FormData();
         form.append(e.target.files[0].name, e.target.files[0])
-        axios.post('http://123.206.55.50:11000/upload', form).then(res=>{
-          let url= res.data.data[0].path;
+        axios.post('http://123.206.55.50:11000/upload', form).then(res => {
+            let url = res.data.data[0].path;
             console.log(props.login.userInfo.avatar)
-         props.getImage({ user_id: props.login.userInfo.user_id, avatar: url})
-          
+            props.getImage({ user_id: props.login.userInfo.user_id, avatar: url })
+
         })
-       updateDialog(false)
-        
+        updateDialog(false)
     }
-    
     //弹框
     let handleSubmit = () => {
         updateDialog(false)
-         props.getUserInfo()
+        props.getUserInfo()
     }
     const userName = props.login.userInfo.user_name
     return (
@@ -56,9 +54,7 @@ function Home(props) {
                     <div className={styles.userInfo} >
                         {
                             <div onClick={() => updateDialog(true)} >
-                                <img src={props.login.userInfo.avatar} alt="" className={styles.userImg}/>
-                                {/* <img src='https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'  /> */}
-                                {/* <img src={props.upload.img ? props.upload.img : 'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} /> */}
+                                <img src={props.login.userInfo.avatar} alt="" className={styles.userImg} />
                                 <span>{userName}</span>
                             </div>
                         }

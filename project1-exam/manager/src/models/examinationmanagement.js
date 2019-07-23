@@ -7,7 +7,6 @@ import {
   getdelete,
   getDetail
 } from '../services/examinationmanagement';
-import { message } from 'dva'
 //考试管理
 export default {
   //命名空间
