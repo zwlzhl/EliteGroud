@@ -14,9 +14,7 @@ function Class(props) {
         } else {
             return
         }
-    }, [props.deletelist])
-    console.log(props.deletelist.code, "props.deletelist.codexxxxxxx")
-    console.log(props, "props.tinajiabanji")
+    }, [props.getclassList,props.deletelist])
     const columns = [
         {
             title: '班级名',
@@ -140,10 +138,9 @@ const mapStateToProps = state => {
 }
 const mapDispachToProps = dispatch => {
     return {
-        getClass(payload) {
+        getClass() {
             dispatch({
-                type: "classmanagement/getClass",
-                payload
+                type: "classmanagement/getClass"
             })
         },
         deleteClass(payload) {

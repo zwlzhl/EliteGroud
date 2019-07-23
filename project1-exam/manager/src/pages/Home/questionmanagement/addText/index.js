@@ -44,7 +44,7 @@ function AddText(props) {
 
       message.success('添加成功');
     }
-  },[props.questions.examFlag])
+  })
   return (
     <Form className={styles.content} onSubmit={handleSubmit}>
       <div className={styles.content}>

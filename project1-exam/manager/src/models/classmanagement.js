@@ -41,7 +41,6 @@ export default {
     //获取数据
     *getClass({payload}, { call, put }) {
       let data = yield call(getClass)
-      console.log(data, "dataaaa")
       yield put({
         type: 'getClassData',
         payload: data.data
@@ -123,7 +122,7 @@ export default {
         payload:data.data
       })
     },
-    //添加教室 
+    //添加教室
     *addManagerRooms({payload}, {call, put}) {
       let addManagerRoomData = yield call(addManagerRoom, payload) 
       console.log(addManagerRoomData, "addManagerRoomData.......")
@@ -157,8 +156,8 @@ export default {
     subjectData(state, { payload }) {
       return { ...state, subjectList: payload }
     },
-    deleteData(state, { payload: {data} }) {
-      return { ...state, deletelist: data }
+    deleteData(state, { payload }) {
+      return { ...state, deletelist: payload }
     },
     //获取已经分班的学生
     getplacementstudentdata(state, action) {

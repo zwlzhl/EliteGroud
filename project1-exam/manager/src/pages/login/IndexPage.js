@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import './IndexPage.scss';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
+import { userInfo } from 'os';
 
 function LoginPage(props) {
   //模拟compoentDidMont
@@ -109,3 +110,5 @@ const mapDispatchToProps = dispatch => {
 }
 //用Form.create把loginPage包裹
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(LoginPage));
+
+

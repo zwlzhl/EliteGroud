@@ -14,7 +14,6 @@ import marking from '../pages/Home/markingmanagement/marking/index'
 import examDetail from '../pages/Home/examinationmanagement/examdetail/index'
 import text from '../pages/Home/questionmanagement/text/index'
 import editPage from '../pages/Home/questionmanagement/editPage/index' 
-import userUpload from '../pages/Home/userUpload/index'
 import  createPage from '../pages/Home/examinationmanagement/createPage/index'
 export default {
     routes: [

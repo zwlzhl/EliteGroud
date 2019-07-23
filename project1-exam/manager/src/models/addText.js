@@ -9,7 +9,6 @@ import {
     getExam,
     upDataQuestions,
     addExamType
-
 } from '../services/addText';
 export default {
     //命名空间

@@ -41,12 +41,6 @@ export function upDataClass(){
 }
 
 
-
-
-
-
-
-
 //获取已经分班的学生
 export function getPlacementStudent() {
     return request.get("/manger/student") 
