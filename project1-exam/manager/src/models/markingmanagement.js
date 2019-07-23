@@ -12,7 +12,7 @@ export default {
     state: {
       studentList: [],
       approvalList: [],
-      submitStudentList: {},
+      submitStudentList: -1,
       studentDetaillist: [],
       number: 0
     },
@@ -46,7 +46,8 @@ export default {
       },
       //获取学生试题详情
       *getStudent({payload}, {call, put}) {
-        let detailStudent = yield call(getStudent)
+        console.log(payload, "payloaddddddd")
+        let detailStudent = yield call(getStudent, payload.id)
         console.log(detailStudent, "detail.....")
         yield put({
           type: "getstudentdetail",
@@ -93,7 +94,7 @@ export default {
       submitstudent(state, action) {
         return {
           ...state,
-          submitStudentList: action.payload
+          submitStudentList: action.payload.code
         }
       }
     },

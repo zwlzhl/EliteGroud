@@ -45,7 +45,7 @@ function Pending(props) {
     }, [])
     //处理表头
     let nextClass = (item) => {
-        // console.log(item, "item...........")
+         //console.log(item, "item...........")
         props.history.push('/home/classmate?id=' + item.grade_id + '&&name=' + item.grade_name)
     }
 
