@@ -1,5 +1,35 @@
+**交互流程[组件[数据代理]] - > [服务{发起请求，拦截器}] - > [mockjs / server {后端}] 
 
-    |——mock
+**** .git流程
+        1.远程主分支master 
+        2.dev分支
+        3.自己的分支
+        4.将自己的分支与dev合并，最后将dev分支与master分支合并，master分支是稳定版，不要动
+
+**git的常用命令
+        1.git init初始化本地版本库
+        2.git status查看工作区和暂存区的修改
+        3.git add。把工作区所有修改提交到暂存区
+        4.git commit -m“对本次提交的描述”把修改从暂存区提交到本地版本库
+        5.git log查看提交历史记录git refiog查看所有的历史纪录
+        6.git checkout -b分支名创建并切换分支
+        7.git pull：把远程代码拉取下来并和本地合并
+        8.git push origin分支名把本地仓库的代码推送到远程仓库3.dva 
+
+**用到的框架介绍
+        1.什么是dva：dva首先是一个基于redux和redux-saga的数据流方案，然后为了简化开发体验，dva还额外内了了react-router和fetch，所以也可以理解为一个轻量级的应用框架
+        2.怎么安装dva：通过npm安装dva-cli并确保版本是0.9.1或以上.npm install dva-cli -g 
+        3.用dav怎么创建一个新的项目：指令：dva new项目名称
+        4.在dev中使用antd：指令：npm install antd babel-plugin-import --save
+在此项目中 
+        登录注册
+        图片上传修改用户头像
+        权限修改
+        请求接口返回数据
+        对表单进行的增删改查 表单验证问题
+        exacl表格的导入导出
+        
+    |——merage
     |    |——user
     |    |    |---user.json    //用户数据
     |    |——index
