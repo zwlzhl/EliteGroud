@@ -18,8 +18,6 @@ function Home(props) {
     if (!props.myView.length) {
         return null;
     }
-    
-  
     let upload = (e) => {
         let form = new FormData();
         form.append(e.target.files[0].name, e.target.files[0])
@@ -27,7 +25,7 @@ function Home(props) {
           let url= res.data.data[0].path;
             console.log(props.login.userInfo.avatar)
          props.getImage({ user_id: props.login.userInfo.user_id, avatar: url})
-          
+        
         })
        updateDialog(false)
         
