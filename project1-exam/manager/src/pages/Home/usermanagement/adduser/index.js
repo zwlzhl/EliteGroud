@@ -1,18 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "dva";
-import { Form, Input, Select, Button } from 'antd';
+import { Form, Input, Select, Button, message } from 'antd';
 import styles from './index.scss'
+import { injectIntl } from 'react-intl';
 
-const { Option } = Select
+
+const { Option } = Select;
+
 function addUsers(props) {
-    useEffect(() => {
-        props.userIdentity()
-    }, [])
-
-    //用户数据、用户标识
-    let { identityData, userUserData, viewAuthorityData, apiAuthorityData } = props.usermanagement
+    //upAdup是修改state的唯一方法
     let [adup, upAdup] = useState(true);
-    let { getFieldDecorator } = props.form;
+
+    const { userList, viewList, apiList, userLists } = props;
+    let [viewtext, upViewtext] = useState('');
+    
+
+    useEffect(() => {
+        props.ident();
+        props.viewAuthority();
+        props.apiAuthority();
+        props.getUser();
+    }, [])
+    console.log(props, "tiainajiyongh....")
+    //弹框
+    useEffect(() => {
+        console.log(props.codeNum)
+        if (props.codeNum === 1) {
+            message.success('添加成功')
+        } else if (props.codeNum === 0) {
+            message.error("输入有误");
+        }
+    }, [props.codeNum])
+    //切换tab
     let changeActive = e => {
         if (e.target.innerHTML === '更新用户') {
             upAdup(adup = false)
@@ -23,39 +42,97 @@ function addUsers(props) {
             e.target.className = styles.active;
             e.target.nextSibling.className = '';
         }
-    }
-    let handleSubmit = () => {
-        addUser()
-    }
-    //点击添加用户
-    let addUser = () => {
-        props.form.validateFields((err, value) => {
-            console.log(err)
-            if (!err) {
-                props.addUserUser({
-                    user_name: value.username,
-                    user_pwd: value.password,
-                    identity_id: value.identity
-                })
-            }
 
-        })
     }
-    //点击更新用户
-    let updateUser = () => {
+    //添加用户
+    let hankAddUser = () => {
         props.form.validateFields((err, value) => {
-            // console.log(value, "undata....")
+            console.log(value)
+            props.userAdd({
+                user_name: value.username,
+                user_pwd: value.password,
+                identity_id: value.identity
+            })
         })
     }
-    let reset = () =>{
-        console.log(8)
+    //添加身份
+    let hankIdent = () => {
+        props.form.validateFields((err, value) => {
+            props.addIdent({
+                identity_text: value.identName
+            })
+        })
     }
+    //更新用户
+    let hankUpuser = () => {
+        props.form.validateFields((err, value) => {
+            console.log(value)
+            props.upIdent({
+                user_id: value.userId,
+                user_name: value.upUsername,
+                user_pwd: value.uPpassword,
+                identity_id: value.upIdentity
+            })
+        })
+    }
+    //添加API权限
+    let hankAddApi = () => {
+        props.form.validateFields((err, value) => {
+            console.log(value)
+            props.addAuthorityApi({
+                api_authority_text: value.apiText,
+                api_authority_url: value.apiUrl,
+                api_authority_method: value.apiMehtod
+            })
+        })
+    }
+
+    let hankAddView = () => {
+        props.form.validateFields((err, value) => {
+            viewList && viewList.forEach(item => {
+                if (item.view_authority_id === value.viewAuthority) {
+                    upViewtext(viewtext = item.view_authority_text)
+                }
+            })
+            props.addAuthorityView({
+                view_authority_text: viewtext,
+                view_id: value.viewAuthority
+            })
+        })
+    }
+
+    let HankIdentityApi = () => {
+        props.form.validateFields((err, value) => {
+            // console.log(value)
+            props.setIdentityApi({
+                identity_id: value.identity,
+                api_authority_id: value.apiId
+            })
+        })
+    }
+
+    let HankIdentityView = () => {
+        props.form.validateFields((err, value) => {
+            // console.log(value)
+            props.setIdentityView({
+                identity_id: value.identity,
+                view_authority_id: value.IdentityView
+            })
+        })
+    }
+    //清除
+    let reset = () => {
+        props.form.resetFields();
+    }
+
+    let { getFieldDecorator } = props.form;
+
     return (
         <div className="add">
             <h3>添加用户</h3>
             <div className="content">
-                <Form className={styles.wrap} onSubmit={handleSubmit}>
-                    <Form-Item class={styles.wrap_item}>
+                <Form className={styles.wrap}>
+                    <Form-Item class={styles.wrap_item} className="zxy">
                         <div className={styles.tits} onClick={changeActive}>
                             <p className={adup ? styles.active : null}>添加用户</p>
                             <p className={adup ? null : styles.active}>更新用户</p>
@@ -66,7 +143,7 @@ function addUsers(props) {
                                     getFieldDecorator('username', {
                                         rules: [{ pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: '请输入用户名' }],
                                     })(
-                                        <Input placeholder="请输入用户名" />,
+                                        <Input placeholder="请输入用户名" type="username" />,
                                     )
                                 }
                                 {
@@ -82,30 +159,26 @@ function addUsers(props) {
                                     })(
                                         <Select className={styles.select} placeholder="请选择身份id">
                                             {
-                                                identityData.map(item => {
-                                                    return (
-                                                        <Option value={item.identity_id} key={item.identity_id}>{item.identity_text}</Option>
-                                                    )
+                                                userList && userList.map(item => {
+                                                    return <Option key={item.identity_id} value={item.identity_id}>{item.identity_text}</Option>
                                                 })
                                             }
                                         </Select>,
                                     )
                                 }
                                 <div className={styles.btns}>
-                                    <Button className={styles.sure} onClick={addUser} htmlType="submit">确定</Button>
-                                    <Button className={styles.reset} onClick={reset}>重置</Button>
+                                    <Button className={styles.sure} onClick={hankAddUser}>确定</Button>
+                                    <Button className={styles.reset} onClick={reset} htmlType="reset">重置</Button>
                                 </div>
                             </div> : <div className={styles.item_box}>
                                     {
                                         getFieldDecorator('userId', {
                                             rules: [{ required: true, message: '请选择用户id' }],
                                         })(
-                                            <Select className={styles.select} placeholder="请选择用户id">
+                                            <Select className={styles.select} placeholder="请选择身份id">
                                                 {
-                                                    userUserData.map(item => {
-                                                        return (
-                                                            <Option value={item.user_id} key={item.user_id}>{item.user_name}</Option>
-                                                        )
+                                                    userLists && userLists.map(item => {
+                                                        return <Option key={item.user_id} value={item.user_id}>{item.user_name}</Option>
                                                     })
                                                 }
                                             </Select>,
@@ -131,18 +204,16 @@ function addUsers(props) {
                                         })(
                                             <Select className={styles.select} placeholder="请选择身份id">
                                                 {
-                                                    identityData.map(item => {
-                                                        return (
-                                                            <Option value={item.identity_id} key={item.identity_id}>{item.identity_text}</Option>
-                                                        )
+                                                    userList && userList.map(item => {
+                                                        return <Option key={item.identity_id} value={item.identity_id}>{item.identity_text}</Option>
                                                     })
                                                 }
                                             </Select>,
                                         )
                                     }
                                     <div className={styles.btns}>
-                                        <Button className={styles.sure} onClick={updateUser} htmlType="submit">确定</Button>
-                                        <Button className={styles.reset}>重置</Button>
+                                        <Button className={styles.sure} onClick={hankUpuser}>确定</Button>
+                                        <Button className={styles.reset} onClick={reset}>重置</Button>
                                     </div>
                                 </div>
                         }
@@ -160,8 +231,8 @@ function addUsers(props) {
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure} htmlType="submit">确定</Button>
-                                <Button className={styles.reset}>重置</Button>
+                                <Button className={styles.sure} onClick={hankIdent}>确定</Button>
+                                <Button className={styles.reset} onClick={reset}>重置</Button>
                             </div>
                         </div>
                     </Form-Item>
@@ -192,8 +263,8 @@ function addUsers(props) {
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure} htmlType="submit">确定</Button>
-                                <Button className={styles.reset}>重置</Button>
+                                <Button className={styles.sure} onClick={hankAddApi}>确定</Button>
+                                <Button className={styles.reset} onClick={reset}>重置</Button>
                             </div>
                         </div>
                     </Form-Item>
@@ -206,20 +277,18 @@ function addUsers(props) {
                                 getFieldDecorator('viewAuthority', {
                                     rules: [{ required: true, message: '请输入身份名称' }],
                                 })(
-                                    <Select className={styles.select} placeholder="请选择已有视图">
+                                    <Select className={styles.select} placeholder="试题详情">
                                         {
-                                            viewAuthorityData.map(item => {
-                                                return (
-                                                    <Option value={item.view_authority_id} key={item.view_authority_id}>{item.view_authority_text}</Option>
-                                                )
+                                            viewList && viewList.map(item => {
+                                                return <Option key={item.view_authority_id} value={item.view_authority_id}>{item.view_authority_text}</Option>
                                             })
                                         }
                                     </Select>,
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure} htmlType="submit" >确定</Button>
-                                <Button className={styles.reset}>重置</Button>
+                                <Button className={styles.sure} onClick={hankAddView}>确定</Button>
+                                <Button className={styles.reset} onClick={reset}>重置</Button>
                             </div>
                         </div>
                     </Form-Item>
@@ -234,10 +303,8 @@ function addUsers(props) {
                                 })(
                                     <Select className={styles.select} placeholder="请选择身份id">
                                         {
-                                            identityData.map(item => {
-                                                return (
-                                                    <Option value={item.identity_id} key={item.identity_id}>{item.identity_text}</Option>
-                                                )
+                                            userList && userList.map(item => {
+                                                return <Option key={item.identity_id} value={item.identity_id}>{item.identity_text}</Option>
                                             })
                                         }
                                     </Select>,
@@ -247,20 +314,18 @@ function addUsers(props) {
                                 getFieldDecorator('apiId', {
                                     rules: [{ required: true, message: '请选择api接口权限数据' }],
                                 })(
-                                    <Select className={styles.select} placeholder="请选择api接口权限数据">
+                                    <Select className={styles.select} placeholder="请选择身份id">
                                         {
-                                            apiAuthorityData.map(item => {
-                                                return (
-                                                    <Option value={item.api_authority_id} key={item.api_authority_id}>{item.api_authority_text}</Option>
-                                                )
+                                            apiList && apiList.map(item => {
+                                                return <Option key={item.api_authority_id} value={item.api_authority_id}>{item.api_authority_text}</Option>
                                             })
                                         }
                                     </Select>,
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure} htmlType="submit">确定</Button>
-                                <Button className={styles.reset}>重置</Button>
+                                <Button className={styles.sure} onClick={HankIdentityApi}>确定</Button>
+                                <Button className={styles.reset} onClick={reset}>重置</Button>
                             </div>
                         </div>
                     </Form-Item>
@@ -275,10 +340,8 @@ function addUsers(props) {
                                 })(
                                     <Select className={styles.select} placeholder="请选择身份id">
                                         {
-                                            identityData.map(item => {
-                                                return (
-                                                    <Option value={item.identity_id} key={item.identity_id}>{item.identity_text}</Option>
-                                                )
+                                            userList && userList.map(item => {
+                                                return <Option key={item.identity_id} value={item.identity_id}>{item.identity_text}</Option>
                                             })
                                         }
                                     </Select>,
@@ -288,20 +351,18 @@ function addUsers(props) {
                                 getFieldDecorator('IdentityView', {
                                     rules: [{ required: true, message: '请选择视图id' }],
                                 })(
-                                    <Select className={styles.select} placeholder="请选择视图id">
+                                    <Select className={styles.select} placeholder="请选择已有视图">
                                         {
-                                            viewAuthorityData.map(item => {
-                                                return (
-                                                    <Option value={item.view_authority_id} key={item.view_authority_id}>{item.view_authority_text}</Option>
-                                                )
+                                            viewList && viewList.map(item => {
+                                                return <Option key={item.view_authority_id} value={item.view_authority_id}>{item.view_authority_text}</Option>
                                             })
                                         }
                                     </Select>,
                                 )
                             }
                             <div className={styles.btns}>
-                                <Button className={styles.sure} htmlType="submit">确定</Button>
-                                <Button className={styles.reset}>重置</Button>
+                                <Button className={styles.sure} onClick={HankIdentityView}>确定</Button>
+                                <Button className={styles.reset} onClick={reset}>重置</Button>
                             </div>
                         </div>
                     </Form-Item>
@@ -312,27 +373,75 @@ function addUsers(props) {
 }
 addUsers.propTypes = {};
 
-const mapStateToProps = state => {
-    return {
-        ...state
-    }
+const mapState = state => {
+    return { ...state.addusers }
 }
-const mapDispatchToProps = dispatch => {
+
+const mapDispatch = dispatch => {
     return {
-        //获取页面数据
-        userIdentity: payload => {
+        ident: () => {
             dispatch({
-                type: "usermanagement/getUserIdentity",
+                type: "addusers/ident"
+            });
+        },
+        viewAuthority: () => {
+            dispatch({
+                type: "addusers/viewAuthority"
+            })
+        },
+        apiAuthority() {
+            dispatch({
+                type: "addusers/apiAuthority"
+            })
+        },
+        getUser() {
+            dispatch({
+                type: "addusers/getUser"
+            })
+        },
+        userAdd(payload) {
+            dispatch({
+                type: "addusers/userAdd",
                 payload
             })
         },
-        //添加用户
-        addUserUser: payload => {
+        addIdent(payload) {
             dispatch({
-                type: "usermanagement/adduser"
+                type: "addusers/addIdent",
+                payload
             })
-        }
-    }
-
+        },
+        upIdent(payload) {
+            dispatch({
+                type: "addusers/upIdent",
+                payload
+            })
+        },
+        addAuthorityApi(payload) {
+            dispatch({
+                type: "addusers/addAuthorityApi",
+                payload
+            })
+        },
+        addAuthorityView(payload) {
+            dispatch({
+                type: "addusers/addAuthorityView",
+                payload
+            })
+        },
+        setIdentityApi(payload) {
+            dispatch({
+                type: "addusers/setIdentityApi",
+                payload
+            })
+        },
+        setIdentityView(payload) {
+            dispatch({
+                type: "addusers/setIdentityView",
+                payload
+            })
+        },
+    };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(addUsers));
+
+export default injectIntl(connect(mapState, mapDispatch)(Form.create()(addUsers)));

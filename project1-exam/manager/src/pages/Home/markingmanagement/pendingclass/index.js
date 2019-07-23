@@ -50,7 +50,7 @@ function Pending(props) {
     return (
         <div>
             <h2>待批班级</h2>
-            <Table columns={columns} dataSource={studentList} className={styles.table} rowKey={studentList.grade_id} />
+            <Table columns={columns} dataSource={studentList} className={styles.table} rowKey="grade_id" />
         </div>
     );
 }

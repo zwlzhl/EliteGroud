@@ -92,7 +92,7 @@ function Class(props) {
                         })(<Input placeholder="教室名" />)}
                     </Form.Item>
                 </Modal>
-                <Table columns={columns} dataSource={allclassList} rowKey={allclassList.room_id} />
+                <Table columns={columns} dataSource={allclassList} rowKey="room_id" />
             </Form>
         </div>
     );

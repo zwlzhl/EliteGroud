@@ -115,7 +115,7 @@ function Student(props) {
                     <Button type="primary" className={styles.button} htmlType="submit">搜索</Button>
                     <Button type="primary" className={styles.button} onClick={reset}>重置</Button>
                 </Form>
-                <Table columns={columns} dataSource={placementStudentList} />
+                <Table columns={columns} dataSource={placementStudentList} rowKey="student_id" />
             </div>
         </div>
     );
