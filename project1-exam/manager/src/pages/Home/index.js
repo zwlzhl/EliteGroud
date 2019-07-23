@@ -1,34 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
-import { Layout, Menu, Breadcrumb, Dropdown, Icon, Select, Input } from 'antd';
+import { Layout, Form, Menu, Breadcrumb, Modal, Icon, Select, Input } from 'antd';
 import { NavLink, Switch, Route, Redirect } from 'dva/router'
 import { injectIntl } from 'react-intl'
+import axios from 'axios'
 const { SubMenu } = Menu;
 const { Option } = Select
 const { Header, Content, Sider } = Layout;
 const InputGroup = Input.Group;
 function Home(props) {
+    let [showDialog, updateDialog] = useState(false);
     useEffect(() => {
         //获取用户信息
         props.getUserInfo()
-    }, [])
+    }, [props.getImage,props.getUserInfo])
     if (!props.myView.length) {
         return null;
     }
-    console.log(props)
-    let Upload = () => {
-        props.history.push('/home/userUpload')
+    
+  
+    let upload = (e) => {
+        let form = new FormData();
+        form.append(e.target.files[0].name, e.target.files[0])
+        axios.post('http://123.206.55.50:11000/upload', form).then(res=>{
+          let url= res.data.data[0].path;
+            console.log(props.login.userInfo.avatar)
+         props.getImage({ user_id: props.login.userInfo.user_id, avatar: url})
+          
+        })
+       updateDialog(false)
+        
     }
-    let menu = (
-        <Menu>
-            <Menu.Item key="1" onClick={() => { Upload() }}>个人中心</Menu.Item>
-            <Menu.Item key="2">我的班级</Menu.Item>
-            <Menu.Item key="3">设置</Menu.Item>
-            <Menu.Item key="4">退出登录</Menu.Item>
-        </Menu>
-    );
-
+    
+    //弹框
+    let handleSubmit = () => {
+        updateDialog(false)
+         props.getUserInfo()
+    }
     const userName = props.login.userInfo.user_name
     return (
         <div className={styles.wrap}>
@@ -46,15 +55,24 @@ function Home(props) {
                     </InputGroup>
                     <div className={styles.userInfo} >
                         {
-                            <Dropdown overlay={menu}>
-                                <a className={["ant-dropdown-link", styles.headerBottomList]}>
-                                    <img src={props.upload.img ? props.upload.img : 'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} />
-                                    <span>{userName}</span>
-                                </a>
-                            </Dropdown>
+                            <div onClick={() => updateDialog(true)} >
+                                <img src={props.login.userInfo.avatar} alt="" className={styles.userImg}/>
+                                {/* <img src='https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'  /> */}
+                                {/* <img src={props.upload.img ? props.upload.img : 'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} /> */}
+                                <span>{userName}</span>
+                            </div>
                         }
-                        {/* <img src="https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png" alt="" />
-                        <span style={{ cursor: 'pointer' }}>{userName}</span> */}
+                        <Modal
+                            title="更换头像"
+                            visible={showDialog}
+                            onCancel={() => updateDialog(false)}
+                            onOk={handleSubmit}
+                            className={styles.modal}
+                            cancelText="取消"
+                            okText="确定"
+                        >
+                            <input type="file" onChange={upload} />
+                        </Modal>
                     </div>
                 </Header>
                 <Layout>
@@ -136,7 +154,7 @@ function Home(props) {
                         </Breadcrumb>
                         <Content className={styles.content}>
                             <Switch>
-                                <Redirect from='/' exact to="/home/addText"></Redirect> 
+                                <Redirect from='/' exact to="/home/addText"></Redirect>
                                 {/* 配置用户拥有的路由 */}
                                 {
                                     props.myView.map(item => {
@@ -184,7 +202,13 @@ const mapDispachToProps = dispatch => {
                 type: 'global/updateLocale',
                 payload
             })
+        },
+        getImage(payload) {
+            dispatch({
+                type: "upload/getImage",
+                payload
+            })
         }
     }
 }
-export default injectIntl(connect(mapStateToProps, mapDispachToProps)(Home));
+export default injectIntl(connect(mapStateToProps, mapDispachToProps)(Form.create()(Home)));
