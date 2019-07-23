@@ -55,8 +55,6 @@ function Home(props) {
                         {
                             <div onClick={() => updateDialog(true)} >
                                 <img src={props.login.userInfo.avatar} alt="" className={styles.userImg}/>
-                                {/* <img src='https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'  /> */}
-                                {/* <img src={props.upload.img ? props.upload.img : 'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} /> */}
                                 <span>{userName}</span>
                             </div>
                         }
