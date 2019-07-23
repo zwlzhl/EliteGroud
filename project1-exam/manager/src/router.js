@@ -33,10 +33,14 @@ let RouterView = connect(mapStateToProps)((props) => {
           <Route path="/" component={Home}></Route>
           <Route path="/403" render={props => {
             return <p>你无权访问当前页面</p>
-          }}></Route>
+          }} exact>
+
+          </Route>
           <Route path="/404" render={props => {
             return <p>当前页面不存在</p>
-          }}></Route>
+          }} exact>
+
+          </Route>
         </Switch>
       </Router>
     </IntlProvider>

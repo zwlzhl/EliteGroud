@@ -13,7 +13,6 @@ function Addexam(props) {
     //点击创建按钮 进行表单校验
     let handleSubmit = () => {
         props.form.validateFields((err, values) => {
-            console.log()
             if (!err) {
                 let item = {
                     subject_id: values.subject_id,
@@ -23,7 +22,7 @@ function Addexam(props) {
                     start_time: values.date_time_picker * 1,
                     end_time: values.date_time * 1
                 }
-                //let txt=window.localStorage.setItem('list', JSON.stringify(item));
+                let txt=window.localStorage.setItem('list', JSON.stringify(item));
                 props.createPage(item)
                 props.history.push('/home/createPage')
             }

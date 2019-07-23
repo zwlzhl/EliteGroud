@@ -7,7 +7,7 @@ import {
   getdelete,
   getDetail
 } from '../services/examinationmanagement';
-import {message} from 'dva'
+import { message } from 'dva'
 //考试管理
 export default {
   //命名空间
@@ -15,12 +15,14 @@ export default {
   //模块状态
   state: {
     createPageList: [],
-    getdeleteList:[],
+    getdeleteList: [],
     examlistData: [],
     examTypeList: [],
     subjectList: [],
     ViewList: [],
-    detailList:{}
+    detailList: {},
+    createPageList: localStorage.list ? JSON.parse(localStorage.list) : {},
+
   },
   //订阅
   subscriptions: {
@@ -40,16 +42,16 @@ export default {
       })
     },
     //删除试卷
-    *getdelete({payload},{call,put}){
-        let data=yield call(getdelete)
-        console.log(data)
-        yield put({
-          type:"getdeleteData",
-          payload:data.data
-        })
+    *getdelete({ payload }, { call, put }) {
+      let data = yield call(getdelete)
+      console.log(data)
+      yield put({
+        type: "getdeleteData",
+        payload: data.data
+      })
     },
     //获取所有的考试类型
-    *examType({payload}, {call, put }) {
+    *examType({ payload }, { call, put }) {
       let data = yield call(examType)
       yield put({
         type: "getexamType",
@@ -57,7 +59,7 @@ export default {
       })
     },
     //课程类型
-    *Subject({payload}, {call, put }) {
+    *Subject({ payload }, { call, put }) {
       let data = yield call(Subject)
       yield put({
         type: "subjectL",
@@ -65,7 +67,7 @@ export default {
       })
     },
     //获取试卷列表接口
-    *getexamlist({payload}, {call, put }) {
+    *getexamlist({ payload }, { call, put }) {
       let data = yield call(getexamlist)
       // console.log("试卷列表......",data)
       yield put({
@@ -83,7 +85,7 @@ export default {
       })
     },
     //获取详情的数据
-    *getDetail({payload},{call,put}){
+    *getDetail({ payload }, { call, put }) {
       // let data=yield call(getDetail)
       // console.log(data,"试卷详情页")
       // yield put({
@@ -97,8 +99,8 @@ export default {
     createPageData(state, { payload }) {
       return { ...state, createPageList: payload }
     },
-    getdeleteData(state,{payload}){
-      return {...state,getdeleteList:payload}
+    getdeleteData(state, { payload }) {
+      return { ...state, getdeleteList: payload }
     },
     examlist(state, { payload }) {
       // console.log(payload, '数据.....')
@@ -113,10 +115,29 @@ export default {
     findData(state, { payload }) {
       return { ...state, ViewList: payload }
     },
-    getDetailData(state,{payload}){
-      return {...state,detailList:payload}
+    getDetailData(state, { payload }) {
+      return { ...state, detailList: payload }
     },
-    
+    // 添加试题
+    addQuestionFn(state, { item }) {
+      let arr = JSON.parse(localStorage.exam);
+      arr.examinationmanagement.push(item);
+      localStorage.exam = JSON.stringify(arr);
+      return {
+        ...state,
+        createPageList: arr
+      }
+    },
+    //删除
+    questionDel(state, { index }) {
+      let arr = JSON.parse(localStorage.exam);
+      arr.examinationmanagement.splice(index, 1);
+      localStorage.exam = JSON.stringify(arr);
+      return {
+        ...state,
+        createPageList: arr
+      }
+    },
   }
 
 };

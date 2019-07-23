@@ -72,7 +72,7 @@ function Class(props) {
         } else if (deleteManagerRoomCode === 0) {
             message.error("删除失败")
         }
-    }, [deleteManagerRoomCode])
+    }, [props.allclassList,deleteManagerRoomCode])
     return (
         <div className={styles.wrap}>
             <Form onSubmit={handleSubmit}>
@@ -92,7 +92,7 @@ function Class(props) {
                         })(<Input placeholder="教室名" />)}
                     </Form.Item>
                 </Modal>
-                <Table columns={columns} dataSource={allclassList} rowKey={allclassList.room_id} />
+                <Table columns={columns} dataSource={allclassList} rowKey='room_id' />
             </Form>
         </div>
     );

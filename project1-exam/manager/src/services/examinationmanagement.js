@@ -1,7 +1,14 @@
 //考试管理
 import request from '../utils/request';
 
+//获取所有的试题
 
+export function getQuestions(){
+    return request({
+        url:'/exam/questions/new',
+        method:'GET'
+    })
+}
 //获取所有的课程
 export function Subject() {
     return request({

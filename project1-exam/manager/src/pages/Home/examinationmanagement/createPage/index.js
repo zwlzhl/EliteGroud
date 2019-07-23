@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
 import styles from './index.scss';
 import { Button, Drawer } from 'antd';
-
+import TableView from '../../../../components/questionList'
 function CreatePage(props) {
     useEffect(() => {
         //   props.getdelete()
     }, [props.createPageList.questions])
     //本地存储拿出来
-    //let txt = JSON.parse(window.localStorage.getItem('list'))
+    let txt = JSON.parse(window.localStorage.getItem('list'))
     let { createPageList } = props;
     console.log(createPageList.questions)
     const [showModal, unshowModal] = useState(false)
     //删除
-    let handelClick = (item, index) => {
-        //console.log(item.parent())
+    let handelClick = (index) => {
+      props.questionDel(index)
     }
     //点击添加按钮
     let modalShow = () => {
@@ -29,6 +29,7 @@ function CreatePage(props) {
         props.history.push('/home/testpaper')
 
     }
+    console.log(props.createPageList)
     return (
         <div >
             <p style={{ fontSize: '18px', color: '#000' }}>创建试题</p>
@@ -63,15 +64,16 @@ function CreatePage(props) {
             </ul>
             <Button type="primary" htmlType="submit" style={{ marginTop: '50px' }} onClick={handleCreate}>创建试卷</Button>
             <Drawer
-                title="Basic Drawer"
+                title="所有的题目"
                 placement="right"
                 closable={false}
+                width="520"
                 onClose={handelClose}
                 visible={showModal}
             >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                {
+                    props.ViewList.length?<TableView props={props.ViewList} /> : null
+                }
             </Drawer>
 
         </div>
@@ -94,6 +96,13 @@ const mapDispachToProps = dispatch => {
                 payload
             })
         },
+        questionDel(index){
+            dispatch({
+                type:"examinationmanagement/questionDel",
+                index
+            })
+        }
+
        
     }
 }
