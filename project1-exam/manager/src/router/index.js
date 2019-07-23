@@ -1,20 +1,58 @@
-import addText from '../pages/Home/questionmanagement/addText/index'
-import classifyication from '../pages/Home/questionmanagement/classification/index'
-import seeText from '../pages/Home/questionmanagement/seeText/index'
-import adduser from '../pages/Home/usermanagement/adduser/index'
-import userDispyal from '../pages/Home/usermanagement/userdisplay/index'
-import addExam from '../pages/Home/examinationmanagement/addexam/index'
-import ExaminationPapers from '../pages/Home/examinationmanagement/examinationPapers/index'
-import classs from '../pages/Home/classmanagement/Class/index'
-import classRoom from '../pages/Home/classmanagement/classroom/index'
-import classStudent from '../pages/Home/classmanagement/student/index'
-import pendingClass from '../pages/Home/markingmanagement/pendingclass/index'
-import classMate from '../pages/Home/markingmanagement/classmate/index'
-import marking from '../pages/Home/markingmanagement/marking/index'
-import examDetail from '../pages/Home/examinationmanagement/examdetail/index'
-import text from '../pages/Home/questionmanagement/text/index'
-import editPage from '../pages/Home/questionmanagement/editPage/index' 
-import  createPage from '../pages/Home/examinationmanagement/createPage/index'
+import dynamic from 'dva/dynamic';
+
+const addText = dynamic({
+    component: () => import('../pages/Home/questionmanagement/addText'),
+  });
+  const classifyication = dynamic({
+    component: () => import('../pages/Home/questionmanagement/classification'),
+  });
+  const seeText = dynamic({
+    component: () => import('../pages/Home/questionmanagement/seeText'),
+  });
+  const adduser = dynamic({
+    component: () => import('../pages/Home/usermanagement/adduser'),
+  });
+  const userDispyal = dynamic({
+    component: () => import('../pages/Home/usermanagement/userdisplay'),
+  });
+  const addExam = dynamic({
+    component: () => import('../pages/Home/examinationmanagement/addexam'),
+  });
+  const ExaminationPapers = dynamic({
+    component: () => import('../pages/Home/examinationmanagement/examinationPapers'),
+  });
+  const classs = dynamic({
+    component: () => import('../pages/Home/classmanagement/Class/index'),
+  });
+  const classRoom = dynamic({
+    component: () => import('../pages/Home/classmanagement/classroom/index'),
+  });
+  const classStudent = dynamic({
+    component: () => import('../pages/Home/classmanagement/student'),
+  });
+  const pendingClass = dynamic({
+    component: () => import('../pages/Home/markingmanagement/pendingclass'),
+  });
+  const classMate = dynamic({
+    component: () => import('../pages/Home/markingmanagement/classmate'),
+  });
+  const marking = dynamic({
+    component: () => import('../pages/Home/markingmanagement/marking'),
+  });
+  const examDetail = dynamic({
+    component: () => import('../pages/Home/examinationmanagement/examdetail'),
+  });
+
+
+  const text = dynamic({
+    component: () => import('../pages/Home/questionmanagement/text'),
+  });
+  const editPage = dynamic({
+    component: () => import('../pages/Home/questionmanagement/editPage'),
+  });
+  const createPage = dynamic({
+    component: () => import('../pages/Home/examinationmanagement/createPage'),
+  });
 export default {
     routes: [
         {

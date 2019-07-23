@@ -10,7 +10,7 @@ export default {
         img: '',
         userInfo: {},
         getUpdataimg: {},
-        getImageList: {}
+        getImageList: []
     },
     // 订阅路由跳转
     subscriptions: {
@@ -26,6 +26,10 @@ export default {
         *getUserInfo({ payload }, { call, put }) {
             let userinfo = yield call(getUserInfo)
             console.log(userinfo, "userinfo")
+            if (Object.keys(userinfo).length) {
+                console.log(111)
+                return;
+            }
             yield put({
                 type: "getUserData",
                 payload: userinfo

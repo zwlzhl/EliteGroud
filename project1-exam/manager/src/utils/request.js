@@ -4,7 +4,8 @@ import {getToken} from '@/utils/index'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://127.0.0.1:7001/',
+  baseURL:"https://exam.jasonandjay.com",
+  //  'http://127.0.0.1:7001/',
   // withCredentials: true, // 跨域请求时发送 cookies
   timeout: 5000 // request timeout
 })

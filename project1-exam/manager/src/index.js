@@ -1,8 +1,8 @@
 import dva from 'dva';
 import './index.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import createLoading from 'dva-loading'
-import { message } from 'antd';
+ import { message } from 'antd';
 // import { createLogger } from 'redux-logger'
 // 1. Initialize
 const app = dva(createLoading());
