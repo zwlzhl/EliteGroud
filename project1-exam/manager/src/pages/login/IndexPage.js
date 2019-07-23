@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'dva';
 import './IndexPage.scss';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
-import { userInfo } from 'os';
 
 function LoginPage(props) {
   //模拟compoentDidMont

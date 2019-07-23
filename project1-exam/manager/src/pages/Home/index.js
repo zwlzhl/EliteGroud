@@ -17,12 +17,9 @@ function Home(props) {
         return null;
     }
     console.log(props)
-    let Upload = () => {
-        props.history.push('/home/userUpload')
-    }
     let menu = (
         <Menu>
-            <Menu.Item key="1" onClick={() => { Upload() }}>个人中心</Menu.Item>
+            <Menu.Item key="1" >个人中心</Menu.Item>
             <Menu.Item key="2">我的班级</Menu.Item>
             <Menu.Item key="3">设置</Menu.Item>
             <Menu.Item key="4">退出登录</Menu.Item>
@@ -48,7 +45,7 @@ function Home(props) {
                         {
                             <Dropdown overlay={menu}>
                                 <a className={["ant-dropdown-link", styles.headerBottomList]}>
-                                    <img src={props.upload.img ? props.upload.img : 'https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png'} className={styles.userImg} />
+                                    
                                     <span>{userName}</span>
                                 </a>
                             </Dropdown>

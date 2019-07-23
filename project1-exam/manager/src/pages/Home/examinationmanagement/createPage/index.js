@@ -8,7 +8,6 @@ function CreatePage(props) {
         //   props.getdelete()
     }, [props.createPageList.questions])
     //本地存储拿出来
-    let txt = JSON.parse(window.localStorage.getItem('list'))
     let { createPageList } = props;
     console.log(createPageList.questions)
     const [showModal, unshowModal] = useState(false)

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { connect } from 'dva';
-import ReactMarkdown  from "react-markdown"
+//import ReactMarkdown  from "react-markdown"
 import styles from './index.scss';
 
 function Examdetail(props) {
@@ -8,7 +8,7 @@ function Examdetail(props) {
         //获取用户信息
     //   props.getDetail()
     },[])
-    const {detailList,createPageList}=props;
+    const {createPageList}=props;
     const {detail}=props.location
     let txt = JSON.parse(window.localStorage.getItem('list'))
     console.log( txt ,detail.item,createPageList)

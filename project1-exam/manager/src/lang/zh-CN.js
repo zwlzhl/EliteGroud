@@ -14,6 +14,8 @@ export default {
     "exammangement":"考试管理",
     "exammangement.addexam":"添加考试",
     "exammangement.examlist":"试卷列表",
+    "examlist.detail": "试题详情",
+    "examlist.examedit": "创建试题",
 
     "classmangement":"班级管理",
     "classmangement.class":"班级管理",
