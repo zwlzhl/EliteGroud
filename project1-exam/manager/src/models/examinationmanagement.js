@@ -4,10 +4,8 @@ import {
   Subject,
   findList,
   createPage,
-  getdelete,
-  getDetail
+  getdelete
 } from '../services/examinationmanagement';
-import { message } from 'dva'
 //考试管理
 export default {
   //命名空间
@@ -21,7 +19,7 @@ export default {
     subjectList: [],
     ViewList: [],
     detailList: {},
-    createPageList: localStorage.list ? JSON.parse(localStorage.list) : {},
+    //createPageList: localStorage.list ? JSON.parse(localStorage.list) : {},
 
   },
   //订阅
